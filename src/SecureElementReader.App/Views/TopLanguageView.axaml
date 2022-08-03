@@ -1,0 +1,32 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:lang="clr-namespace:SecureElementReader.App.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="SecureElementReader.App.Views.TopLanguageView"
+			       FontFamily="Highway Sans Pro">
+
+  <Design.DataContext>
+    <lang:TopLanguageViewModel/>
+  </Design.DataContext>
+
+  <ComboBox Items="{Binding Languages}" Background="#e8e8e8" Padding="0"  FontSize="14" Margin="5" BorderThickness="0"
+                  SelectedItem="{Binding CurrentLanguage, Mode=TwoWay}"
+                  SelectionChanged="SelectionChange"
+                  Width="170" Height="30">
+    <ComboBox.ItemTemplate>
+      <DataTemplate>
+        <ComboBoxItem BorderThickness="0">
+          <ComboBoxItem.Content>
+            <MultiBinding StringFormat="{}{0} ({1})">
+              <Binding Path="Name" />
+              <Binding Path="NativeName" />
+            </MultiBinding>
+          </ComboBoxItem.Content>
+        </ComboBoxItem>
+      </DataTemplate>
+    </ComboBox.ItemTemplate>
+  </ComboBox>
+  
+</UserControl>

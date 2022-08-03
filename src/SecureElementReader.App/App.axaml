@@ -1,0 +1,24 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="using:SecureElementReader.App"
+             x:Class="SecureElementReader.App.App"
+             xmlns:viewModels="using:SecureElementReader.App.ViewModels">
+  
+    <Application.DataTemplates>
+        <local:ViewLocator/>
+    </Application.DataTemplates>
+
+  <Design.DataContext>
+    <viewModels:MainWindowViewModel />
+  </Design.DataContext>
+
+  <NativeMenu.Menu>
+    <NativeMenu>
+      <NativeMenuItem Header="AboutCamelotTitle" Command="{Binding MenuViewModel.AboutCommand}" />
+    </NativeMenu>
+  </NativeMenu.Menu>
+  
+    <Application.Styles>
+        <FluentTheme Mode="Light"/>
+    </Application.Styles>
+</Application>

@@ -1,0 +1,39 @@
+name: Secure Element Reader CI
+
+on:
+  push:
+    branches: [ "develop" ] # add all brances
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        configuration: [Release]
+
+    runs-on: windows-latest                             
+
+    env:
+      Solution_Name: SecureElementReader.sln                   
+      Test_Project_Path: test\SecureElementReader.App.Test\SecureElementReader.App.Test.csproj   
+
+   
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Install .NET Core
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 6.0.x    
+        
+    # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
+    - name: Setup MSBuild.exe
+      uses: microsoft/setup-msbuild@v1.0.2
+
+    - name: Restore the application
+      run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
+      env:
+        Configuration: ${{ matrix.configuration }}        
+   

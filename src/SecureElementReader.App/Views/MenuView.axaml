@@ -1,0 +1,27 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:menu="clr-namespace:SecureElementReader.App.ViewModels"
+             xmlns:p="clr-namespace:SecureElementReader.App.Properties"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="SecureElementReader.App.Views.MenuView"
+			       FontFamily="Highway Sans Pro">
+  
+  <Design.DataContext>
+    <menu:MenuViewModel/>
+  </Design.DataContext>
+
+  <DockPanel Name="MenuDockPanel">
+    <Menu DockPanel.Dock="Top">
+      <MenuItem Header="{x:Static p:Resources.FileHeader}"  >
+        <MenuItem Header="{x:Static p:Resources.ExitHeader}" CommandParameter="{Binding ElementName=MainWindow}" Command="{Binding ExitCommand}" />
+      </MenuItem>
+      <MenuItem Header="{x:Static p:Resources.HelpHeader}" >
+        <MenuItem Header="{x:Static p:Resources.AboutHeader}" Command="{Binding AboutCommand}" />
+      </MenuItem>
+    </Menu>
+  </DockPanel>
+</UserControl>
+
+

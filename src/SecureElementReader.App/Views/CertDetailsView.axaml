@@ -1,0 +1,83 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"             
+             xmlns:model="using: SecureElementReader.App.Models"
+             xmlns:vm="clr-namespace:SecureElementReader.App.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			       xmlns:p="clr-namespace:SecureElementReader.App.Properties"
+             x:Class="SecureElementReader.App.Views.CertDetailsView"
+						 FontFamily="Highway Sans Pro">	
+
+	<Design.DataContext>
+    <vm:CertDetailsViewModel/>      
+  </Design.DataContext>
+
+  <UserControl.Styles>
+    <Style Selector="TextBox.h1">
+      <Setter Property="CornerRadius" Value="0"/>
+      <Setter Property="BorderThickness" Value="0"/>
+    </Style>
+  </UserControl.Styles>
+
+ <Border Background="#e8e8e8">
+	 <StackPanel Margin="5">
+		 <Rectangle HorizontalAlignment="Stretch" Fill="#1b7dbc" Height="3" Margin="5" />
+		 <Label Content="{x:Static p:Resources.Subject}" Margin="10,0,0,0"/>
+		 <TextBox Text="{Binding CertDetailsModel.Subject}" HorizontalAlignment="Stretch" 
+              MinHeight="50" Margin="6" TextWrapping="Wrap" 
+              CornerRadius="0" BorderThickness="0" IsEnabled="False"/>
+		 
+		 <StackPanel Orientation="Horizontal"  IsEnabled="False">
+		 <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="10,2,0,0" Spacing="24" MinWidth="160" MaxWidth="160">
+			 <TextBlock Text="{x:Static p:Resources.UniqueIdentifier}"/>
+			 <TextBlock Text="{x:Static p:Resources.Tin}"/>
+			 <TextBlock Text="{x:Static p:Resources.Organization}"/>
+			 <TextBlock Text="{x:Static p:Resources.OrganizationUnit}"/>
+			 <TextBlock Text="{x:Static p:Resources.CommonName}"/>
+			 <TextBlock Text="{x:Static p:Resources.IssuerName}"/>
+			 <TextBlock Text="{x:Static p:Resources.ApiUrl}"/>
+		 </StackPanel>
+
+		 <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="2,0,0,0" Spacing="10">
+			 <TextBox Classes="h1" Text="{Binding CertDetailsModel.UniqueIdentifier}" MinWidth="245"/>
+			 <TextBox Classes="h1" Text="{Binding CertDetailsModel.Tin}"/>
+			 <TextBox Classes="h1" Text="{Binding CertDetailsModel.Organization}"/>
+			 <TextBox Classes="h1" Text="{Binding CertDetailsModel.OrganizationUnit}"/>
+			 <TextBox Classes="h1" Text="{Binding CertDetailsModel.CommonName}"/>
+			 <TextBox Classes="h1" Text="{Binding CertDetailsModel.IssuerName}"/>
+			 <TextBox Classes="h1" Text="{Binding CertDetailsModel.ApiUrl}"/>
+		  </StackPanel>
+
+		<StackPanel Orientation="Vertical" Margin="10,2,0,0" Spacing="24" MaxWidth="140" MinWidth="140">
+			<TextBlock Text="{x:Static p:Resources.GivenName}"/>
+			<TextBlock Text="{x:Static p:Resources.SurName}"/>
+			<TextBlock Text="{x:Static p:Resources.State}"/>
+			<TextBlock Text="{x:Static p:Resources.StreetAddress}"/>
+			<TextBlock Text="{x:Static p:Resources.CertificateType}"/>
+			<TextBlock Text="{x:Static p:Resources.RequestedBy}"/>
+			<TextBlock Text="{x:Static p:Resources.ExpiryDate}"/>
+		</StackPanel>
+
+		<StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="2,0,0,0" Spacing="10">
+			<TextBox Classes="h1" Text="{Binding CertDetailsModel.GivenName}" MinWidth="245"/>
+			<TextBox Classes="h1" Text="{Binding CertDetailsModel.SurName}"/>
+			<TextBox Classes="h1" Text="{Binding CertDetailsModel.State}"/>
+			<TextBox Classes="h1" Text="{Binding CertDetailsModel.StreetAddress}"/>
+			<TextBox Classes="h1" Text="{Binding CertDetailsModel.CertificateType}"/>
+			<TextBox Classes="h1" Text="{Binding CertDetailsModel.RequestedBy}"/>
+			<TextBox Classes="h1" Text="{Binding CertDetailsModel.ExpiryDate}"/>
+		</StackPanel>
+	</StackPanel>
+     
+     <Rectangle HorizontalAlignment="Stretch" Fill="#1b7dbc" Height="3" Margin="5" />
+		 <StackPanel Margin="0,-5,0,0">			 
+       <StackPanel Orientation="Horizontal">
+         <Label Content="{Binding SeVerify}" Foreground="{Binding SeColor}" FontSize="20" FontWeight="Bold" Width="750"/>
+         <Button Command="{Binding VerificationInfoCommand}" Margin="0,5,0,0" Content="Details" IsVisible="{Binding BtnVisibility}"/>         
+       </StackPanel>
+			 <Label Content="{Binding PkiVerify}" Foreground="{Binding PkiColor}" FontSize="20" FontWeight="Bold"/>       
+		 </StackPanel>     
+	 </StackPanel>
+	</Border>
+</UserControl>

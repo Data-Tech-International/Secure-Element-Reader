@@ -1,0 +1,292 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutHeader" xml:space="preserve">
+    <value>_О апликацији</value>
+  </data>
+  <data name="CardReaderName" xml:space="preserve">
+    <value>Назив читача картице</value>
+  </data>
+  <data name="CertificateType" xml:space="preserve">
+    <value>Тип сертификата:</value>
+  </data>
+  <data name="CommonName" xml:space="preserve">
+    <value>Идентитет сертификата:</value>
+  </data>
+  <data name="ExitHeader" xml:space="preserve">
+    <value>_Излаз</value>
+  </data>
+  <data name="ExpiryDate" xml:space="preserve">
+    <value>Важи до:</value>
+  </data>
+  <data name="FileHeader" xml:space="preserve">
+    <value>_Фајл</value>
+  </data>
+  <data name="GetCert" xml:space="preserve">
+    <value>Подаци о сертификату</value>
+  </data>
+  <data name="GetReader" xml:space="preserve">
+    <value>Повезивање са читачем</value>
+  </data>
+  <data name="GivenName" xml:space="preserve">
+    <value>Име:</value>
+  </data>
+  <data name="HelpHeader" xml:space="preserve">
+    <value>_Помоћ</value>
+  </data>
+  <data name="Organization" xml:space="preserve">
+    <value>Обвезник:</value>
+  </data>
+  <data name="OrganizationUnit" xml:space="preserve">
+    <value>Пословни простор:</value>
+  </data>
+  <data name="RequestedBy" xml:space="preserve">
+    <value>Захтевао:</value>
+  </data>
+  <data name="SmartCardReader" xml:space="preserve">
+    <value>Читач паметне картице</value>
+  </data>
+  <data name="State" xml:space="preserve">
+    <value>Општина:</value>
+  </data>
+  <data name="StreetAddress" xml:space="preserve">
+    <value>Улица:</value>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>Субјекат сертификата:</value>
+  </data>
+  <data name="SurName" xml:space="preserve">
+    <value>Презиме:</value>
+  </data>
+  <data name="VerifyPin" xml:space="preserve">
+    <value>Провера ПИН-а</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Читач безбедносног елемента</value>
+  </data>
+  <data name="ApiUrl" xml:space="preserve">
+    <value>URL API-ја:</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Грешка</value>
+  </data>
+  <data name="NoCardReadesFounded" xml:space="preserve">
+    <value>Није пронађен читач картица!</value>
+  </data>
+  <data name="PkiAppletLocked" xml:space="preserve">
+    <value>PKI аплет је закључан</value>
+  </data>
+  <data name="PkiCertInvalid" xml:space="preserve">
+    <value>PKI сертификат је невалидан</value>
+  </data>
+  <data name="PkiCertValid" xml:space="preserve">
+    <value>PKI сертификат је валидан</value>
+  </data>
+  <data name="PkiPinOK" xml:space="preserve">
+    <value>PKI ПИН је исправан</value>
+  </data>
+  <data name="PkiPinWrong" xml:space="preserve">
+    <value>PKI ПИН је неисправан. Имате још [xxx] покушаја.</value>
+  </data>
+  <data name="PleaseInseretCard" xml:space="preserve">
+    <value>Уметните картицу у читач</value>
+  </data>
+  <data name="ReturnCard" xml:space="preserve">
+    <value>Вратите картицу у Пореску управу.</value>
+  </data>
+  <data name="SeAppletLocked" xml:space="preserve">
+    <value>SE аплет је закључан</value>
+  </data>
+  <data name="SeCertDetailsError" xml:space="preserve">
+    <value>Грешка читања SE сертификата</value>
+  </data>
+  <data name="PkiCertDetailsError" xml:space="preserve">
+    <value>Грешка читања PKI сертификата</value>
+  </data>
+  <data name="SeCertInvalid" xml:space="preserve">
+    <value>SE сертификат је невалидан</value>
+  </data>
+  <data name="SeCertValid" xml:space="preserve">
+    <value>SE сертификат је валидан</value>
+  </data>
+  <data name="SelectPkiError" xml:space="preserve">
+    <value>Грешка при бирању PKI сертификата</value>
+  </data>
+  <data name="SelectSeError" xml:space="preserve">
+    <value>Грешка при бирању SE сертификата</value>
+  </data>
+  <data name="SePinOK" xml:space="preserve">
+    <value>SE ПИН је исправан</value>
+  </data>
+  <data name="SePinWrong" xml:space="preserve">
+    <value>SE ПИН је неисправан</value>
+  </data>
+  <data name="Tin" xml:space="preserve">
+    <value>ПИБ:</value>
+  </data>
+  <data name="UniqueIdentifier" xml:space="preserve">
+    <value>ЈИД:</value>
+  </data>
+  <data name="FailedToReadPkiData" xml:space="preserve">
+    <value>Неуспешно читање PKI сертификата</value>
+  </data>
+  <data name="FailedToReadSeData" xml:space="preserve">
+    <value>Неуспешно читање SE сертификата</value>
+  </data>
+  <data name="GetPkiCertError" xml:space="preserve">
+    <value>Неуспешна комуникација са PKI сертификатом</value>
+  </data>
+  <data name="IssuerName" xml:space="preserve">
+    <value>Издавалац:</value>
+  </data>
+  <data name="GetSeCertError" xml:space="preserve">
+    <value>Неуспешна комуникација са SE сертификатом</value>
+  </data>
+  <data name="About" xml:space="preserve">
+    <value>О апликацији</value>
+  </data>
+  <data name="EnterPIN" xml:space="preserve">
+    <value>Унесите ПИН овде</value>
+  </data>
+  <data name="PinMustBe4char" xml:space="preserve">
+    <value>ПИН мора имати 4 броја</value>
+  </data>
+  <data name="PleaseInsertPIN" xml:space="preserve">
+    <value>Унесите ПИН</value>
+  </data>
+  <data name="Support" xml:space="preserve">
+    <value>Подршка:</value>
+  </data>
+  <data name="Verify" xml:space="preserve">
+    <value>Верификуј</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Верзија:</value>
+  </data>
+
+  <data name="ChangeLang" xml:space="preserve">
+    <value>Покрените поново апликацију да би сте видели измене</value>
+  </data>
+  <data name="Info" xml:space="preserve">
+    <value>Промена језика</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>Учитавање...</value>
+  </data>
+</root>

@@ -1,0 +1,48 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:dialogs="clr-namespace:SecureElementReader.App.ViewModels"
+        xmlns:p="clr-namespace:SecureElementReader.App.Properties"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="SecureElementReader.App.Views.Dialogs.VerifyPinDialog"
+
+        Title="Verify Pin"
+        Icon="/Assets/taxcore.png"
+
+        WindowStartupLocation="CenterOwner"
+        Width="400" Height="180"
+		    Background="#e8e8e8"
+		    ExtendClientAreaToDecorationsHint="True">
+  
+  <Design.DataContext>
+    <dialogs:VerifyPinDialogViewModel />
+  </Design.DataContext>
+  
+	<Grid>
+
+		<StackPanel Margin="10,0">
+		  <Label Margin="0,4,0,0" Content="{x:Static p:Resources.VerifyPin}"/>
+      <Rectangle HorizontalAlignment="Stretch" Fill="Olive" Height="2" Margin="0,4"/> 
+      <StackPanel Orientation="Horizontal" Spacing="10" Margin="0,5">      
+        <TextBox Watermark="{x:Static p:Resources.EnterPIN}" 
+                 Width="150"
+                 VerticalAlignment="Top" 
+                 Text="{Binding Pin}"
+                 PasswordChar="•" 
+                 Margin="0,-3" CornerRadius="0"/>
+	      <Button VerticalAlignment="Top" 
+                Command="{Binding VerifyCommand}" 
+                VerticalContentAlignment="Center" 
+                MinHeight="32" Margin="0,-3" CornerRadius="0" BorderThickness="0" 
+                Background="#19aa8c" Foreground="White" 
+                Content="{x:Static p:Resources.Verify}"/>      
+      </StackPanel>	  
+      <Rectangle HorizontalAlignment="Stretch" Fill="Gray" Height="2" Margin="0,4" />
+      <Label Content="{Binding SeResult}" Foreground="{Binding SeResultColor}" FontSize="16" FontWeight="Bold"/>
+      <Label Content="{Binding PkiResult}" Foreground="{Binding PkiResultColor}" FontSize="16" FontWeight="Bold"/>
+      <Label Content="{Binding TaxMessage}" IsVisible="{Binding ShowTaxMessage}" Foreground="Red" FontSize="16" FontWeight="Bold"/>
+    </StackPanel>
+	</Grid>
+
+</Window>

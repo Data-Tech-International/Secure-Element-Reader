@@ -1,0 +1,29 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        xmlns:dialogs="clr-namespace:SecureElementReader.App.ViewModels"
+        x:Class="SecureElementReader.App.Views.Dialogs.VerificationInfoDialog"
+        Title="VerificationInfoDialog"
+        Width="500" Height="250">
+
+  <Design.DataContext>
+    <dialogs:VerificationInfoDialogViewModel />
+  </Design.DataContext>
+
+  <Grid Margin="3">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="*" />
+      <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+
+    <ScrollViewer >
+      <StackPanel Name="Panel" ScrollViewer.VerticalScrollBarVisibility="Visible" MaxWidth="490">
+        <TextBlock TextWrapping="Wrap" Name="ErrorText" Text="{Binding VerificationDetails}" />
+      </StackPanel>
+    </ScrollViewer>    
+    <Button Grid.Row="1" Margin="5" HorizontalAlignment="Right">Close</Button>  
+  </Grid>
+  
+</Window>

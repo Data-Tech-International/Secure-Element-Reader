@@ -1,0 +1,62 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:dialogs="clr-namespace:SecureElementReader.App.ViewModels"
+        x:Class="SecureElementReader.App.Views.Dialogs.AboutDialog"
+				xmlns:controls="clr-namespace:SecureElementReader.App.Controls"
+				xmlns:p="clr-namespace:SecureElementReader.App.Properties"
+        Title="AboutDialog"
+        WindowStartupLocation="CenterOwner"
+        Width="400" Height="150"
+				Background="#e8e8e8"
+				ExtendClientAreaToDecorationsHint="True"
+				FontFamily="Highway Sans Pro">
+
+  <Design.DataContext>
+    <dialogs:AboutDialogViewModel />
+  </Design.DataContext>
+
+	<Window.Styles>
+		<Style Selector="Button.link">
+			<Setter Property="Foreground" Value="Blue" />
+			<Setter Property="Padding" Value="0" />
+			<Setter Property="Cursor" Value="Hand" />
+			<Setter Property="BorderThickness" Value="0" />
+			<Setter Property="Background" Value="Transparent" />
+			<Setter Property="Template">
+				<ControlTemplate>
+					<ContentPresenter Content="{TemplateBinding Content}">
+						<ContentPresenter.Styles>
+							<Style Selector="TextBlock">
+								<Setter Property="Foreground" Value="{TemplateBinding Foreground}"/>
+								<Setter Property="FontSize" Value="{TemplateBinding FontSize}"/>
+								<Setter Property="TextDecorations" Value="Underline"/>
+							</Style>
+						</ContentPresenter.Styles>
+					</ContentPresenter>
+				</ControlTemplate>
+			</Setter>
+		</Style>
+	</Window.Styles>
+  
+	<Grid>
+		<StackPanel Orientation="Vertical">
+
+			<Label Margin="8,0,0,0" FontSize="16" Content="{x:Static p:Resources.About}"/>
+			
+			<TextBlock HorizontalAlignment="Center" FontSize="18">Data Tech International d.o.o</TextBlock>
+			<Rectangle HorizontalAlignment="Stretch" Fill="Olive" Height="2" Margin="10,4"/>
+			
+				<StackPanel Orientation="Vertical" Margin="0,15,0,0" Spacing="0" HorizontalAlignment="Center" >
+					<TextBlock HorizontalAlignment="Center" Text="GitHub:"></TextBlock>
+					<Button HorizontalAlignment="Center" Classes="link" Content="github.com/Data-Tech-International" Command="{Binding GoToGitHubRepository}"></Button>
+					<TextBlock HorizontalAlignment="Center" Text="{x:Static p:Resources.Version}" Margin="0,6,0,0"></TextBlock>
+					<TextBlock HorizontalAlignment="Center" Text="{Binding AssemblyVersion}"/>
+				</StackPanel>
+				
+		</StackPanel>
+
+	</Grid>
+	
+</Window>
