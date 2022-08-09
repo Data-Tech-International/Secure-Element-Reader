@@ -5,25 +5,33 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         xmlns:dialogs="clr-namespace:SecureElementReader.App.ViewModels"
         x:Class="SecureElementReader.App.Views.Dialogs.VerificationInfoDialog"
+        xmlns:p="clr-namespace:SecureElementReader.App.Properties"
         Title="VerificationInfoDialog"
-        Width="500" Height="250">
+        Width="500" Height="300"
+		Background="#e8e8e8"
+		ExtendClientAreaToDecorationsHint="True"
+		FontFamily="Highway Sans Pro">
 
   <Design.DataContext>
     <dialogs:VerificationInfoDialogViewModel />
   </Design.DataContext>
 
-  <Grid Margin="3">
-    <Grid.RowDefinitions>
-      <RowDefinition Height="*" />
-      <RowDefinition Height="Auto" />
-    </Grid.RowDefinitions>
+	<Grid Margin="0">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*" />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+		<StackPanel VerticalAlignment="Top" HorizontalAlignment="Stretch" ZIndex="1" Background="Red" MinHeight="32">
+			<TextBlock HorizontalAlignment="Left" Margin="5,4,0,0" FontSize="16" Foreground="White"  Text="{x:Static p:Resources.VerficationDetails}"/>
+		</StackPanel>
+		<ScrollViewer >
+			<StackPanel Name="Panel" ScrollViewer.VerticalScrollBarVisibility="Visible" MaxWidth="490">
+				<TextBlock TextWrapping="Wrap" Name="ErrorText" Text="{Binding VerificationDetails}" />
+			</StackPanel>
+		</ScrollViewer>
 
-    <ScrollViewer >
-      <StackPanel Name="Panel" ScrollViewer.VerticalScrollBarVisibility="Visible" MaxWidth="490">
-        <TextBlock TextWrapping="Wrap" Name="ErrorText" Text="{Binding VerificationDetails}" />
-      </StackPanel>
-    </ScrollViewer>    
-    <Button Grid.Row="1" Margin="5" HorizontalAlignment="Right">Close</Button>  
-  </Grid>
+		<Button Grid.Row="1" Margin="5"  HorizontalAlignment="Right" Command="{Binding ButtonClose}" Background="#19aa8c" Foreground="White" MaxWidth="70" MinHeight="30" CornerRadius="0" Content="{x:Static p:Resources.Close}"/>
+
+	</Grid>
   
 </Window>
