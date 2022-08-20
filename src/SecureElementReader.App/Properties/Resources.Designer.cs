@@ -115,11 +115,29 @@ namespace SecureElementReader.App.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        public static string Close {
+            get {
+                return ResourceManager.GetString("Close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Common Name:.
         /// </summary>
         public static string CommonName {
             get {
                 return ResourceManager.GetString("CommonName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Details.
+        /// </summary>
+        public static string Details {
+            get {
+                return ResourceManager.GetString("Details", resourceCulture);
             }
         }
         
@@ -534,6 +552,15 @@ namespace SecureElementReader.App.Properties {
         public static string UniqueIdentifier {
             get {
                 return ResourceManager.GetString("UniqueIdentifier", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verfication Details.
+        /// </summary>
+        public static string VerficationDetails {
+            get {
+                return ResourceManager.GetString("VerficationDetails", resourceCulture);
             }
         }
         

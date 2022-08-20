@@ -52,13 +52,15 @@ namespace SecureElementReader.App.Views.Dialogs
                     FontWeight = FontWeight.Bold,
                     TextWrapping = TextWrapping.Wrap
                 });
-                sp.Children.Add(new TextBox
+                sp.Children.Add(new TextBlock
                 {
-                    Text = $"Install RCA and ICA certificate from this url: {ViewModel.TapUrl}",
-                    TextWrapping = TextWrapping.Wrap,
-                    IsReadOnly = true,
-                    BorderThickness = new Thickness(0),
-                    Background = Brushes.Transparent
+                    Text = $"Install RCA and ICA certificate from this url:",
+                    TextWrapping = TextWrapping.Wrap
+                });
+                sp.Children.Add(new Button
+                {
+                    Content = $"Install RCA and ICA Certificate",
+                    Command = ViewModel.GoToTAP
                 });
             }
 
