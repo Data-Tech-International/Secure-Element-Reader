@@ -1,6 +1,12 @@
 # Secure Element Reader
+To read this in other languages please select:
+ 
+ -[Serbian(Српски)](README.sr.md)
+ 
+ -[French(Français)](README.fr.md)
+ 
+![image](https://user-images.githubusercontent.com/106304412/185734800-48b13d46-52bb-4697-9fa8-b5fcad0a7a7a.PNG)
 
-![image](https://user-images.githubusercontent.com/68274836/174620530-45a5012b-c645-4aac-9630-5faf110b28b4.png)
 
 # Overview
 
@@ -102,5 +108,3 @@ If you are looking to make your first contribution, follow the steps below.
 - Submit your changes for review
 
 And last but not least: Always write your commit messages in the present tense. Your commit message should describe what the commit, when applied, does to the code – not what you did to the code.
-
-

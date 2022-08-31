@@ -135,8 +135,14 @@
   <data name="ChangeLang" xml:space="preserve">
     <value>Please restart application to view changes</value>
   </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
   <data name="CommonName" xml:space="preserve">
     <value>Common Name:</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Details</value>
   </data>
   <data name="EnterPIN" xml:space="preserve">
     <value>Enter PIN here</value>
@@ -275,6 +281,9 @@
   </data>
   <data name="UniqueIdentifier" xml:space="preserve">
     <value>UID:</value>
+  </data>
+  <data name="VerficationDetails" xml:space="preserve">
+    <value>Verfication Details</value>
   </data>
   <data name="Verify" xml:space="preserve">
     <value>Verify</value>
