@@ -39,24 +39,38 @@ jobs:
 
       - name: Publish project 
         run: dotnet publish ${{ env.PROJECT_PATH }} -c Release -r win-x64 -p:PublishSingleFile=true -p:AssemblyVersion=${{ steps.gitversion.outputs.semVer }}
+        
+      - name: Publish project for Linux
+        run: dotnet publish ${{ env.PROJECT_PATH }} -c Release -r linux-x64 -p:PublishSingleFile=true -p:AssemblyVersion=${{ steps.gitversion.outputs.semVer }}
 
-      - name: Zip Files
+      - name: Publish project for OSx
+        run: dotnet publish ${{ env.PROJECT_PATH }} -c Release -r osx-x64 -p:PublishSingleFile=true -p:AssemblyVersion=${{ steps.gitversion.outputs.semVer }}
+
+      - name: Windows code signing
+        uses: neoz-technologies/code-sign-action@v3
+        with:        
+          certificate: ${{ secrets.CERT_FOR_SIGN }}
+          password: ${{ secrets.CERT_PW }}
+          folder: 'src\SecureElementReader.App\bin\Release\net6.0\win-x64\publish\'
+          recursive: true
+
+      - name: Zip Win release 
         uses: vimtor/action-zip@v1
         with:   
           files: src/SecureElementReader.App/bin/Release/net6.0/win-x64/publish/
-          dest: ${{ steps.gitversion.outputs.semVer }}.zip
-    
-      #- name: Zip Release  
-      #  uses: TheDoctor0/zip-release@0.6.2
-      #  with:
-      #    filename: ${{ steps.gitversion.outputs.semVer }}.zip
-      #    path: src/SecureElementReader.App/bin/Release/net6.0/win-x64/publish/
-
-      #- name: Upload a Build Artifact win-x64
-      #  uses: actions/upload-artifact@v3.1.0
-      #  with: 
-      #    name: win-x64
-      #    path: src/SecureElementReader.App/bin/Release/net6.0/win-x64/publish/*
+          dest: ${{ steps.gitversion.outputs.semVer }}.win-x64.zip
+     
+      - name: Zip Linux release
+        uses: vimtor/action-zip@v1
+        with:   
+          files: src/SecureElementReader.App/bin/Release/net6.0/linux-x64/publish/
+          dest: ${{ steps.gitversion.outputs.semVer }}.linux-x64.zip
+          
+      - name: Zip OSx release
+        uses: vimtor/action-zip@v1
+        with:   
+          files: src/SecureElementReader.App/bin/Release/net6.0/osx-x64/publish/
+          dest: ${{ steps.gitversion.outputs.semVer }}.osx-x64.zip
       
       - name: Create Tag     
         uses: Yanjingzhu/FirstJSAction@v1.3
@@ -79,5 +93,9 @@ jobs:
         uses: csexton/release-asset-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          pattern: ${{ steps.gitversion.outputs.semVer }}.zip
+          #pattern: ${{ steps.gitversion.outputs.semVer }}.zip
+          files: |
+            ${{ steps.gitversion.outputs.semVer }}.win-x64.zip
+            ${{ steps.gitversion.outputs.semVer }}.linux-x64.zip
+            ${{ steps.gitversion.outputs.semVer }}.osx-x64.zip
           release-url: ${{ steps.create_release.outputs.upload_url }}
