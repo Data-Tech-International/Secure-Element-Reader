@@ -135,14 +135,23 @@
   <data name="ChangeLang" xml:space="preserve">
     <value>Veuillez rédemarrer l'application pour voir les modifications</value>
   </data>
+  <data name="Close" xml:space="preserve">
+    <value>Proche</value>
+  </data>
   <data name="CommonName" xml:space="preserve">
     <value>Nom commun :</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Détails</value>
   </data>
   <data name="EnterPIN" xml:space="preserve">
     <value>Entrez le code PIN ici</value>
   </data>
   <data name="Error" xml:space="preserve">
     <value>Erreur</value>
+  </data>
+  <data name="ErrorAtDepth" xml:space="preserve">
+    <value>Erreur en profondeur</value>
   </data>
   <data name="ExitHeader" xml:space="preserve">
     <value>_Sortir</value>
@@ -179,6 +188,12 @@
   </data>
   <data name="Info" xml:space="preserve">
     <value>Changer les langues</value>
+  </data>
+  <data name="InstallRCAandICA" xml:space="preserve">
+    <value>Télécharger les certificats</value>
+  </data>
+  <data name="InstallRCAandICAurl" xml:space="preserve">
+    <value>Installer le certificat RCA et ICA à partir de cette URL</value>
   </data>
   <data name="IssuerName" xml:space="preserve">
     <value>Nom de l'émetteur :</value>
@@ -222,6 +237,9 @@
   <data name="PleaseInsertPIN" xml:space="preserve">
     <value>Veuillez insérer le code PIN</value>
   </data>
+  <data name="PossibleSolution" xml:space="preserve">
+    <value>Solution possible</value>
+  </data>
   <data name="RequestedBy" xml:space="preserve">
     <value>Demandé par :</value>
   </data>
@@ -258,6 +276,12 @@
   <data name="State" xml:space="preserve">
     <value>Statut :</value>
   </data>
+  <data name="Status" xml:space="preserve">
+    <value>Statut</value>
+  </data>
+  <data name="StatusInforamtion" xml:space="preserve">
+    <value>Informations d'état</value>
+  </data>
   <data name="StreetAddress" xml:space="preserve">
     <value>Adresse postale :</value>
   </data>
@@ -275,6 +299,9 @@
   </data>
   <data name="UniqueIdentifier" xml:space="preserve">
     <value>IU :</value>
+  </data>
+  <data name="VerficationDetails" xml:space="preserve">
+    <value>Détails de la vérification</value>
   </data>
   <data name="Verify" xml:space="preserve">
     <value>Vérifier</value>

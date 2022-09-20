@@ -160,6 +160,15 @@ namespace SecureElementReader.App.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error at depth.
+        /// </summary>
+        public static string ErrorAtDepth {
+            get {
+                return ResourceManager.GetString("ErrorAtDepth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _Exit.
         /// </summary>
         public static string ExitHeader {
@@ -268,6 +277,24 @@ namespace SecureElementReader.App.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Download certificates.
+        /// </summary>
+        public static string InstallRCAandICA {
+            get {
+                return ResourceManager.GetString("InstallRCAandICA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Install RCA and ICA certificate from this url.
+        /// </summary>
+        public static string InstallRCAandICAurl {
+            get {
+                return ResourceManager.GetString("InstallRCAandICAurl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Issuer Name:.
         /// </summary>
         public static string IssuerName {
@@ -340,7 +367,7 @@ namespace SecureElementReader.App.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to PKI cert is invalid.
+        ///   Looks up a localized string similar to PKI certificate chain is invalid.
         /// </summary>
         public static string PkiCertInvalid {
             get {
@@ -349,7 +376,7 @@ namespace SecureElementReader.App.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to PKI cert is valid.
+        ///   Looks up a localized string similar to PKI certificate chain is valid.
         /// </summary>
         public static string PkiCertValid {
             get {
@@ -394,6 +421,15 @@ namespace SecureElementReader.App.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Possible solution.
+        /// </summary>
+        public static string PossibleSolution {
+            get {
+                return ResourceManager.GetString("PossibleSolution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Requested By:.
         /// </summary>
         public static string RequestedBy {
@@ -430,7 +466,7 @@ namespace SecureElementReader.App.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SE cert is invalid.
+        ///   Looks up a localized string similar to SE certificate chain is invalid.
         /// </summary>
         public static string SeCertInvalid {
             get {
@@ -439,7 +475,7 @@ namespace SecureElementReader.App.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SE cert is valid.
+        ///   Looks up a localized string similar to SE certificate chain is valid.
         /// </summary>
         public static string SeCertValid {
             get {
@@ -498,6 +534,24 @@ namespace SecureElementReader.App.Properties {
         public static string State {
             get {
                 return ResourceManager.GetString("State", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        public static string Status {
+            get {
+                return ResourceManager.GetString("Status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status inforamtion.
+        /// </summary>
+        public static string StatusInforamtion {
+            get {
+                return ResourceManager.GetString("StatusInforamtion", resourceCulture);
             }
         }
         

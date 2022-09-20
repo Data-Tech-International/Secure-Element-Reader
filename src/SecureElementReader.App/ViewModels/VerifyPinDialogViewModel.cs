@@ -83,7 +83,7 @@ namespace SecureElementReader.App.ViewModels
             var msg = MessageBoxManager.GetMessageBoxStandardWindow(
                     new MessageBoxStandardParams
                     {
-                        ContentMessage = String.Join('\n', errorList),
+                        ContentMessage = String.Join('\n', errorList) + Environment.NewLine,
                         ContentHeader = Properties.Resources.Error,
                         ContentTitle = Properties.Resources.Error,
                         ShowInCenter = true,

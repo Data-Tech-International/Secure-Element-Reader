@@ -27,7 +27,8 @@ namespace SecureElementReader.App.Views.Dialogs
                 sp.Children.Clear();
                 foreach (var item in details.Split('\n'))
                 {
-                    if (item.StartsWith("Error") || item.StartsWith("Status"))
+                    if (item.StartsWith(Properties.Resources.ErrorAtDepth.Split(" ")[0]) || 
+                        item.StartsWith(Properties.Resources.Status))
                     {
                         sp.Children.Add(new TextBlock
                         {
@@ -48,18 +49,18 @@ namespace SecureElementReader.App.Views.Dialogs
                 }
                 sp.Children.Add(new TextBlock
                 {
-                    Text = "Possible solution:",
+                    Text = $"{Properties.Resources.PossibleSolution}:",
                     FontWeight = FontWeight.Bold,
                     TextWrapping = TextWrapping.Wrap
                 });
                 sp.Children.Add(new TextBlock
                 {
-                    Text = $"Install RCA and ICA certificate from this url:",
+                    Text = $"{Properties.Resources.InstallRCAandICAurl}:",
                     TextWrapping = TextWrapping.Wrap
                 });
                 sp.Children.Add(new Button
                 {
-                    Content = $"Install RCA and ICA Certificate",
+                    Content = $"{Properties.Resources.InstallRCAandICA}",
                     Command = ViewModel.GoToTAP
                 });
             }

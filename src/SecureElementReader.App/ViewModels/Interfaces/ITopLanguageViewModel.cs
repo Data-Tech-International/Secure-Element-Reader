@@ -12,7 +12,6 @@ namespace SecureElementReader.App.ViewModels.Interfaces
     {
         void SaveChanges();
         public LanguageModel CurrentLanguage { get; set; }
-
         Window GetMainWindow();
     }
 }
