@@ -25,25 +25,25 @@ namespace SecureElementReader.App.Services
         {
             this.apduCommandService = apduCommandService;
             this.logger = logger;
-            this.contextFactory = contextFactory;          
+            this.contextFactory = contextFactory;
         }
 
         public VerifyPinModel VerifyPin(string pin)
-        {           
+        {
             var verifyPinModel = new VerifyPinModel();
 
             CheckPkiPin(pin, reader, verifyPinModel);
             CheckSePin(pin, reader, verifyPinModel);
 
             return verifyPinModel;
-        }      
+        }
 
         private VerifyPinModel CheckPkiPin(string pin, IIsoReader reader, VerifyPinModel returnModel)
         {
             var response = reader.Transmit(apduCommandService.SelectPKIApp());
             if (response.SW1 == 0x90)
             {
-                response = reader.Transmit(apduCommandService.VerifyPkiPin(StringToByteArray(ToHax(pin))));                
+                response = reader.Transmit(apduCommandService.VerifyPkiPin(StringToByteArray(ToHax(pin))));
                 if (response.SW1 == 0x90)
                 {
                     returnModel.PkiPinSuccess = true;
@@ -52,8 +52,8 @@ namespace SecureElementReader.App.Services
                 {
                     returnModel.PKIAppletLocked = true;
                 }
-                else if(response.SW1 == 0x63)
-                {                    
+                else if (response.SW1 == 0x63)
+                {
                     returnModel.PkiTrysLeft = response.SW2;
                 }
                 else
@@ -74,7 +74,7 @@ namespace SecureElementReader.App.Services
             var response = reader.Transmit(apduCommandService.SelectSEApp());
             if (response.SW1 == 0x90)
             {
-                response = reader.Transmit(apduCommandService.VerifySEPin(ConvertPinToByteArray(pin)));                
+                response = reader.Transmit(apduCommandService.VerifySEPin(ConvertPinToByteArray(pin)));
                 if (response.SW1 == 0x90)
                 {
                     returnModel.SePinSuccess = true;
@@ -97,7 +97,7 @@ namespace SecureElementReader.App.Services
         }
 
         public CertDetailsModel GetCertDetails()
-        {   
+        {
             var certDetailsModel = new CertDetailsModel();
 
             GetPkiDetails(reader, certDetailsModel);
@@ -128,10 +128,10 @@ namespace SecureElementReader.App.Services
                         if (!model.ReadPkiSuccess)
                         {
                             PopulateModel(c, model);
-                        }                        
+                        }
                         model.SEVerify = c.Verify();
                         VerifyChain(c, model, false);
-                        model.SEReadSuccess = true;                       
+                        model.SEReadSuccess = true;
                     }
                     else
                     {
@@ -224,7 +224,7 @@ namespace SecureElementReader.App.Services
             model.ExpiryDate = c.ExpiryDate;
             model.ApiUrl = c.ExtractTaxCoreApiUrl();
             model.Tin = c.ExtractTIN();
-            model.UniqueIdentifier = c.UniqueIdentifier;            
+            model.UniqueIdentifier = c.UniqueIdentifier;
             model.IssuerName = c.IssuerName;
         }
 
@@ -260,7 +260,7 @@ namespace SecureElementReader.App.Services
 
                 szReaders = c.GetReaders();
                 reader = new IsoReader(c);
-                
+
                 foreach (var sZReader in szReaders)
                 {
                     reader.Connect(sZReader, SCardShareMode.Shared, SCardProtocol.T1);
@@ -272,13 +272,13 @@ namespace SecureElementReader.App.Services
             }
             catch (Exception ex)
             {
-               return szReaders ?? Array.Empty<string>();
+                return szReaders ?? Array.Empty<string>();
             }
         }
 
         private byte[] ConvertPinToByteArray(string pin)
         {
-            return pin.Select(c => byte.Parse(c.ToString())).ToArray();           
+            return pin.Select(c => byte.Parse(c.ToString())).ToArray();
         }
 
         private static byte[] StringToByteArray(string hex)
@@ -286,15 +286,15 @@ namespace SecureElementReader.App.Services
             return Enumerable.Range(0, hex.Length)
                              .Where(x => x % 2 == 0)
                              .Select(x => Convert.ToByte(hex.Substring(x, 2), 16))
-                             .ToArray();            
+                             .ToArray();
         }
 
         private static string ToHax(string value)
         {
             return string.Join("",
                 value.Select(c => String.Format("{0:X2}", Convert.ToInt32(c))));
-        }     
-        
+        }
+
         private void VerifyChain(Certificate cert, CertDetailsModel model, bool IsPKI)
         {
             using (X509Chain chain = new X509Chain())
@@ -342,9 +342,52 @@ namespace SecureElementReader.App.Services
                                 model.SEVerificationInfo += Environment.NewLine;
                             }
                             model.SEVerificationInfo += "------------------------------";
-                        }                       
+                        }
                     }
                 }
+            }
+        }
+
+        public byte[] GetInternalData()
+        {
+            var response = reader.Transmit(apduCommandService.SelectSEApp());
+            if (response.SW1 == 0x90)
+            {
+                response = reader.Transmit(apduCommandService.GetExportInternalData());
+                if (response.SW1 == 0x90)
+                {
+                    return response.GetData();
+                }
+                else 
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+
+        public byte[] GetAmountStatus()
+        {
+            var response = reader.Transmit(apduCommandService.SelectSEApp());
+            if (response.SW1 == 0x90)
+            {
+                response = reader.Transmit(apduCommandService.AmountStatus());
+                if (response.SW1 == 0x90)
+                {
+                    return response.GetData();
+                }
+                else if (response.SW1 == 0x63 && response.SW2 == 0x10) ;
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                return null;
             }
         }
     }

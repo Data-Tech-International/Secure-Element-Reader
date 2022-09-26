@@ -5,9 +5,9 @@
              xmlns:model="using: SecureElementReader.App.Models"
              xmlns:vm="clr-namespace:SecureElementReader.App.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-			       xmlns:p="clr-namespace:SecureElementReader.App.Properties"
+			 xmlns:p="clr-namespace:SecureElementReader.App.Properties"
              x:Class="SecureElementReader.App.Views.CertDetailsView"
-						 FontFamily="Highway Sans Pro">	
+			 FontFamily="Highway Sans Pro">	
 
 	<Design.DataContext>
     <vm:CertDetailsViewModel/>      

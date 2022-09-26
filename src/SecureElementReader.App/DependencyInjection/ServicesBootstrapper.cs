@@ -14,6 +14,7 @@ using Splat.Microsoft.Extensions.Logging;
 using PCSC.Iso7816;
 using PCSC;
 using PCSC.Monitoring;
+using SecureElementReader.App.Proxies;
 
 namespace SecureElementReader.App.DependencyInjection
 {
@@ -48,6 +49,7 @@ namespace SecureElementReader.App.DependencyInjection
                 ));
             services.RegisterLazySingleton<IMainWindowProvider>(() => new MainWindowProvider());
             services.RegisterLazySingleton<IApduCommandService>(() => new ApduCommandService());
+            services.RegisterLazySingleton<ITaxCoreApiProxy>(() => new TaxCoreApiProxy());
             services.RegisterLazySingleton<ICardReaderService>(() => new CardReaderService(                   
                 resolver.GetRequiredService<IApduCommandService>(),
                 resolver.GetRequiredService<ILogger>(),
@@ -68,7 +70,8 @@ namespace SecureElementReader.App.DependencyInjection
                 resolver.GetRequiredService<ITopLanguageViewModel>(),
                 resolver.GetRequiredService<IMonitorFactory>(),
                 resolver.GetRequiredService<IApplicationDispatcher>(),
-                resolver.GetRequiredService<IMainWindowProvider>()
+                resolver.GetRequiredService<IMainWindowProvider>(),
+                resolver.GetRequiredService<ITaxCoreApiProxy>()
                 ));
             services.RegisterLazySingleton<IApplicationCloser>(() => new ApplicationCloser());
             

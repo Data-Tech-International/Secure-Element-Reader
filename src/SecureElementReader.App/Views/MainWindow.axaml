@@ -4,18 +4,18 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:main="clr-namespace:SecureElementReader.App.Views"
-				xmlns:local="clr-namespace:SecureElementReader.App.ViewModels"
+		xmlns:local="clr-namespace:SecureElementReader.App.ViewModels"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="400"
-				xmlns:p="clr-namespace:SecureElementReader.App.Properties"
+		xmlns:p="clr-namespace:SecureElementReader.App.Properties"
         x:Class="SecureElementReader.App.Views.MainWindow"
         Icon="/Assets/taxcore.png"
         Title="Secure Element Reader App"
-				ExtendClientAreaToDecorationsHint="True"
-				Background="#e8e8e8"  
+		ExtendClientAreaToDecorationsHint="True"
+		Background="#e8e8e8"  
         Width="830" Height="605"
-				MaxWidth="830" MaxHeight="605"
+		MaxWidth="830" MaxHeight="605"
         WindowStartupLocation="CenterScreen"
-				FontFamily="Highway Sans Pro">
+		FontFamily="Highway Sans Pro">
     
   <!--<Design.DataContext>
         <vm:MainWindowViewModel/>
