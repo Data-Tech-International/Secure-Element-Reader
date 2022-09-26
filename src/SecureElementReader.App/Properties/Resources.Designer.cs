@@ -295,6 +295,15 @@ namespace SecureElementReader.App.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Options.
+        /// </summary>
+        public static string Options {
+            get {
+                return ResourceManager.GetString("Options", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Taxpayer:.
         /// </summary>
         public static string Organization {
@@ -516,6 +525,15 @@ namespace SecureElementReader.App.Properties {
         public static string Subject {
             get {
                 return ResourceManager.GetString("Subject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Submit Internal Data.
+        /// </summary>
+        public static string SubmitInternalData {
+            get {
+                return ResourceManager.GetString("SubmitInternalData", resourceCulture);
             }
         }
         

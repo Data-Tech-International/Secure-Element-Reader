@@ -19,6 +19,8 @@ using MessageBoxAvaloniaEnums = MessageBox.Avalonia.Enums;
 using MessageBox.Avalonia;
 using MessageBox.Avalonia.DTO;
 using SecureElementReader.App.Views;
+using SecureElementReader.App.Models;
+using System.Runtime.InteropServices;
 
 namespace SecureElementReader.App.ViewModels
 {
@@ -34,13 +36,15 @@ namespace SecureElementReader.App.ViewModels
         private readonly ICardReaderService cardReaderService;
         private readonly IApplicationDispatcher applicationDispatcher;
         private readonly IMainWindowProvider mainWindowProvider;
+        private readonly ITaxCoreApiProxy taxCoreApiProxy;
 
         public string WelcomeMessage => Properties.Resources.Welcome;
         
         public IMenuViewModel MenuViewModel { get; }
         public ICertDetailsViewModel CertDetailsViewModel { get; }
-        public ITopLanguageViewModel LanguageViewModel { get; }               
-      
+        public ITopLanguageViewModel LanguageViewModel { get; }
+
+
         [Reactive]
         public string CardReaderName { get; set; }        
 
@@ -57,12 +61,16 @@ namespace SecureElementReader.App.ViewModels
             ITopLanguageViewModel languageViewModel,
             IMonitorFactory monitorFactory,
             IApplicationDispatcher applicationDispatcher,
-            IMainWindowProvider mainWindowProvider)
+            IMainWindowProvider mainWindowProvider,
+            ITaxCoreApiProxy taxCoreApiProxy)
         {
             this.dialogService = dialogService;
             this.cardReaderService = cardReaderService;
             this.applicationDispatcher = applicationDispatcher;
             this.mainWindowProvider = mainWindowProvider;
+            this.taxCoreApiProxy = taxCoreApiProxy;
+
+
 
             CertDetailsCommand = ReactiveCommand.Create(GetCertDetails);
             VerifyPinCommand = ReactiveCommand.CreateFromTask(ShowVerifyPinDialog);
@@ -124,7 +132,8 @@ namespace SecureElementReader.App.ViewModels
             else if (string.Equals(obj.GetType().Name, "CardInserted"))
             {
                GetReaders();
-               GetCertDetails();
+               GetCertDetails();             
+               
             }           
         }
 
@@ -159,7 +168,13 @@ namespace SecureElementReader.App.ViewModels
             else
             {
                 CertDetailsViewModel.CertDetailsModel = details;
-                CertDetailsViewModel.SetVerifyFields();                
+                CertDetailsViewModel.SetVerifyFields();
+
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                {                
+                SubmitInternalData();
+                }
+
             }
 
             applicationDispatcher.Dispatch(() => HideLoadingOverlay());            
@@ -217,5 +232,25 @@ namespace SecureElementReader.App.ViewModels
             _disposables.Dispose();
         }
 
+        public void SubmitInternalData()
+        {
+            var internalData = cardReaderService.GetInternalData();
+            var amountData = cardReaderService.GetAmountStatus();
+            if (internalData != null && amountData != null)
+            {
+                var request = new SecureElementAuditRequest
+                {
+                    AuditData = internalData,
+                    LimitData = amountData,
+                };
+
+                var response = taxCoreApiProxy.SendInternalData(request, CertDetailsViewModel.CertDetailsModel.CommonName, CertDetailsViewModel.CertDetailsModel.ApiUrl);
+
+            }
+            else
+            {
+                applicationDispatcher.DispatchAsync(() => ShowMessage(new List<string> { "error" }));
+            }
+        }
     }
 }

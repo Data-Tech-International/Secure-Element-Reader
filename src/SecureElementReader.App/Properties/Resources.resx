@@ -195,6 +195,9 @@
   <data name="NoCardReadesFounded" xml:space="preserve">
     <value>No card readers found!</value>
   </data>
+  <data name="Options" xml:space="preserve">
+    <value>Options</value>
+  </data>
   <data name="Organization" xml:space="preserve">
     <value>Taxpayer:</value>
   </data>
@@ -269,6 +272,9 @@
   </data>
   <data name="Subject" xml:space="preserve">
     <value>Subject:</value>
+  </data>
+  <data name="SubmitInternalData" xml:space="preserve">
+    <value>Submit Internal Data</value>
   </data>
   <data name="Support" xml:space="preserve">
     <value>Support:</value>

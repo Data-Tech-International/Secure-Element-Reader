@@ -8,5 +8,9 @@ namespace SecureElementReader.App.Interfaces
         IEnumerable<string> LoadReaders();
         CertDetailsModel GetCertDetails();
         VerifyPinModel VerifyPin(string pin);
+        byte[] GetInternalData();
+
+        byte[] GetAmountStatus();
+
     }
 }
