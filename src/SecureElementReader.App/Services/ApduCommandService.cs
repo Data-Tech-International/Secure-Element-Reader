@@ -77,5 +77,31 @@ namespace SecureElementReader.App.Services
                 Data = pin
             };
         }
+
+        public CommandApdu AmountStatus()
+        {
+            return new CommandApdu(IsoCase.Case2Short, SCardProtocol.T1)
+            {
+                CLA = (byte)ApduClasses.SelectCommand,
+                INS = (byte)ApduInstructions.AmountStatus,
+                P1 = (byte)ApduP1.Default,
+                P2 = (byte)ApduP2.Default
+            };
+        }
+
+        /// <summary>
+        /// Exports encrypted Internal Data structure only.
+        /// </summary>
+        /// <returns></returns>
+        public CommandApdu GetExportInternalData()
+        {
+            return new CommandApdu(IsoCase.Case2Extended, SCardProtocol.T1)
+            {
+                CLA = (byte)ApduClasses.SelectCommand,
+                INS = (byte)ApduInstructions.ExportInternalData,
+                P1 = (byte)ApduP1.Default,
+                P2 = (byte)ApduP2.Default
+            };
+        }
     }
 }
