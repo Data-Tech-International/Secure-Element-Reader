@@ -23,23 +23,31 @@ namespace SecureElementReader.App.Proxies
             CommonName = commonName;
             ApiUrl = apiUrl;
 
-            var httpContent = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json");
-            HttpClient client;
-            HttpClientHandler handler;
-
-            GetClientAndHandler(out handler, out client);
-
-            var response = client.PostAsync($"/api/SecureElements/Audit", httpContent).Result;
-
-            if (response.StatusCode == HttpStatusCode.OK)
+            try
             {
-                var jsonString = response.Content.ReadAsStringAsync();
-                jsonString.Wait();
-                var invoiceResponse = jsonString.Result;
-                return true;
+                var httpContent = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json");
+                HttpClient client;
+                HttpClientHandler handler;
+
+                GetClientAndHandler(out handler, out client);
+
+                var response = client.PostAsync($"/api/SecureElements/Audit", httpContent).Result;
+
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    var jsonString = response.Content.ReadAsStringAsync();
+                    jsonString.Wait();
+                    var invoiceResponse = jsonString.Result;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
-            else
+            catch (Exception)
             {
+
                 return false;
             }
         }
