@@ -30,13 +30,12 @@ namespace SecureElementReader.App.Views
         {
             var selectedLng = (LanguageModel)e.AddedItems[0];
             if (selectedLng.Code != topLanguageViewModel.CurrentLanguage.Code)
-            {
-
-                ShowMessage();
+            {                
                 topLanguageViewModel.CurrentLanguage = selectedLng;
                 topLanguageViewModel.SaveChanges();
-                
-            }            
+
+                ShowMessage();
+            }
         }
 
         private void ShowMessage()
@@ -44,15 +43,16 @@ namespace SecureElementReader.App.Views
             var msg = MessageBoxManager.GetMessageBoxStandardWindow(
                    new MessageBoxStandardParams
                    {
-                       ContentMessage = Properties.Resources.ChangeLang,
+                       ContentMessage = Properties.Resources.ChangeLang + Environment.NewLine,
                        ContentHeader = Properties.Resources.Info,
                        ContentTitle = Properties.Resources.Info,
                        ShowInCenter = true,
                        Icon = MessageBoxAvaloniaEnums.Icon.None,
                        Topmost = true,
                        WindowStartupLocation = Avalonia.Controls.WindowStartupLocation.CenterOwner,
-                       SizeToContent = Avalonia.Controls.SizeToContent.WidthAndHeight
+                       SizeToContent = Avalonia.Controls.SizeToContent.WidthAndHeight,
                    });         
+
             msg.ShowDialog(topLanguageViewModel.GetMainWindow());
         }
     }

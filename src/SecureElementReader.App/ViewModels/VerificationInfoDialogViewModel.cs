@@ -20,8 +20,6 @@ namespace SecureElementReader.App.ViewModels
 
         public ICommand GoToTAP { get; set; }
 
-        
-
         public ICertDetailsViewModel CertDetailsViewModel { get; }
 
         public VerificationInfoDialogViewModel(ICertDetailsViewModel certDetailsViewModel)

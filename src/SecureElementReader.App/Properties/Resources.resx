@@ -150,6 +150,9 @@
   <data name="Error" xml:space="preserve">
     <value>Error</value>
   </data>
+  <data name="ErrorAtDepth" xml:space="preserve">
+    <value>Error at depth</value>
+  </data>
   <data name="ExitHeader" xml:space="preserve">
     <value>_Exit</value>
   </data>
@@ -186,6 +189,12 @@
   <data name="Info" xml:space="preserve">
     <value>Change languages</value>
   </data>
+  <data name="InstallRCAandICA" xml:space="preserve">
+    <value>Download certificates</value>
+  </data>
+  <data name="InstallRCAandICAurl" xml:space="preserve">
+    <value>Install RCA and ICA certificate from this url</value>
+  </data>
   <data name="IssuerName" xml:space="preserve">
     <value>Issuer Name:</value>
   </data>
@@ -214,10 +223,10 @@
     <value>PKI cert details error</value>
   </data>
   <data name="PkiCertInvalid" xml:space="preserve">
-    <value>PKI cert is invalid</value>
+    <value>PKI certificate chain is invalid</value>
   </data>
   <data name="PkiCertValid" xml:space="preserve">
-    <value>PKI cert is valid</value>
+    <value>PKI certificate chain is valid</value>
   </data>
   <data name="PkiPinOK" xml:space="preserve">
     <value>PKI pin is OK</value>
@@ -230,6 +239,9 @@
   </data>
   <data name="PleaseInsertPIN" xml:space="preserve">
     <value>Please enter PIN code</value>
+  </data>
+  <data name="PossibleSolution" xml:space="preserve">
+    <value>Possible solution</value>
   </data>
   <data name="RequestedBy" xml:space="preserve">
     <value>Requested By:</value>
@@ -244,10 +256,10 @@
     <value>SE cert details error</value>
   </data>
   <data name="SeCertInvalid" xml:space="preserve">
-    <value>SE cert is invalid</value>
+    <value>SE certificate chain is invalid</value>
   </data>
   <data name="SeCertValid" xml:space="preserve">
-    <value>SE cert is valid</value>
+    <value>SE certificate chain is valid</value>
   </data>
   <data name="SelectPkiError" xml:space="preserve">
     <value>Select PKI app error</value>
@@ -266,6 +278,12 @@
   </data>
   <data name="State" xml:space="preserve">
     <value>State:</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="StatusInforamtion" xml:space="preserve">
+    <value>Status inforamtion</value>
   </data>
   <data name="StreetAddress" xml:space="preserve">
     <value>Street Address:</value>

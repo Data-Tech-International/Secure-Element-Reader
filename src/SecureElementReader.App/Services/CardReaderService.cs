@@ -316,14 +316,14 @@ namespace SecureElementReader.App.Services
                             model.PKIVerificationInfo += Environment.NewLine;
                             model.PKIVerificationInfo += "------------------------------";
                             model.PKIVerificationInfo += Environment.NewLine;
-                            model.PKIVerificationInfo += $"Error at depth {i}:{Environment.NewLine}{element.Certificate.Issuer}";
+                            model.PKIVerificationInfo += $"{Properties.Resources.ErrorAtDepth} {i}:{Environment.NewLine}{element.Certificate.Issuer}";
                             model.PKIVerificationInfo += Environment.NewLine;
 
                             foreach (var status in element.ChainElementStatus)
                             {
-                                model.PKIVerificationInfo += $"Status:{Environment.NewLine}{status.Status}";
+                                model.PKIVerificationInfo += $"{Properties.Resources.Status}:{ Environment.NewLine}{status.Status}";
                                 model.PKIVerificationInfo += Environment.NewLine;
-                                model.PKIVerificationInfo += $"Status inforamtion:{Environment.NewLine}{status.StatusInformation}";
+                                model.PKIVerificationInfo += $"{Properties.Resources.StatusInforamtion}:{Environment.NewLine}{status.StatusInformation}";
                                 model.PKIVerificationInfo += Environment.NewLine;
                             }
 
@@ -333,7 +333,7 @@ namespace SecureElementReader.App.Services
                         {
                             model.SEVerificationInfo += Environment.NewLine;
                             model.SEVerificationInfo += "------------------------------";
-                            model.SEVerificationInfo += $"Error at depth {i}: {element.Certificate.Issuer}";
+                            model.SEVerificationInfo += $"{Properties.Resources.ErrorAtDepth} {i}: {element.Certificate.Issuer}";
                             model.SEVerificationInfo += Environment.NewLine;
 
                             foreach (var status in element.ChainElementStatus)

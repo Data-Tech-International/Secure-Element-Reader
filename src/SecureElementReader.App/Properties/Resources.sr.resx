@@ -193,10 +193,10 @@
     <value>PKI аплет је закључан</value>
   </data>
   <data name="PkiCertInvalid" xml:space="preserve">
-    <value>PKI сертификат је невалидан</value>
+    <value>PKI ланац сертификата је невалидан</value>
   </data>
   <data name="PkiCertValid" xml:space="preserve">
-    <value>PKI сертификат је валидан</value>
+    <value>PKI ланац сертификата је валидан</value>
   </data>
   <data name="PkiPinOK" xml:space="preserve">
     <value>PKI ПИН је исправан</value>
@@ -220,10 +220,10 @@
     <value>Грешка читања PKI сертификата</value>
   </data>
   <data name="SeCertInvalid" xml:space="preserve">
-    <value>SE сертификат је невалидан</value>
+    <value>SE ланац сертификата је невалидан</value>
   </data>
   <data name="SeCertValid" xml:space="preserve">
-    <value>SE сертификат је валидан</value>
+    <value>SE ланац сертификата је валидан</value>
   </data>
   <data name="SelectPkiError" xml:space="preserve">
     <value>Грешка при бирању PKI сертификата</value>
@@ -279,14 +279,40 @@
   <data name="Version" xml:space="preserve">
     <value>Верзија:</value>
   </data>
-
   <data name="ChangeLang" xml:space="preserve">
-    <value>Покрените поново апликацију да би сте видели измене</value>
+    <value>Покрените поново апликацију даби сте видели измене</value>
   </data>
   <data name="Info" xml:space="preserve">
     <value>Промена језика</value>
   </data>
   <data name="Loading" xml:space="preserve">
     <value>Учитавање...</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Детаљи</value>
+  </data>
+  <data name="ErrorAtDepth" xml:space="preserve">
+    <value>Грешка на нивоу</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="StatusInforamtion" xml:space="preserve">
+    <value>Статус информације</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Затвори</value>
+  </data>
+  <data name="InstallRCAandICA" xml:space="preserve">
+    <value>Преузимање сертификата</value>
+  </data>
+  <data name="InstallRCAandICAurl" xml:space="preserve">
+    <value>Инсталирајте RCA и ICA сертификате са ове адресе</value>
+  </data>
+  <data name="PossibleSolution" xml:space="preserve">
+    <value>Могуће решење</value>
+  </data>
+  <data name="VerficationDetails" xml:space="preserve">
+    <value>Детаљи верификације</value>
   </data>
 </root>
