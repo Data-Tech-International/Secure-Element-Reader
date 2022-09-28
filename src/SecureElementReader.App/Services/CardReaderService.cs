@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
+using System.Threading.Tasks;
 
 namespace SecureElementReader.App.Services
 {
@@ -256,10 +257,10 @@ namespace SecureElementReader.App.Services
             string[]? szReaders = null;
             try
             {
-                var c = contextFactory.Establish(SCardScope.System);
+                var context = contextFactory.Establish(SCardScope.User);
 
-                szReaders = c.GetReaders();
-                reader = new IsoReader(c);
+                szReaders = context.GetReaders();
+                reader = new IsoReader(context);
 
                 foreach (var sZReader in szReaders)
                 {
@@ -270,10 +271,83 @@ namespace SecureElementReader.App.Services
 
                 return szReaders;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return szReaders ?? Array.Empty<string>();
             }
+        }      
+
+        public byte[]? GetInternalData()
+        {
+            var response = reader.Transmit(apduCommandService.SelectSEApp());
+            if (response.SW1 == 0x90)
+            {
+                response = reader.Transmit(apduCommandService.GetExportInternalData());
+                if (response.SW1 == 0x90)
+                {
+                    return response.GetData();
+                }
+                else 
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public byte[]? GetAmountStatus()
+        {
+            var response = reader.Transmit(apduCommandService.SelectSEApp());
+            if (response.SW1 == 0x90)
+            {
+                response = reader.Transmit(apduCommandService.AmountStatus());
+                if (response.SW1 == 0x90)
+                {
+                    return response.GetData();
+                }
+                else if (response.SW1 == 0x63 && response.SW2 == 0x10) ;
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public List<CommandsStatusResult> ProcessingCommand(List<Command> commands)
+        {
+            var result = new List<CommandsStatusResult>();
+
+            try
+            {
+                var response = reader.Transmit(apduCommandService.SelectSEApp());
+
+                if (response.SW1 == 0x90 && response.SW2 == 0x00)
+                {
+                    foreach (var item in commands)
+                    {
+                        response = reader.Transmit(apduCommandService.SECommand(Convert.FromBase64String(item.Payload)));
+                        if (response.SW1 == 0x90)
+                        {
+                            result.Add(new CommandsStatusResult { CommandId = item.CommandId, DateAndTime = DateTime.UtcNow, Success = true });
+                        }
+                        else
+                        {
+                            result.Add(new CommandsStatusResult { CommandId = item.CommandId, DateAndTime = DateTime.UtcNow, Success = false });
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+            }
+
+            return result;
         }
 
         private byte[] ConvertPinToByteArray(string pin)
@@ -321,7 +395,7 @@ namespace SecureElementReader.App.Services
 
                             foreach (var status in element.ChainElementStatus)
                             {
-                                model.PKIVerificationInfo += $"{Properties.Resources.Status}:{ Environment.NewLine}{status.Status}";
+                                model.PKIVerificationInfo += $"{Properties.Resources.Status}:{Environment.NewLine}{status.Status}";
                                 model.PKIVerificationInfo += Environment.NewLine;
                                 model.PKIVerificationInfo += $"{Properties.Resources.StatusInforamtion}:{Environment.NewLine}{status.StatusInformation}";
                                 model.PKIVerificationInfo += Environment.NewLine;
@@ -345,49 +419,6 @@ namespace SecureElementReader.App.Services
                         }
                     }
                 }
-            }
-        }
-
-        public byte[] GetInternalData()
-        {
-            var response = reader.Transmit(apduCommandService.SelectSEApp());
-            if (response.SW1 == 0x90)
-            {
-                response = reader.Transmit(apduCommandService.GetExportInternalData());
-                if (response.SW1 == 0x90)
-                {
-                    return response.GetData();
-                }
-                else 
-                {
-                    return null;
-                }
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-
-        public byte[] GetAmountStatus()
-        {
-            var response = reader.Transmit(apduCommandService.SelectSEApp());
-            if (response.SW1 == 0x90)
-            {
-                response = reader.Transmit(apduCommandService.AmountStatus());
-                if (response.SW1 == 0x90)
-                {
-                    return response.GetData();
-                }
-                else if (response.SW1 == 0x63 && response.SW2 == 0x10) ;
-                {
-                    return null;
-                }
-            }
-            else
-            {
-                return null;
             }
         }
     }

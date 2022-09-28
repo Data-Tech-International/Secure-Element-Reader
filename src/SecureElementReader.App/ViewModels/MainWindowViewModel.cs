@@ -39,7 +39,7 @@ namespace SecureElementReader.App.ViewModels
         private readonly ITaxCoreApiProxy taxCoreApiProxy;
 
         public string WelcomeMessage => Properties.Resources.Welcome;
-        
+
         public IMenuViewModel MenuViewModel { get; }
         public ICertDetailsViewModel CertDetailsViewModel { get; }
         public ITopLanguageViewModel LanguageViewModel { get; }
@@ -69,8 +69,6 @@ namespace SecureElementReader.App.ViewModels
             this.applicationDispatcher = applicationDispatcher;
             this.mainWindowProvider = mainWindowProvider;
             this.taxCoreApiProxy = taxCoreApiProxy;
-
-
 
             CertDetailsCommand = ReactiveCommand.Create(GetCertDetails);
             VerifyPinCommand = ReactiveCommand.CreateFromTask(ShowVerifyPinDialog);
@@ -108,7 +106,7 @@ namespace SecureElementReader.App.ViewModels
             }
 
             _subscription = monitorFactory
-                .CreateObservable(SCardScope.System, readerNames)                
+                .CreateObservable(SCardScope.User, readerNames)                
                 .Subscribe(
                     onNext: OnEvent,
                     onError: OnError);
@@ -127,13 +125,12 @@ namespace SecureElementReader.App.ViewModels
             }
             else if (string.Equals(obj.GetType().Name, "MonitorInitialized"))
             {
-               GetCertDetails();
+                _ = GetCertDetails();
             }
             else if (string.Equals(obj.GetType().Name, "CardInserted"))
             {
                GetReaders();
-               GetCertDetails();             
-               
+               _ = GetCertDetails();   
             }           
         }
 
@@ -156,14 +153,14 @@ namespace SecureElementReader.App.ViewModels
             return readers ?? Array.Empty<string>();
         }
 
-        private void GetCertDetails()
+        private async Task GetCertDetails()
         {
             applicationDispatcher.Dispatch(() => ShowLoadingOverlay(this));
 
             var details = cardReaderService.GetCertDetails();
             if (details.ErrorCodes.Count > 0)
             {
-                applicationDispatcher.DispatchAsync(() => ShowMessage(details.ErrorCodes));   
+                await applicationDispatcher.DispatchAsync(() => ShowMessage(details.ErrorCodes));   
             }
             else
             {
@@ -171,10 +168,12 @@ namespace SecureElementReader.App.ViewModels
                 CertDetailsViewModel.SetVerifyFields();
 
                 if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                {                
-                SubmitInternalData();
+                {
+                    taxCoreApiProxy.Configure(CertDetailsViewModel.CertDetailsModel.UniqueIdentifier, CertDetailsViewModel.CertDetailsModel.CommonName, CertDetailsViewModel.CertDetailsModel.ApiUrl);
+                    var internalDataStatus = await SubmitInternalData();                    
+                    var commandsStatus = await ProcessPendingCommands();
+                    CertDetailsViewModel.SetStatusFileds(internalDataStatus, commandsStatus);
                 }
-
             }
 
             applicationDispatcher.Dispatch(() => HideLoadingOverlay());            
@@ -232,7 +231,7 @@ namespace SecureElementReader.App.ViewModels
             _disposables.Dispose();
         }
 
-        public void SubmitInternalData()
+        private async Task<string> SubmitInternalData()
         {
             var internalData = cardReaderService.GetInternalData();
             var amountData = cardReaderService.GetAmountStatus();
@@ -244,13 +243,67 @@ namespace SecureElementReader.App.ViewModels
                     LimitData = amountData,
                 };
 
-                var response = taxCoreApiProxy.SendInternalData(request, CertDetailsViewModel.CertDetailsModel.CommonName, CertDetailsViewModel.CertDetailsModel.ApiUrl);
+                var response = await taxCoreApiProxy.SendInternalData(request);
+               
+                if (response)
+                {
+                    return "Success to submint internal data";
+                }
+                else
+                {
+                    return "Unable to submint internal data";
+                }
+            }
+            else
+            {                
+                return "Can't read internal data form card";
+            }
+        }
 
+        private async Task<string> ProcessPendingCommands()
+        {
+            var commands = await taxCoreApiProxy.GetPendingCommands();
+            if (commands == null)
+                return "Cant't get pending commands";
+
+            if (commands.Count > 0)
+            {
+                var commandStatus = cardReaderService.ProcessingCommand(commands);                
+                
+                if (commandStatus.Count > 0)
+                {
+                    if (ChechIsAllCommandExecutedSuccessfully(commands, commandStatus))
+                    {                        
+                        var notifyCommandResult = await taxCoreApiProxy.CommandStatusUpdate(commandStatus.Where(s => s.Success).ToList());
+                        if (CheckIsAllNotificationSentSuccessfuly(notifyCommandResult, commandStatus)) 
+                            return "All commands executed successfully";
+                        else
+                            return "All commands executed but faild to notify TaxCore system";
+                    }
+                    else
+                    {
+                        return "Not all command executed successfully";
+                    }
+                }
+                else
+                {
+                    return "Commands not executed";
+                }                
             }
             else
             {
-                applicationDispatcher.DispatchAsync(() => ShowMessage(new List<string> { "error" }));
+                return "There is no pending commands for this card";
             }
+        }
+
+        private bool CheckIsAllNotificationSentSuccessfuly(List<CommandsStatusResult> notifyCommandResult, List<CommandsStatusResult> commandStatus)
+        {
+            return notifyCommandResult.Where(s => s.Success).Count() == commandStatus.Where(s=>s.Success).Count();
+        }
+
+        private bool ChechIsAllCommandExecutedSuccessfully(List<Command> commands, List<CommandsStatusResult> commandsStatusResults) 
+        {
+            return commandsStatusResults.Where(s => s.Success).Count() == commands.Count();
         }
     }
 }

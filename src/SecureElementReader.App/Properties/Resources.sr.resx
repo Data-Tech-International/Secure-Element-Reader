@@ -193,10 +193,10 @@
     <value>PKI аплет је закључан</value>
   </data>
   <data name="PkiCertInvalid" xml:space="preserve">
-    <value>PKI ланац сертификата је невалидан</value>
+    <value>PKI низ сертификата је невалидан</value>
   </data>
   <data name="PkiCertValid" xml:space="preserve">
-    <value>PKI ланац сертификата је валидан</value>
+    <value>PKI низ сертификата је валидан</value>
   </data>
   <data name="PkiPinOK" xml:space="preserve">
     <value>PKI ПИН је исправан</value>
@@ -220,10 +220,10 @@
     <value>Грешка читања PKI сертификата</value>
   </data>
   <data name="SeCertInvalid" xml:space="preserve">
-    <value>SE ланац сертификата је невалидан</value>
+    <value>SE низ сертификата је невалидан</value>
   </data>
   <data name="SeCertValid" xml:space="preserve">
-    <value>SE ланац сертификата је валидан</value>
+    <value>SE низ сертификата је валидан</value>
   </data>
   <data name="SelectPkiError" xml:space="preserve">
     <value>Грешка при бирању PKI сертификата</value>

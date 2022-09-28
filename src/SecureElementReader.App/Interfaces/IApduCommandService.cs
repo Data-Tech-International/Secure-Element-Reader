@@ -10,9 +10,8 @@ namespace SecureElementReader.App.Interfaces
         CommandApdu GetPKICert();
         CommandApdu VerifyPkiPin(byte[] pin);
         CommandApdu VerifySEPin(byte[] pin);
-
         CommandApdu AmountStatus();
-
         CommandApdu GetExportInternalData();
+        CommandApdu SECommand(byte[] seCommand);    
     }
 }

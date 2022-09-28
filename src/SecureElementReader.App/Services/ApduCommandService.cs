@@ -103,5 +103,17 @@ namespace SecureElementReader.App.Services
                 P2 = (byte)ApduP2.Default
             };
         }
+
+        public CommandApdu SECommand(byte[] seCommand)
+        {
+            return new CommandApdu(IsoCase.Case4Extended, SCardProtocol.T1)
+            {
+                CLA = (byte)ApduClasses.SelectCommand,
+                INS = (byte)ApduInstructions.SECommand,
+                P1 = (byte)ApduP1.Default,
+                P2 = (byte)ApduP2.Default,
+                Data = seCommand
+            };
+        }
     }
 }
