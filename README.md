@@ -5,17 +5,21 @@ To read this in other languages please select:
  
  -[French(Français)](README.fr.md)
  
+ 
+If you want to download the latest version of the app, go to the [Releases](https://github.com/Data-Tech-International/Secure-Element-Reader/releases) and select the version of the app according to your operating system (Windows, Linux or Mac). 
+ 
 ![image](https://user-images.githubusercontent.com/106304412/185734800-48b13d46-52bb-4697-9fa8-b5fcad0a7a7a.PNG)
 
 
 # Overview
 
-Secure Element Reader application is used for reading current data from a smart card secure element.
+Secure Element Reader application is used for:
 
-In addition, you can also use the Verify PIN option to:
-
-- verify the correct PIN for a smart card
-- check whether the PKI Applet and/or the Secure Element Applet on a smart card have been locked because of too many wrong PIN inputs (in case of 5 consecutive wrong attempts)
+- reading certificate data from a smart card secure element 
+- perfoming secure element audit 
+- downloading and executing pending commands for the secure element
+- verifying the correct PIN for a smart card
+- checking whether the PKI Applet and/or the Secure Element Applet on a smart card have been locked because of too many wrong PIN inputs (in case of 5 consecutive wrong attempts)
 
 ## Prerequisites for using the application
 
@@ -25,20 +29,33 @@ In addition, you can also use the Verify PIN option to:
 - .Net 6 SDK installed on workstation
 
 
-# How to read secure element data
+# How to read secure element's certificate data
 
-1. To read the current data on the secure element you first need to insert the smart card into the smart card reader.
+1. To read the certificate data on the secure element you first need to insert the smart card into the smart card reader.
 
 2. Next, click on **Get Reader** to establish connection with your smart card reader.
 
-3. If the connection is established, the application will automatically populate all the fields from the form below.
+3. If the connection is established, the application will display a pop-up box where you need enter the smart card PIN. If you cannot remember the PIN, select **Cancel** (the smart card gets locked in case of 5 consecutive wrong attmpts). 
+
+4. The app will automatically populate all the fields from the form below.
 
 ## Error message when reading the data
 
 In case you see an error message, try clicking on **Get Certificate** to read the data from the smart card.  
 
-# How to verify secure element PIN and state
 
+# Secure element audit
+
+Secure element audit feature is initiated automatically upon inserting the smart card. If you provide the valid smart card PIN, the application will execute audit of the secure element and you will see the result message at the bottom of the screen. The audit is performed as background process and does not require any further activity from the user.
+
+# Execute pending commands
+
+After performing secure element audit, the app will automatically execute any pending commands for the secure element (if they exist on the Tax Authority system). You will again see the result message at the bottom of the screen.
+
+> **NOTE:** The _Secure element audit_ and _Execute pending commands_ features are currently available only on Windows.
+
+
+# How to verify secure element PIN and state
 
 To use this option, do the following:
 
@@ -87,14 +104,15 @@ This means that the taxpayer entered a wrong PIN 5 times in a row both when issu
 
 The smart card must be returned to the tax authority and replaced. The secure element on the smart card must be revoked.
 
-# Contributing on project
 
-### Prerequisites for contributing
+# Contributing on the project
+
+## Prerequisites for contributing
 
 - Visual studio 2022  
 - Avalonia extension
 
-### How to contributing
+## How to contribute
 
 If you want to contribute to a project and make it better, your help is very welcome. 
 
