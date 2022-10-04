@@ -1,22 +1,23 @@
 # Lecteur de l'élément de sécurité
 
-Pour lire ce manuel dans des différentes langues, veuillez choisir :
+Pour lire ce manuel dans différentes langues, veuillez choisir :
 
 -[Serbian(Српски)](README.sr.md)
 
 -[English(English)](README.md)
 
+Si vous voulez télécharger la dernière version de l'application, veuillez cliquer sur les [Releases](https://github.com/Data-Tech-International/Secure-Element-Reader/releases) et sélectionnez la version de l'application selon votre système d'opérations (Windows, Linux ou Mac)
+
 ![image](https://user-images.githubusercontent.com/107615589/187879703-46b617f5-5671-43b4-b70b-182f72833afa.png)
 
 # Aperçu
 
-L’application du lecteur de l’élément de sécurité est utilisée pour lire les données actuelles d’un élément de sécurité de la carte à puce intelligente.
-
-En plus, vous pouvez également utiliser l’option Vérifier le PIN pour :
-
-- Vérifier le code PIN correct d’une carte à puce intelligente
-
-- Vérifier si l’applet de l’ICP et/ou l’applet de l’élément de sécurité sur une carte à puce ont été verrouillés en raison d’un trop grand nombre de mauvaises saisies du code PIN (dans le cas de 5 tentatives erronées consécutives).
+L’application du lecteur de l’élément de sécurité est utilisée pour : 
+- lire les données du certificat d’un élément de sécurité de la carte à puce intelligente
+- exécuter un audit de l'élément de sécurité
+- télécharger et exécuter les commandes en attentes pour l'élément de sécurité
+- vérifier le code PIN correct d’une carte à puce intelligente
+- vérifier si l’applet de l’ICP et/ou l’applet de l’élément de sécurité sur une carte à puce ont été verrouillés en raison d’un trop grand nombre de mauvaises saisies du code PIN (dans le cas de 5 tentatives erronées consécutives).
 
 ## Prérequis pour utiliser l’application
 
@@ -28,15 +29,24 @@ En plus, vous pouvez également utiliser l’option Vérifier le PIN pour :
 
 - Il faut avoir le .Net 6 SDK installé sur le poste de travail
 
-# Comment lire les données des éléments de sécurité
+# Comment lire les données des certificats de l'élément de sécurité
 
-1. Afin de lire les données des éléments de sécurité, vous devez d'abord insérer la carte à puce dans le lecteur de la carte à puce.
+1. Afin de lire les données du certificat de l'élément de sécurité, vous devez d'abord insérer la carte à puce dans le lecteur de la carte à puce.
 2. Ensuite, vous devez cliquer sur **obtenir le lecteur** pour établir la connexion avec votre lecteur de carte à puce
-3. Si la connexion est établie, l'application remplira automatiquement tous les champs du formulaire ci-dessous.
+3. Si la connexion est établie, l'application affichera une fenêtre popup où vous devrez entrez le PIN de la carte à puce intelligente. Si vous ne pouvez pas vous souvenir du code PIN, sélectionnez **Cancel** (la carte à puce intelligente sera verouillée en cas de 5 essais consécutifs erronés).
+4. L'application remplira automatiquement tous les champs du formulaire ci-dessous.
 
 ## Message d'erreur lors de la lecture des données
 
 Si vous voyez un message d'erreur, essayez de cliquer sur **obtenir un certificat** pour lire les données de la carte à puce intelligente.
+
+# Audit de l'élément de sécurité
+La fonction d'audit de l'élément de sécurité est initiée automatiquement lors de l'insertion de la carte à puce intelligente. Si vous entrez le PIN correct de la carte à puce intelligente, l'application exécutera l'audit de l'élément de sécurité et vous verrez le message de résultat en bas de l'écran. L'audit est effectué en tant que proccesus d'arrière plan et ne nécessite pas d'activités supplémentaires de l'utilisateur.
+
+# Exécution des commandes en attentes
+Après avoir exécuté l'audit de l'élément de sécurité, l'application exécutera automatiquement toutes commandes en attentes pour l'élément de sécurité (si elles existent dans le système de l'administration fiscale). Vous verrez à nouveau le message de résultat en bas de l'écran.
+
+> REMARQUE : Les fonctionnalités de _l'Audit de l'élément de sécurité_ et de _l'Exécution des commandes en attentes_ sont actuellement disponibles uniquement sur Windows.
 
 # Comment vérifier le code PIN et le statut de l'élément de sécurité
 
