@@ -35,7 +35,7 @@ Secure Element Reader application is used for:
 
 2. Next, click on **Get Reader** to establish connection with your smart card reader.
 
-3. If the connection is established, the application will display a pop-up box where you need enter the smart card PIN. If you cannot remember the PIN, select **Cancel** (the smart card gets locked in case of 5 consecutive wrong attmpts). 
+3. If the connection is established, the application will display a pop-up box where you need to enter the smart card PIN. If you cannot remember the PIN, select **Cancel** (the smart card gets locked in case of 5 consecutive wrong attmpts). 
 
 4. The app will automatically populate all the fields from the form below.
 
@@ -46,7 +46,7 @@ In case you see an error message, try clicking on **Get Certificate** to read th
 
 # Secure element audit
 
-Secure element audit feature is initiated automatically upon inserting the smart card. If you provide the valid smart card PIN, the application will execute audit of the secure element and you will see the result message at the bottom of the screen. The audit is performed as background process and does not require any further activity from the user.
+Secure element audit feature is initiated automatically upon inserting the smart card. If you provide the valid smart card PIN, the application will execute audit of the secure element and you will see the result message at the bottom of the screen. The audit is performed as a background process and does not require any further activity from the user.
 
 # Execute pending commands
 
