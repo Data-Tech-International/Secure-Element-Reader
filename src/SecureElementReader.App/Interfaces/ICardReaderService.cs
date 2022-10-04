@@ -11,5 +11,6 @@ namespace SecureElementReader.App.Interfaces
         byte[]? GetInternalData();
         byte[]? GetAmountStatus();
         List<CommandsStatusResult> ProcessingCommand(List<Command> commands);
+        void Disconnect();
     }
 }

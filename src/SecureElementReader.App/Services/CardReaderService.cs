@@ -163,11 +163,12 @@ namespace SecureElementReader.App.Services
                 }
 
                 var response = reader.Transmit(apduCommandService.SelectPKIApp());
-                if (response.SW1 == 0x90)
+                if (response.StatusWord == 0x9000)
                 {
                     response = reader.Transmit(apduCommandService.GetPKICert());
                     if (response.SW1 == 0x90)
                     {
+                        System.Threading.Thread.Sleep(200);
                         var crt = response.GetData();
                         ICollection<Tlv> tlvs = Tlv.ParseTlv(crt);
                         foreach (var item in tlvs)
@@ -176,12 +177,12 @@ namespace SecureElementReader.App.Services
                             try
                             {
                                 var decc = DecompressZLIB(copyOfRange.ToArray());
-                                var c = new Certificate(decc);
+                                var cert = new Certificate(decc);
 
-                                PopulateModel(c, model);
+                                PopulateModel(cert, model);
                                 model.ReadPkiSuccess = true;
-                                model.PkiVerifyed = c.Verify();
-                                VerifyChain(c, model, true);
+                                model.PkiVerifyed = cert.Verify();
+                                VerifyChain(cert, model, true);
 
                                 break;
                             }
@@ -261,13 +262,13 @@ namespace SecureElementReader.App.Services
 
                 szReaders = context.GetReaders();
                 reader = new IsoReader(context);
-
+                
                 foreach (var sZReader in szReaders)
-                {
+                {                   
                     reader.Connect(sZReader, SCardShareMode.Shared, SCardProtocol.T1);
                 }
 
-                System.Threading.Thread.Sleep(800);
+                System.Threading.Thread.Sleep(500);
 
                 return szReaders;
             }
@@ -275,7 +276,12 @@ namespace SecureElementReader.App.Services
             {
                 return szReaders ?? Array.Empty<string>();
             }
-        }      
+        }
+
+        public void Disconnect()
+        {
+            reader.Disconnect(SCardReaderDisposition.Leave);            
+        }
 
         public byte[]? GetInternalData()
         {
@@ -331,7 +337,15 @@ namespace SecureElementReader.App.Services
                 {
                     foreach (var item in commands)
                     {
-                        response = reader.Transmit(apduCommandService.SECommand(Convert.FromBase64String(item.Payload)));
+                        if (item.Type == Enums.CommandsType.ForwardSecureElementDirective)
+                        {
+                            response = reader.Transmit(apduCommandService.SECommand(Convert.FromBase64String(item.Payload)));
+                        }
+                        else
+                        {
+                            response = reader.Transmit(apduCommandService.FinishAudit(Convert.FromBase64String(item.Payload)));
+                        }
+                        
                         if (response.SW1 == 0x90)
                         {
                             result.Add(new CommandsStatusResult { CommandId = item.CommandId, DateAndTime = DateTime.UtcNow, Success = true });

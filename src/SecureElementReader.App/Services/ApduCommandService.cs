@@ -47,9 +47,9 @@ namespace SecureElementReader.App.Services
             return new CommandApdu(IsoCase.Case3Short, SCardProtocol.T1)
             {
                 CLA = (byte)ApduClasses.SelectApp,
-                INS = (byte)0xCB,
-                P1 = (byte)0xA0,
-                P2 = (byte)0x10,
+                INS = (byte)ApduInstructions.ExportPKICert,
+                P1 = (byte)ApduP1.PKIExport,
+                P2 = (byte)ApduP2.PKIExport,
                 Data = new byte[] { 0x5C, 0x00, 0x02, 0xDF, 0x02, 0x04, 0x00 }
             };
         }
@@ -88,11 +88,7 @@ namespace SecureElementReader.App.Services
                 P2 = (byte)ApduP2.Default
             };
         }
-
-        /// <summary>
-        /// Exports encrypted Internal Data structure only.
-        /// </summary>
-        /// <returns></returns>
+        
         public CommandApdu GetExportInternalData()
         {
             return new CommandApdu(IsoCase.Case2Extended, SCardProtocol.T1)
@@ -113,6 +109,18 @@ namespace SecureElementReader.App.Services
                 P1 = (byte)ApduP1.Default,
                 P2 = (byte)ApduP2.Default,
                 Data = seCommand
+            };
+        }
+
+        public CommandApdu FinishAudit(byte[] proofOfAudit)
+        {
+            return new CommandApdu(IsoCase.Case3Extended, SCardProtocol.T1)
+            {
+                CLA = (byte)ApduClasses.SelectCommand,
+                INS = (byte)ApduInstructions.StopAudit,
+                P1 = (byte)ApduP1.Default,
+                P2 = (byte)ApduP2.Default,
+                Data = proofOfAudit
             };
         }
     }

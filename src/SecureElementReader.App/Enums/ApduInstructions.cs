@@ -8,5 +8,7 @@ namespace SecureElementReader.App.Enums
         ExportInternalData = 0x12,
         AmountStatus = 0x14,
         SECommand = 0x40,
+        StopAudit = 0x20,
+        ExportPKICert = 0xCB,
     }
 }

@@ -16,6 +16,8 @@ namespace SecureElementReader.App.Enums
         /// <summary>
         /// P1 used for Get Response if there is more then 256 bytes for T0 protocol
         /// </summary>
-        GetResponse = 0x00
+        GetResponse = 0x00,
+        
+        PKIExport = 0xA0
     }
 }

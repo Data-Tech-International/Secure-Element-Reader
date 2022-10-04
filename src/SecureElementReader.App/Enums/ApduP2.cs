@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 namespace SecureElementReader.App.Enums
 {
     public enum ApduP2
-    {
-        /// <summary>
-        /// Default P2 0x00
-        /// </summary>
-        Default = 0x00
+    {        
+        Default = 0x00,
+        PKIExport = 0x10,
     }
 }

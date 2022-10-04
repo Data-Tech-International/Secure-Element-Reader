@@ -159,6 +159,6 @@ namespace SecureElementReader.App.Proxies
 
             store.Open(OpenFlags.OpenExistingOnly | OpenFlags.ReadOnly);
             return store.Certificates.Find(X509FindType.FindBySubjectName, commonName, false)[0];
-        }        
+        }
     }
 }

@@ -170,7 +170,7 @@ namespace SecureElementReader.App.ViewModels
                 if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                 {
                     taxCoreApiProxy.Configure(CertDetailsViewModel.CertDetailsModel.UniqueIdentifier, CertDetailsViewModel.CertDetailsModel.CommonName, CertDetailsViewModel.CertDetailsModel.ApiUrl);
-                    var internalDataStatus = await SubmitInternalData();                    
+                    var internalDataStatus = await SubmitInternalData();
                     var commandsStatus = await ProcessPendingCommands();
                     CertDetailsViewModel.SetStatusFileds(internalDataStatus, commandsStatus);
                 }
@@ -267,14 +267,14 @@ namespace SecureElementReader.App.ViewModels
                 return "Cant't get pending commands";
 
             if (commands.Count > 0)
-            {
+            {                
                 var commandStatus = cardReaderService.ProcessingCommand(commands);                
                 
                 if (commandStatus.Count > 0)
                 {
+                    var notifyCommandResult = await taxCoreApiProxy.CommandStatusUpdate(commandStatus);
                     if (ChechIsAllCommandExecutedSuccessfully(commands, commandStatus))
-                    {                        
-                        var notifyCommandResult = await taxCoreApiProxy.CommandStatusUpdate(commandStatus.Where(s => s.Success).ToList());
+                    {   
                         if (CheckIsAllNotificationSentSuccessfuly(notifyCommandResult, commandStatus)) 
                             return "All commands executed successfully";
                         else

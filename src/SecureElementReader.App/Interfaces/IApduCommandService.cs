@@ -12,6 +12,7 @@ namespace SecureElementReader.App.Interfaces
         CommandApdu VerifySEPin(byte[] pin);
         CommandApdu AmountStatus();
         CommandApdu GetExportInternalData();
-        CommandApdu SECommand(byte[] seCommand);    
+        CommandApdu SECommand(byte[] seCommand);
+        CommandApdu FinishAudit(byte[] proofOfAudit);
     }
 }
