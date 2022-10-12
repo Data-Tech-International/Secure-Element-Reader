@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
+using System.Threading.Tasks;
 
 namespace SecureElementReader.App.Services
 {
@@ -162,11 +163,12 @@ namespace SecureElementReader.App.Services
                 }
 
                 var response = reader.Transmit(apduCommandService.SelectPKIApp());
-                if (response.SW1 == 0x90)
+                if (response.StatusWord == 0x9000)
                 {
                     response = reader.Transmit(apduCommandService.GetPKICert());
                     if (response.SW1 == 0x90)
                     {
+                        System.Threading.Thread.Sleep(200);
                         var crt = response.GetData();
                         ICollection<Tlv> tlvs = Tlv.ParseTlv(crt);
                         foreach (var item in tlvs)
@@ -175,12 +177,12 @@ namespace SecureElementReader.App.Services
                             try
                             {
                                 var decc = DecompressZLIB(copyOfRange.ToArray());
-                                var c = new Certificate(decc);
+                                var cert = new Certificate(decc);
 
-                                PopulateModel(c, model);
+                                PopulateModel(cert, model);
                                 model.ReadPkiSuccess = true;
-                                model.PkiVerifyed = c.Verify();
-                                VerifyChain(c, model, true);
+                                model.PkiVerifyed = cert.Verify();
+                                VerifyChain(cert, model, true);
 
                                 break;
                             }
@@ -256,24 +258,110 @@ namespace SecureElementReader.App.Services
             string[]? szReaders = null;
             try
             {
-                var c = contextFactory.Establish(SCardScope.System);
+                var context = contextFactory.Establish(SCardScope.User);
 
-                szReaders = c.GetReaders();
-                reader = new IsoReader(c);
-
+                szReaders = context.GetReaders();
+                reader = new IsoReader(context);
+                
                 foreach (var sZReader in szReaders)
-                {
+                {                   
                     reader.Connect(sZReader, SCardShareMode.Shared, SCardProtocol.T1);
                 }
 
-                System.Threading.Thread.Sleep(800);
+                System.Threading.Thread.Sleep(500);
 
                 return szReaders;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return szReaders ?? Array.Empty<string>();
             }
+        }
+
+        public void Disconnect()
+        {
+            reader.Disconnect(SCardReaderDisposition.Leave);            
+        }
+
+        public byte[]? GetInternalData()
+        {
+            var response = reader.Transmit(apduCommandService.SelectSEApp());
+            if (response.SW1 == 0x90)
+            {
+                response = reader.Transmit(apduCommandService.GetExportInternalData());
+                if (response.SW1 == 0x90)
+                {
+                    return response.GetData();
+                }
+                else 
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public byte[]? GetAmountStatus()
+        {
+            var response = reader.Transmit(apduCommandService.SelectSEApp());
+            if (response.SW1 == 0x90)
+            {
+                response = reader.Transmit(apduCommandService.AmountStatus());
+                if (response.SW1 == 0x90)
+                {
+                    return response.GetData();
+                }
+                else if (response.SW1 == 0x63 && response.SW2 == 0x10) ;
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public List<CommandsStatusResult> ProcessingCommand(List<Command> commands)
+        {
+            var result = new List<CommandsStatusResult>();
+
+            try
+            {
+                var response = reader.Transmit(apduCommandService.SelectSEApp());
+
+                if (response.SW1 == 0x90 && response.SW2 == 0x00)
+                {
+                    foreach (var item in commands)
+                    {
+                        if (item.Type == Enums.CommandsType.ForwardSecureElementDirective)
+                        {
+                            response = reader.Transmit(apduCommandService.SECommand(Convert.FromBase64String(item.Payload)));
+                        }
+                        else
+                        {
+                            response = reader.Transmit(apduCommandService.FinishAudit(Convert.FromBase64String(item.Payload)));
+                        }
+                        
+                        if (response.SW1 == 0x90)
+                        {
+                            result.Add(new CommandsStatusResult { CommandId = item.CommandId, DateAndTime = DateTime.UtcNow, Success = true });
+                        }
+                        else
+                        {
+                            result.Add(new CommandsStatusResult { CommandId = item.CommandId, DateAndTime = DateTime.UtcNow, Success = false });
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+            }
+
+            return result;
         }
 
         private byte[] ConvertPinToByteArray(string pin)
@@ -321,7 +409,7 @@ namespace SecureElementReader.App.Services
 
                             foreach (var status in element.ChainElementStatus)
                             {
-                                model.PKIVerificationInfo += $"{Properties.Resources.Status}:{ Environment.NewLine}{status.Status}";
+                                model.PKIVerificationInfo += $"{Properties.Resources.Status}:{Environment.NewLine}{status.Status}";
                                 model.PKIVerificationInfo += Environment.NewLine;
                                 model.PKIVerificationInfo += $"{Properties.Resources.StatusInforamtion}:{Environment.NewLine}{status.StatusInformation}";
                                 model.PKIVerificationInfo += Environment.NewLine;
@@ -345,49 +433,6 @@ namespace SecureElementReader.App.Services
                         }
                     }
                 }
-            }
-        }
-
-        public byte[] GetInternalData()
-        {
-            var response = reader.Transmit(apduCommandService.SelectSEApp());
-            if (response.SW1 == 0x90)
-            {
-                response = reader.Transmit(apduCommandService.GetExportInternalData());
-                if (response.SW1 == 0x90)
-                {
-                    return response.GetData();
-                }
-                else 
-                {
-                    return null;
-                }
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-
-        public byte[] GetAmountStatus()
-        {
-            var response = reader.Transmit(apduCommandService.SelectSEApp());
-            if (response.SW1 == 0x90)
-            {
-                response = reader.Transmit(apduCommandService.AmountStatus());
-                if (response.SW1 == 0x90)
-                {
-                    return response.GetData();
-                }
-                else if (response.SW1 == 0x63 && response.SW2 == 0x10) ;
-                {
-                    return null;
-                }
-            }
-            else
-            {
-                return null;
             }
         }
     }

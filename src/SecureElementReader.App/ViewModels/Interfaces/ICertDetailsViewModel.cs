@@ -11,12 +11,9 @@ namespace SecureElementReader.App.ViewModels.Interfaces
 {
     public interface ICertDetailsViewModel
     {
-        CertDetailsModel? CertDetailsModel { get; set; }
-        string SeVerify { get; set; }
-        string PkiVerify { get; set; }
-        IBrush SeColor { get; set; }
-        IBrush PkiColor { get; set; }
+        CertDetailsModel? CertDetailsModel { get; set; }       
         ICommand VerificationInfoCommand { get; }
+        void SetStatusFileds(string internalStatus, string commandsStatus);
         void ClearForm();
         void SetVerifyFields();
     }

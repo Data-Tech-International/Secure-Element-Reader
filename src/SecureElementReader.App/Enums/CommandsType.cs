@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace SecureElementReader.App.Enums
 {
-    public enum ApduP2
+    public enum CommandsType
     {        
-        Default = 0x00,
-        PKIExport = 0x10,
+        ForwardProofOfAudit = 5,     
+        ForwardSecureElementDirective = 8
     }
 }

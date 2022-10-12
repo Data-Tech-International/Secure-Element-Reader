@@ -33,6 +33,12 @@ namespace SecureElementReader.App.ViewModels
 
         [Reactive]
         public bool BtnVisibility { get; set; }
+        
+        [Reactive]
+        public string SubmitInternalDataStatus { get; set; }
+
+        [Reactive]
+        public string PendingCommandsStatus { get; set; }
 
         public CertDetailsViewModel(IDialogService dialogService)
         {
@@ -51,6 +57,8 @@ namespace SecureElementReader.App.ViewModels
             SeVerify = String.Empty;
             PkiVerify = String.Empty;
             BtnVisibility = false;
+            SubmitInternalDataStatus = String.Empty;
+            PendingCommandsStatus = String.Empty;
         }
 
         public void SetVerifyFields()
@@ -80,6 +88,12 @@ namespace SecureElementReader.App.ViewModels
                 PkiColor = Brushes.Red;
                 BtnVisibility = true;
             }
+        }
+
+        public void SetStatusFileds(string internalDataStatus, string commandsStatus)
+        {
+            SubmitInternalDataStatus = internalDataStatus;
+            PendingCommandsStatus = commandsStatus;
         }
     }
 }
