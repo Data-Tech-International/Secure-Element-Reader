@@ -96,17 +96,18 @@
 	
      
     <Rectangle HorizontalAlignment="Stretch" Fill="#1b7dbc" Height="3" Margin="5" />
-     
-		<StackPanel Orientation="Vertical" Width="780" HorizontalAlignment="Left">
-			 <Label Content="{Binding SeVerify}" Foreground="{Binding SeColor}" FontSize="20" FontWeight="Bold" />
-			 <Label Content="{Binding PkiVerify}" Foreground="{Binding PkiColor}" FontSize="20" FontWeight="Bold"/>
-			 <Button Command="{Binding VerificationInfoCommand}" 
-                     Content="{x:Static p:Resources.Details}" 
-                     IsVisible="{Binding BtnVisibility}" 
-                     ZIndex="1" Margin="0,-55,0,55"
-					 Background="Red" Foreground="White" MaxWidth="70" 
-                     MinHeight="30"  CornerRadius="0" HorizontalAlignment="Right" IsEnabled="True"/>
-		 </StackPanel> 
+
+     <StackPanel Orientation="Vertical" Width="780" HorizontalAlignment="Left">
+       <Label Content="{Binding SeVerify}" Foreground="{Binding SeColor}" FontSize="15" FontWeight="Bold" Padding="0" />
+       <Label Content="{Binding PkiVerify}" Foreground="{Binding PkiColor}" FontSize="15" FontWeight="Bold" Padding="0"/>
+       <Label FontSize="15" FontWeight="Bold" Padding="0" Content="{Binding SubmitInternalDataStatus}"/>
+       <Label FontSize="15" FontWeight="Bold" Padding="0" Content="{Binding PendingCommandsStatus}"/>
+       <Button Command="{Binding VerificationInfoCommand}"
+               Content="{x:Static p:Resources.Details}"
+               IsVisible="{Binding BtnVisibility}"
+               Margin="0,-55,0,55" Background="Red" Foreground="White" MaxWidth="100"
+               MinHeight="30"  CornerRadius="0" HorizontalAlignment="Right"/>
+     </StackPanel>
      
 	 </StackPanel>
 	</Border>
