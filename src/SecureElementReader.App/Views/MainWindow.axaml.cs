@@ -22,6 +22,8 @@ namespace SecureElementReader.App.Views
          
         public void HideOverlay() => overlayGrid.ZIndex = -1;
 
+
+
         public void ShowLoadingOverlay() 
         {
             overlayGrid.ZIndex = 1000;

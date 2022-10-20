@@ -12,16 +12,22 @@
     <menu:MenuViewModel/>
   </Design.DataContext>
 
-  <DockPanel Name="MenuDockPanel">
-    <Menu DockPanel.Dock="Top">
-      <MenuItem Header="{x:Static p:Resources.FileHeader}"  >
-        <MenuItem Header="{x:Static p:Resources.ExitHeader}" CommandParameter="{Binding ElementName=MainWindow}" Command="{Binding ExitCommand}" />
-      </MenuItem>
-      <MenuItem Header="{x:Static p:Resources.HelpHeader}" >
-        <MenuItem Header="{x:Static p:Resources.AboutHeader}" Command="{Binding AboutCommand}" />
-      </MenuItem>
-    </Menu>
-  </DockPanel>
+	<DockPanel Width="250" Height="30">
+		<Menu DockPanel.Dock="Left">
+			<MenuItem Header="{DynamicResource FileHeader}" MinWidth="60" MaxWidth="60">
+				<MenuItem Header="{DynamicResource ExitHeader}" CommandParameter="{Binding ElementName=MainWindow}" Command="{Binding ExitCommand}" />
+			</MenuItem>
+			<MenuItem Header="{DynamicResource HelpHeader}"  MinWidth="70" MaxWidth="70">
+				<MenuItem Header="{DynamicResource AboutHeader}" Command="{Binding AboutCommand}" />
+			</MenuItem>
+			<MenuItem Header="{DynamicResource Language}" MinWidth="120" MaxWidth="120">
+				<MenuItem Header="English"  Command="{Binding Translate}" CommandParameter="EN"> </MenuItem>
+				<MenuItem Header="Српски"   Command="{Binding Translate}" CommandParameter="SR"> </MenuItem>
+				<MenuItem Header="Francais" Command="{Binding Translate}" CommandParameter="FR"> </MenuItem>
+			</MenuItem>
+
+		</Menu>
+	</DockPanel>
 </UserControl>
 
 

@@ -13,6 +13,7 @@ namespace SecureElementReader.App.ViewModels
     public class CertDetailsViewModel : ViewModelBase, ICertDetailsViewModel
     {
         private readonly IDialogService dialogService;
+
         
         public ICommand VerificationInfoCommand { get; }
 
@@ -20,20 +21,20 @@ namespace SecureElementReader.App.ViewModels
         public CertDetailsModel? CertDetailsModel { get; set; }
 
         [Reactive]
-        public string SeVerify { get; set; }
-
-        [Reactive]
-        public string PkiVerify { get; set; }
-
-        [Reactive]
-        public IBrush SeColor { get; set; }
-
-        [Reactive]
-        public IBrush PkiColor { get; set; }
-
-        [Reactive]
         public bool BtnVisibility { get; set; }
-        
+
+        [Reactive]
+        public bool SeCertValid { get; set; }
+
+        [Reactive]
+        public bool SeCertInvalid { get; set; }
+
+        [Reactive]
+        public bool PkiCertValid { get; set; }
+
+        [Reactive]
+        public bool PkiCertInvalid { get; set; }
+
         [Reactive]
         public string SubmitInternalDataStatus { get; set; }
 
@@ -54,8 +55,10 @@ namespace SecureElementReader.App.ViewModels
         public void ClearForm()
         {
             CertDetailsModel = null;
-            SeVerify = String.Empty;
-            PkiVerify = String.Empty;
+            SeCertValid = false;
+            SeCertInvalid = false;
+            PkiCertValid = false;
+            PkiCertInvalid = false;
             BtnVisibility = false;
             SubmitInternalDataStatus = String.Empty;
             PendingCommandsStatus = String.Empty;
@@ -65,28 +68,31 @@ namespace SecureElementReader.App.ViewModels
         {
             if (CertDetailsModel.SEVerify)
             {
-                SeVerify = Properties.Resources.SeCertValid;
-                SeColor = Brushes.Green;
+
                 BtnVisibility = false;
+                SeCertValid = true;
+                SeCertInvalid = false;
             }
             else
             {
-                SeVerify = Properties.Resources.SeCertInvalid;
-                SeColor = Brushes.Red;
+
                 BtnVisibility = true;
+                SeCertValid = false;
+                SeCertInvalid = true;
             }
 
             if (CertDetailsModel.PkiVerifyed)
             {
-                PkiVerify = Properties.Resources.PkiCertValid;
-                PkiColor = Brushes.Green;
+
                 BtnVisibility = false;
+                PkiCertValid = true;
+                PkiCertInvalid = false;
             }
             else
             {
-                PkiVerify = Properties.Resources.PkiCertInvalid;
-                PkiColor = Brushes.Red;
                 BtnVisibility = true;
+                PkiCertValid = false;
+                PkiCertInvalid = true;
             }
         }
 

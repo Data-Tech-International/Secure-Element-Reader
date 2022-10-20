@@ -21,6 +21,10 @@ using MessageBox.Avalonia.DTO;
 using SecureElementReader.App.Views;
 using SecureElementReader.App.Models;
 using System.Runtime.InteropServices;
+using Avalonia.Markup.Xaml.MarkupExtensions;
+using Avalonia.Controls;
+using System.Globalization;
+using System.Threading;
 
 namespace SecureElementReader.App.ViewModels
 {
@@ -46,8 +50,8 @@ namespace SecureElementReader.App.ViewModels
 
 
         [Reactive]
-        public string CardReaderName { get; set; }        
-
+        public string CardReaderName { get; set; }
+        
         [Reactive]
         public bool IsEnabled { get; set; }
 
@@ -131,11 +135,21 @@ namespace SecureElementReader.App.ViewModels
             {
                GetReaders();
                _ = GetCertDetails();   
-            }           
+            }
+            else if (string.Equals(obj.GetType().Name, "CardStatusChanged"))
+            {
+                CertDetailsViewModel.ClearForm();
+                CardReaderName = String.Empty;
+            }
         }
 
         private string[] GetReaders()
         {
+            
+            App.Current.TryFindResource("SuccessSubmit", out var resultSuccess);
+            CertDetailsViewModel.SetStatusFileds(resultSuccess.ToString(), "dd");
+            
+
             var readers = cardReaderService.LoadReaders().ToArray();
             if (readers != null && readers.Length > 0)
             {
@@ -144,7 +158,7 @@ namespace SecureElementReader.App.ViewModels
             }
             else
             {
-                CardReaderName = Properties.Resources.NoCardReadesFounded;
+                CardReaderName = String.Empty;
                 applicationDispatcher.Dispatch(() => HideLoadingOverlay());
                 CertDetailsViewModel.ClearForm();
                 IsEnabled = false;
@@ -155,6 +169,7 @@ namespace SecureElementReader.App.ViewModels
 
         private async Task GetCertDetails()
         {
+
             applicationDispatcher.Dispatch(() => ShowLoadingOverlay(this));
 
             var details = cardReaderService.GetCertDetails();
@@ -235,6 +250,12 @@ namespace SecureElementReader.App.ViewModels
         {
             var internalData = cardReaderService.GetInternalData();
             var amountData = cardReaderService.GetAmountStatus();
+
+            App.Current.TryFindResource("SuccessSubmit", out var resultSuccess);
+            App.Current.TryFindResource("UnableToSubmit", out var resultUnable);
+            App.Current.TryFindResource("CantReadInternal", out var resultCant);
+
+
             if (internalData != null && amountData != null)
             {
                 var request = new SecureElementAuditRequest
@@ -247,21 +268,31 @@ namespace SecureElementReader.App.ViewModels
                
                 if (response)
                 {
-                    return "Success to submint internal data";
+                    return resultSuccess.ToString();
                 }
                 else
                 {
-                    return "Unable to submint internal data";
+                    return resultUnable.ToString();
                 }
             }
             else
             {                
-                return "Can't read internal data form card";
+                return resultCant.ToString();
             }
         }
 
         private async Task<string> ProcessPendingCommands()
         {
+            App.Current.TryFindResource("CantGetPending", out var resultCant);
+            App.Current.TryFindResource("SuccessPending", out var resultSuccess);
+            App.Current.TryFindResource("NoTaxCore", out var resultExecutedNoTaxCore);
+            App.Current.TryFindResource("NotAllSuccess", out var resultNotAllSuccess);
+            App.Current.TryFindResource("NotExecuted", out var resultresultNotExecuted);
+            App.Current.TryFindResource("NoPendingCommands", out var resultNoPendingCommands);
+
+
+
+
             var commands = await taxCoreApiProxy.GetPendingCommands();
             if (commands == null)
                 return "Cant't get pending commands";
@@ -278,7 +309,7 @@ namespace SecureElementReader.App.ViewModels
                         if (CheckIsAllNotificationSentSuccessfuly(notifyCommandResult, commandStatus)) 
                             return "All commands executed successfully";
                         else
-                            return "All commands executed but faild to notify TaxCore system";
+                            return "All commands executed but failed to notify TaxCore system";
                     }
                     else
                     {
@@ -294,7 +325,10 @@ namespace SecureElementReader.App.ViewModels
             {
                 return "There is no pending commands for this card";
             }
+
+
         }
+
 
         private bool CheckIsAllNotificationSentSuccessfuly(List<CommandsStatusResult> notifyCommandResult, List<CommandsStatusResult> commandStatus)
         {

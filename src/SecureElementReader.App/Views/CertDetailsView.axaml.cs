@@ -7,6 +7,8 @@ namespace SecureElementReader.App.Views
 {
     public partial class CertDetailsView : UserControl
     {
+        readonly TextBox whitePointTextBox;
+
         public CertDetailsView()
         {
             InitializeComponent();
@@ -15,6 +17,8 @@ namespace SecureElementReader.App.Views
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
+
+            this.whitePointTextBox = this.FindControl<TextBox>(nameof(whitePointTextBox));
         }
 
         
