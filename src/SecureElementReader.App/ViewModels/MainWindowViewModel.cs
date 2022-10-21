@@ -21,10 +21,8 @@ using MessageBox.Avalonia.DTO;
 using SecureElementReader.App.Views;
 using SecureElementReader.App.Models;
 using System.Runtime.InteropServices;
-using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Controls;
-using System.Globalization;
-using System.Threading;
+using SecureElementReader.App.Enums;
 
 namespace SecureElementReader.App.ViewModels
 {
@@ -145,11 +143,6 @@ namespace SecureElementReader.App.ViewModels
 
         private string[] GetReaders()
         {
-            
-            App.Current.TryFindResource("SuccessSubmit", out var resultSuccess);
-            CertDetailsViewModel.SetStatusFileds(resultSuccess.ToString(), "dd");
-            
-
             var readers = cardReaderService.LoadReaders().ToArray();
             if (readers != null && readers.Length > 0)
             {
@@ -187,7 +180,7 @@ namespace SecureElementReader.App.ViewModels
                     taxCoreApiProxy.Configure(CertDetailsViewModel.CertDetailsModel.UniqueIdentifier, CertDetailsViewModel.CertDetailsModel.CommonName, CertDetailsViewModel.CertDetailsModel.ApiUrl);
                     var internalDataStatus = await SubmitInternalData();
                     var commandsStatus = await ProcessPendingCommands();
-                    CertDetailsViewModel.SetStatusFileds(internalDataStatus, commandsStatus);
+                    CertDetailsViewModel.SetStatusFields(internalDataStatus, commandsStatus);                    
                 }
             }
 
@@ -283,19 +276,9 @@ namespace SecureElementReader.App.ViewModels
 
         private async Task<string> ProcessPendingCommands()
         {
-            App.Current.TryFindResource("CantGetPending", out var resultCant);
-            App.Current.TryFindResource("SuccessPending", out var resultSuccess);
-            App.Current.TryFindResource("NoTaxCore", out var resultExecutedNoTaxCore);
-            App.Current.TryFindResource("NotAllSuccess", out var resultNotAllSuccess);
-            App.Current.TryFindResource("NotExecuted", out var resultresultNotExecuted);
-            App.Current.TryFindResource("NoPendingCommands", out var resultNoPendingCommands);
-
-
-
-
             var commands = await taxCoreApiProxy.GetPendingCommands();
             if (commands == null)
-                return "Cant't get pending commands";
+                return CommandsMessages.CannotGetPendingCommands.ToString();
 
             if (commands.Count > 0)
             {                
@@ -307,7 +290,7 @@ namespace SecureElementReader.App.ViewModels
                     if (ChechIsAllCommandExecutedSuccessfully(commands, commandStatus))
                     {   
                         if (CheckIsAllNotificationSentSuccessfuly(notifyCommandResult, commandStatus)) 
-                            return "All commands executed successfully";
+                            return CommandsMessages.AllCommandsExecutedSuccessfully.ToString();
                         else
                             return "All commands executed but failed to notify TaxCore system";
                     }

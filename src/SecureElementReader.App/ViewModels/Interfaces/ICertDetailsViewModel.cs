@@ -13,7 +13,7 @@ namespace SecureElementReader.App.ViewModels.Interfaces
     {
         CertDetailsModel? CertDetailsModel { get; set; }       
         ICommand VerificationInfoCommand { get; }
-        void SetStatusFileds(string internalStatus, string commandsStatus);
+        void SetStatusFields(string internalStatus, string commandsStatus);
         void ClearForm();
         void SetVerifyFields();
     }

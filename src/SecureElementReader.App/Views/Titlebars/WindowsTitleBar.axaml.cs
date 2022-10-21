@@ -78,11 +78,6 @@ namespace SecureElementReader.App.Views.Titlebars
             }
         }
 
-
-
-
-
-
         private void CloseWindow(object sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
             Window hostWindow = (Window)this.VisualRoot;

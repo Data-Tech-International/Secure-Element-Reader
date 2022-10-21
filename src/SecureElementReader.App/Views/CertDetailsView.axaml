@@ -98,13 +98,12 @@
     <Rectangle HorizontalAlignment="Stretch" Fill="#1b7dbc" Height="3" Margin="5" />
 
      <StackPanel Orientation="Vertical" Width="780" HorizontalAlignment="Left">
-		 <Label FontSize="15" FontWeight="Bold" Padding="0" Name="whitePointTextBox"/>
-        <Label Content="{DynamicResource SeCertValid}" IsVisible="{Binding SeCertValid}" Foreground="Green" FontSize="15" FontWeight="Bold" Padding="0" />
-        <Label Content="{DynamicResource SeCertInvalid}" IsVisible="{Binding SeCertInvalid}" Foreground="Red" FontSize="15" FontWeight="Bold" Padding="0"/>
-		<Label Content="{DynamicResource PkiCertValid}" IsVisible="{Binding PkiCertValid}" Foreground="Green" FontSize="15" FontWeight="Bold" Padding="0" />
-		<Label Content="{DynamicResource PkiCertInvalid}" IsVisible="{Binding PkiCertInvalid}" Foreground="Red" FontSize="15" FontWeight="Bold" Padding="0"/>
-       <Label FontSize="15" FontWeight="Bold" Padding="0" Content="{Binding SubmitInternalDataStatus}"/>
-       <Label FontSize="15" FontWeight="Bold" Padding="0" Content="{Binding PendingCommandsStatus}"/>
+       <Label Content="{DynamicResource SeCertValid}" IsVisible="{Binding SeCertValid}" Foreground="Green" FontSize="15" FontWeight="Bold" Padding="0" />
+       <Label Content="{DynamicResource SeCertInvalid}" IsVisible="{Binding SeCertInvalid}" Foreground="Red" FontSize="15" FontWeight="Bold" Padding="0"/>
+       <Label Content="{DynamicResource PkiCertValid}" IsVisible="{Binding PkiCertValid}" Foreground="Green" FontSize="15" FontWeight="Bold" Padding="0" />
+       <Label Content="{DynamicResource PkiCertInvalid}" IsVisible="{Binding PkiCertInvalid}" Foreground="Red" FontSize="15" FontWeight="Bold" Padding="0"/>
+       <Label Name="lblCommnads" FontSize="15" FontWeight="Bold" Padding="0" />
+       <Label Name="lblAudit" FontSize="15" FontWeight="Bold" Padding="0" />
        <Button Command="{Binding VerificationInfoCommand}"
                Content="{DynamicResource Details}"
                IsVisible="{Binding BtnVisibility}"

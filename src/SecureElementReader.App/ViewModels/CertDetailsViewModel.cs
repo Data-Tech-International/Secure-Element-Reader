@@ -14,7 +14,12 @@ namespace SecureElementReader.App.ViewModels
     {
         private readonly IDialogService dialogService;
 
-        
+        public delegate void StatusAction(string internalDataStatus, string commandsStatus);
+        public event StatusAction SetStaus;
+
+        public delegate void ClearAction();
+        public event ClearAction ClearFields;
+
         public ICommand VerificationInfoCommand { get; }
 
         [Reactive]
@@ -34,17 +39,12 @@ namespace SecureElementReader.App.ViewModels
 
         [Reactive]
         public bool PkiCertInvalid { get; set; }
-
-        [Reactive]
-        public string SubmitInternalDataStatus { get; set; }
-
-        [Reactive]
-        public string PendingCommandsStatus { get; set; }
+        
 
         public CertDetailsViewModel(IDialogService dialogService)
         {
             this.dialogService = dialogService;
-            VerificationInfoCommand = ReactiveCommand.CreateFromTask(ShowVerificationInfoDialogAsync);            
+            VerificationInfoCommand = ReactiveCommand.CreateFromTask(ShowVerificationInfoDialogAsync);
         }
 
         private Task ShowVerificationInfoDialogAsync()
@@ -60,8 +60,8 @@ namespace SecureElementReader.App.ViewModels
             PkiCertValid = false;
             PkiCertInvalid = false;
             BtnVisibility = false;
-            SubmitInternalDataStatus = String.Empty;
-            PendingCommandsStatus = String.Empty;
+
+            ClearFields?.Invoke();
         }
 
         public void SetVerifyFields()
@@ -96,10 +96,9 @@ namespace SecureElementReader.App.ViewModels
             }
         }
 
-        public void SetStatusFileds(string internalDataStatus, string commandsStatus)
+        public void SetStatusFields(string internalDataStatus, string commandsStatus)
         {
-            SubmitInternalDataStatus = internalDataStatus;
-            PendingCommandsStatus = commandsStatus;
+            SetStaus?.Invoke(internalDataStatus, commandsStatus);
         }
     }
 }
