@@ -4,11 +4,16 @@
 
 	<system:String x:Key="About">О апликацији</system:String>
 	<system:String x:Key="AboutHeader">О апликацији</system:String>
+	<system:String x:Key="AllCommandsExecutedButFailedToNotifyTaxCoreSystem">Sprski</system:String>
+	<system:String x:Key="AllCommandsExecutedSuccessfully">Srpski</system:String>
 	<system:String x:Key="ApiUrl">URL API-ја:</system:String>
 	<system:String x:Key="CardReaderName">Назив читача картице</system:String>
+	<system:String x:Key="CannotGetPendingCommands">Sprski</system:String>
+	<system:String x:Key="CantReadInternal">Srpski</system:String>
 	<system:String x:Key="CertificateType">Тип сертификата:</system:String>
 	<system:String x:Key="ChangeLang">Покрените поново апликацију даби сте видели измене</system:String>
 	<system:String x:Key="Close">Затвори</system:String>
+	<system:String x:Key="CommandsNotExecuted">Srpski</system:String>
 	<system:String x:Key="CommonName">Идентитет сертификата:</system:String>
 	<system:String x:Key="Details">Детаљи</system:String>
 	<system:String x:Key="EnterPIN">Унесите ПИН овде</system:String>
@@ -31,6 +36,7 @@
 	<system:String x:Key="IssuerName">Издавалац:</system:String>
 	<system:String x:Key="Language">Језик</system:String>
 	<system:String x:Key="Loading">Учитавање...</system:String>
+	<system:String x:Key="NotAllCommandEexecutedSuccessfully">Srpski</system:String>
 	<system:String x:Key="NoCardReadesFounded">Није пронађен читач картица!</system:String>
 	<system:String x:Key="Options">Опције</system:String>
 	<system:String x:Key="Organization">Обвезник:</system:String>
@@ -41,7 +47,6 @@
 	<system:String x:Key="PkiCertInvalid">PKI низ сертификата је невалидан</system:String>
 	<system:String x:Key="PkiCertValid">PKI низ сертификата је валидан</system:String>
 	<system:String x:Key="PkiPinOK">PKI ПИН је исправан</system:String>
-	<system:String x:Key="PkiPinWrong">PKI ПИН је неисправан. Имате још [xxx] покушаја.</system:String>
 	<system:String x:Key="PleaseInseretCard">Уметните картицу у читач</system:String>
 	<system:String x:Key="PleaseInsertPIN">Унесите ПИН</system:String>
 	<system:String x:Key="PossibleSolution">Могуће решење</system:String>
@@ -61,12 +66,13 @@
 	<system:String x:Key="StatusInforamtion">Статус информације</system:String>
 	<system:String x:Key="StreetAddress">Улица:</system:String>
 	<system:String x:Key="Subject">Субјекат сертификата:</system:String>
-	<system:String x:Key="SubmitInternalData">Submit Internal Data</system:String>
+	<system:String x:Key="SubmitInternalData">Srpski</system:String>
 	<system:String x:Key="Support">Подршка:</system:String>
 	<system:String x:Key="SurName">Презиме:</system:String>
-	<system:String x:Key="SuccessSubmit">Uspeo</system:String>
+	<system:String x:Key="SuccessSubmit">Srpski</system:String>
 	<system:String x:Key="Tin">ПИБ:</system:String>
-	<system:String x:Key="UnableToSubmit">Srbija:</system:String>
+	<system:String x:Key="ThereIsNoPendingCommandsForThisCard">Srpski</system:String>
+	<system:String x:Key="UnableToSubmit">Srpski:</system:String>
 	<system:String x:Key="UniqueIdentifier">ЈИД:</system:String>
 	<system:String x:Key="VerficationDetails">Детаљи верификације</system:String>
 	<system:String x:Key="Verify">Верификуј</system:String>

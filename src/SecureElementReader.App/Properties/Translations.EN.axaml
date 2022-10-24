@@ -2,15 +2,18 @@
 					xmlns:system="using:System"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-
 	<system:String x:Key="About">About</system:String>
 	<system:String x:Key="AboutHeader">About</system:String>
+	<system:String x:Key="AllCommandsExecutedButFailedToNotifyTaxCoreSystem">All commands executed but failed to notify TaxCore system</system:String>
+	<system:String x:Key="AllCommandsExecutedSuccessfully">All commands executed successfully</system:String>
 	<system:String x:Key="ApiUrl">API URL:</system:String>
 	<system:String x:Key="CardReaderName">Card Reader Name</system:String>
+	<system:String x:Key="CannotGetPendingCommands">Cannot get pending commands</system:String>
 	<system:String x:Key="CantReadInternal">Can't read internal data form card</system:String>
 	<system:String x:Key="CertificateType">Certificate Type:</system:String>
 	<system:String x:Key="ChangeLang">Please restart application to view changes</system:String>
 	<system:String x:Key="Close">Close</system:String>
+	<system:String x:Key="CommandsNotExecuted">Commands not executed</system:String>	
 	<system:String x:Key="CommonName">Common Name:</system:String>
 	<system:String x:Key="Details">Details</system:String>
 	<system:String x:Key="EnterPIN">Enter PIN here</system:String>
@@ -33,6 +36,7 @@
 	<system:String x:Key="IssuerName">Issuer Name:</system:String>
 	<system:String x:Key="Language">Language</system:String>
 	<system:String x:Key="Loading">Loading...</system:String>
+	<system:String x:Key="NotAllCommandEexecutedSuccessfully">Not all command executed successfully</system:String>
 	<system:String x:Key="NoCardReadesFounded">No card readers found!</system:String>
 	<system:String x:Key="Options">Options</system:String>
 	<system:String x:Key="Organization">Taxpayer:</system:String>
@@ -43,7 +47,6 @@
 	<system:String x:Key="PkiCertInvalid">PKI certificate chain is invalid</system:String>
 	<system:String x:Key="PkiCertValid">PKI certificate chain is valid</system:String>
 	<system:String x:Key="PkiPinOK">PKI pin is OK</system:String>
-	<system:String x:Key="PkiPinWrong">PKI pin is WRONG, you have [xxx] tries left</system:String> <!--ovde obrati paznju-->
 	<system:String x:Key="PleaseInseretCard">Please insert a card</system:String>
 	<system:String x:Key="PleaseInsertPIN">Please enter PIN code</system:String>
 	<system:String x:Key="PossibleSolution">Possible solution</system:String>
@@ -68,7 +71,8 @@
 	<system:String x:Key="Support">Support:</system:String>
 	<system:String x:Key="SurName">Surname:</system:String>
 	<system:String x:Key="Tin">TIN:</system:String>
-	<system:String x:Key="UnableToSubmit">Unable to submit internal data:</system:String>
+	<system:String x:Key="ThereIsNoPendingCommandsForThisCard">There is no pending commands for this card</system:String>
+	<system:String x:Key="UnableToSubmit">Unable to submit internal data</system:String>
 	<system:String x:Key="UniqueIdentifier">UID:</system:String>
 	<system:String x:Key="VerficationDetails">Verfication Details</system:String>
 	<system:String x:Key="Verify">Verify</system:String>

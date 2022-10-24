@@ -10,5 +10,9 @@ namespace SecureElementReader.App.Enums
     {
         CannotGetPendingCommands,
         AllCommandsExecutedSuccessfully,
+        AllCommandsExecutedButFailedToNotifyTaxCoreSystem,
+        NotAllCommandEexecutedSuccessfully,
+        CommandsNotExecuted,
+        ThereIsNoPendingCommandsForThisCard
     }
 }

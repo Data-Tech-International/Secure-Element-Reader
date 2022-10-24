@@ -244,11 +244,6 @@ namespace SecureElementReader.App.ViewModels
             var internalData = cardReaderService.GetInternalData();
             var amountData = cardReaderService.GetAmountStatus();
 
-            App.Current.TryFindResource("SuccessSubmit", out var resultSuccess);
-            App.Current.TryFindResource("UnableToSubmit", out var resultUnable);
-            App.Current.TryFindResource("CantReadInternal", out var resultCant);
-
-
             if (internalData != null && amountData != null)
             {
                 var request = new SecureElementAuditRequest
@@ -261,16 +256,16 @@ namespace SecureElementReader.App.ViewModels
                
                 if (response)
                 {
-                    return resultSuccess.ToString();
+                    return SubmitMessages.SuccessSubmit.ToString();
                 }
                 else
                 {
-                    return resultUnable.ToString();
+                    return SubmitMessages.UnableToSubmit.ToString();
                 }
             }
             else
             {                
-                return resultCant.ToString();
+                return SubmitMessages.CantReadInternal.ToString();
             }
         }
 
@@ -288,28 +283,26 @@ namespace SecureElementReader.App.ViewModels
                 {
                     var notifyCommandResult = await taxCoreApiProxy.CommandStatusUpdate(commandStatus);
                     if (ChechIsAllCommandExecutedSuccessfully(commands, commandStatus))
-                    {   
-                        if (CheckIsAllNotificationSentSuccessfuly(notifyCommandResult, commandStatus)) 
+                    {
+                        if (CheckIsAllNotificationSentSuccessfuly(notifyCommandResult, commandStatus))
                             return CommandsMessages.AllCommandsExecutedSuccessfully.ToString();
                         else
-                            return "All commands executed but failed to notify TaxCore system";
+                            return CommandsMessages.AllCommandsExecutedButFailedToNotifyTaxCoreSystem.ToString();
                     }
                     else
                     {
-                        return "Not all command executed successfully";
+                        return CommandsMessages.NotAllCommandEexecutedSuccessfully.ToString();
                     }
                 }
                 else
                 {
-                    return "Commands not executed";
+                    return CommandsMessages.CommandsNotExecuted.ToString();
                 }                
             }
             else
             {
-                return "There is no pending commands for this card";
+                return CommandsMessages.ThereIsNoPendingCommandsForThisCard.ToString();
             }
-
-
         }
 
 

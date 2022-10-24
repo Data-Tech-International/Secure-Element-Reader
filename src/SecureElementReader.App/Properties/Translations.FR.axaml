@@ -4,11 +4,16 @@
 
 	<system:String x:Key="About">Sur</system:String>
 	<system:String x:Key="AboutHeader">Environ</system:String>
+	<system:String x:Key="AllCommandsExecutedButFailedToNotifyTaxCoreSystem">Franc</system:String>
+	<system:String x:Key="AllCommandsExecutedSuccessfully">Franc</system:String>
 	<system:String x:Key="ApiUrl">URL de l'API :</system:String>
+	<system:String x:Key="CannotGetPendingCommands">Franc</system:String>
+	<system:String x:Key="CantReadInternal">Franc</system:String>
 	<system:String x:Key="CardReaderName">Nom du lecteur de cartes</system:String>
 	<system:String x:Key="CertificateType">Type de certificat:</system:String>
 	<system:String x:Key="ChangeLang">ПVeuillez rédemarrer l'application pour voir les modifications</system:String>
 	<system:String x:Key="Close">Proche</system:String>
+	<system:String x:Key="CommandsNotExecuted">Franc</system:String>
 	<system:String x:Key="CommonName">Nom commun :</system:String>
 	<system:String x:Key="Details">Détails</system:String>
 	<system:String x:Key="EnterPIN">Entrez le code PIN ici</system:String>
@@ -31,6 +36,7 @@
 	<system:String x:Key="IssuerName">Nom de l'émetteur :</system:String>
 	<system:String x:Key="Language">Langue</system:String>
 	<system:String x:Key="Loading">Chargement en cours</system:String>
+	<system:String x:Key="NotAllCommandEexecutedSuccessfully">Franc</system:String>
 	<system:String x:Key="NoCardReadesFounded">Aucun lecteur des cartes trouvé !</system:String>
 	<system:String x:Key="Options">Опције</system:String>
 	<system:String x:Key="Organization">Contribuable :</system:String>
@@ -41,7 +47,6 @@
 	<system:String x:Key="PkiCertInvalid">Le certificat de l'ICP est invalide</system:String>
 	<system:String x:Key="PkiCertValid">Le certificat de l'ICP est valide</system:String>
 	<system:String x:Key="PkiPinOK">Le PIN de l'ICP est CORRECT</system:String>
-	<system:String x:Key="PkiPinWrong">Le PIN de l'ICP est INCORRECT, vous avez [xxx] essais restants</system:String>
 	<system:String x:Key="PleaseInseretCard">Veuillez insérez la carte</system:String>
 	<system:String x:Key="PleaseInsertPIN">Veuillez insérer le code PIN</system:String>
 	<system:String x:Key="PossibleSolution">Solution possible</system:String>
@@ -61,10 +66,12 @@
 	<system:String x:Key="StatusInforamtion">Informations d'état</system:String>
 	<system:String x:Key="StreetAddress">Adresse postale :</system:String>
 	<system:String x:Key="Subject">Sujet:</system:String>
-	<system:String x:Key="SubmitInternalData">Submit Internal Data</system:String>
+	<system:String x:Key="SubmitInternalData">Franc</system:String>
 	<system:String x:Key="Support">Appui</system:String>
 	<system:String x:Key="SurName">Nom de famille :</system:String>
+	<system:String x:Key="SuccessSubmit">Franc</system:String>
 	<system:String x:Key="Tin">NIF:</system:String>
+	<system:String x:Key="ThereIsNoPendingCommandsForThisCard">Franc</system:String>
 	<system:String x:Key="UnableToSubmit">France:</system:String>
 	<system:String x:Key="UniqueIdentifier">IU:</system:String>
 	<system:String x:Key="VerficationDetails">Détails de la vérification</system:String>
