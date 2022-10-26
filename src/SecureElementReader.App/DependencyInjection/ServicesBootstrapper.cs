@@ -67,7 +67,6 @@ namespace SecureElementReader.App.DependencyInjection
                 resolver.GetRequiredService<ICardReaderService>(),
                 resolver.GetRequiredService<IMenuViewModel>(),
                 resolver.GetRequiredService<ICertDetailsViewModel>(),
-                resolver.GetRequiredService<ITopLanguageViewModel>(),
                 resolver.GetRequiredService<IMonitorFactory>(),
                 resolver.GetRequiredService<IApplicationDispatcher>(),
                 resolver.GetRequiredService<IMainWindowProvider>(),
@@ -77,7 +76,9 @@ namespace SecureElementReader.App.DependencyInjection
             
             services.RegisterLazySingleton<IMenuViewModel>(() => new MenuViewModel(
                     resolver.GetRequiredService<IApplicationCloser>(),
-                    resolver.GetRequiredService<IDialogService>()
+                    resolver.GetRequiredService<IDialogService>(),
+                    resolver.GetRequiredService<ILocalizationService>(),
+                    resolver.GetRequiredService<SelectedLanguageConfiguration>()
                 ));
             services.RegisterLazySingleton<ICertDetailsViewModel>(() => new CertDetailsViewModel(
                     resolver.GetRequiredService<IDialogService>()
@@ -88,12 +89,7 @@ namespace SecureElementReader.App.DependencyInjection
                 ));
             services.RegisterLazySingleton<ILocalizationService>(() => new LocalizationService(
                     resolver.GetRequiredService<SelectedLanguageConfiguration>()
-                ));
-            services.RegisterLazySingleton<ITopLanguageViewModel>(() => new TopLanguageViewModel(
-                    resolver.GetRequiredService<ILanguageManager>(),
-                    resolver.GetRequiredService<ILocalizationService>(),
-                    resolver.GetRequiredService<IMainWindowProvider>()
-                ));            
+                ));        
         }
 
         public static void RegisterLogging(IMutableDependencyResolver services, IReadonlyDependencyResolver resolver)

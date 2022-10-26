@@ -39,6 +39,8 @@ namespace SecureElementReader.App
         {
             var localizationService = GetRequiredService<ILocalizationService>();
             var savedLanguage = localizationService.GetSavedLanguage();
+            var menuView = GetRequiredService<IMenuViewModel>();
+            menuView.StartUpTranslate();
             if (savedLanguage != null)
             {
                 var languageManager = GetRequiredService<ILanguageManager>();

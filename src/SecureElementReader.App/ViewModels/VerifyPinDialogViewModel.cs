@@ -61,9 +61,6 @@ namespace SecureElementReader.App.ViewModels
         [Reactive]
         public bool WrongPinAlertText { get; set; }
 
-
-
-        //OVDE SAMO PREKIDACI
         [Reactive]
         public Avalonia.Media.IBrush SeResultColor { get; set; }
 

@@ -81,7 +81,7 @@
 
 			<Grid x:Name="OverlayGrid" Grid.Row="0" Grid.RowSpan="6" Grid.Column="0" Grid.ColumnSpan="8">
 				<Label Name="LblLoading" FontSize="72" HorizontalAlignment="Center" Opacity="0" VerticalAlignment="Center" FontWeight="Bold"
-					   Content="{x:Static p:Resources.Loading}"/>
+					   Content="{DynamicResource Loading}"/>
 			</Grid>
 		</Grid>			
 	</Grid>

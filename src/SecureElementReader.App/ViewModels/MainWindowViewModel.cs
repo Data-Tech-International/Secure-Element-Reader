@@ -44,7 +44,6 @@ namespace SecureElementReader.App.ViewModels
 
         public IMenuViewModel MenuViewModel { get; }
         public ICertDetailsViewModel CertDetailsViewModel { get; }
-        public ITopLanguageViewModel LanguageViewModel { get; }
 
 
         [Reactive]
@@ -60,7 +59,6 @@ namespace SecureElementReader.App.ViewModels
             ICardReaderService cardReaderService,
             IMenuViewModel menuViewModel,
             ICertDetailsViewModel certDetailsViewModel,
-            ITopLanguageViewModel languageViewModel,
             IMonitorFactory monitorFactory,
             IApplicationDispatcher applicationDispatcher,
             IMainWindowProvider mainWindowProvider,
@@ -76,7 +74,7 @@ namespace SecureElementReader.App.ViewModels
             VerifyPinCommand = ReactiveCommand.CreateFromTask(ShowVerifyPinDialog);
             MenuViewModel = menuViewModel;
             CertDetailsViewModel = certDetailsViewModel;
-            LanguageViewModel = languageViewModel;
+
 
             Readers = new Reactive.Bindings.ReactiveCollection<string>().AddTo(_disposables);
             RefreshReaderListCommand = new Reactive.Bindings.ReactiveCommand().AddTo(_disposables);

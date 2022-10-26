@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SecureElementReader.App.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,8 @@ namespace SecureElementReader.App.ViewModels.Interfaces
 {
     public interface IMenuViewModel
     {
+        public void Translate(string targetLanguage);
+
+        public void StartUpTranslate();
     }
 }

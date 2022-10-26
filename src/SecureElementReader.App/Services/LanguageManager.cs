@@ -38,6 +38,7 @@ namespace SecureElementReader.App.Services
             Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(languageCode);
         }
 
+
         public void SetLanguage(LanguageModel languageModel) => SetLanguage(languageModel.Code);
 
         private Dictionary<string, LanguageModel> GetAvailableLanguages() =>

@@ -16,8 +16,6 @@
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
 				<ResourceInclude Source="/Properties/Translations.EN.axaml"/>
-				<ResourceInclude Source="/Properties/Translations.FR.axaml"/>
-				<ResourceInclude Source="/Properties/Translations.SR.axaml"/>
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 

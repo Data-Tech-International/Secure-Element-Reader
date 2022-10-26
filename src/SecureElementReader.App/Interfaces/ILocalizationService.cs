@@ -7,5 +7,7 @@ namespace SecureElementReader.App.Interfaces
         LanguageModel GetSavedLanguage();
 
         void SaveLanguage(LanguageModel language);
+
+        void SetAppSettingValue(string key, string value, string appSettingsJsonFilePath = null);
     }
 }

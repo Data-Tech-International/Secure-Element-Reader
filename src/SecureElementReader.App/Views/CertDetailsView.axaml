@@ -55,7 +55,7 @@
 				 <RowDefinition Height="30"/>
 				 <RowDefinition Height="30"/>
 			 </Grid.RowDefinitions>
-			 <TextBlock Grid.Column="0" Grid.Row="0" Margin="6,0" Text="{x:Static p:Resources.Subject}"/>
+			 <TextBlock Grid.Column="0" Grid.Row="0" Margin="6,0" Text="{DynamicResource Subject}"/>
 			 <TextBox Grid.ColumnSpan="4" Grid.Row="1" Classes="h3"  Text="{Binding CertDetailsModel.Subject}"/>
 
 			 <TextBlock Grid.Column="0" Grid.Row="2" Margin="9,4" Classes="h2" Text="{DynamicResource UniqueIdentifier}"/>

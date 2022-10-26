@@ -1,9 +1,7 @@
-﻿using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Markup.Xaml.MarkupExtensions;
+﻿using Avalonia.Markup.Xaml.MarkupExtensions;
 using ReactiveUI;
 using SecureElementReader.App.Interfaces;
+using SecureElementReader.App.Models.Configurations;
 using SecureElementReader.App.ViewModels.Interfaces;
 using SecureElementReader.App.ViewModels.Services;
 using System;
@@ -15,7 +13,10 @@ namespace SecureElementReader.App.ViewModels
 {
     public class MenuViewModel : ViewModelBase, IMenuViewModel
     {
+        private readonly SelectedLanguageConfiguration _configuration;
         private readonly IDialogService dialogService;
+        private readonly ILocalizationService _localizationService;
+
 
         public ICommand ExitCommand { get; }
 
@@ -23,12 +24,17 @@ namespace SecureElementReader.App.ViewModels
 
         public MenuViewModel(
             IApplicationCloser applicationCloser,
-            IDialogService dialogService)
+            IDialogService dialogService,
+            ILocalizationService localizationService,
+            SelectedLanguageConfiguration configuration)
         {
             this.dialogService = dialogService;
+            _localizationService = localizationService;
+            _configuration = configuration;
 
             ExitCommand = ReactiveCommand.Create(applicationCloser.CloseApp);
             AboutCommand = ReactiveCommand.CreateFromTask(ShowAboutDialogAsync);
+
         }
 
         private Task ShowAboutDialogAsync()
@@ -50,7 +56,14 @@ namespace SecureElementReader.App.ViewModels
                     Source = new Uri($"avares://SecureElementReader.App/Properties/Translations.{targetLanguage}.axaml")
                 });
 
+            _localizationService.SetAppSettingValue(nameof(_configuration.Language), targetLanguage);// PRREKO _conf.Lang IZAZVATI PREVOD PRI STARTU
         }
+
+        public void StartUpTranslate()
+        {
+            Translate(_configuration.Language);
+        }
+
     }
 
 }

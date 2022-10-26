@@ -2,6 +2,8 @@ using SecureElementReader.App.Extensions;
 using SecureElementReader.App.Interfaces;
 using SecureElementReader.App.Models;
 using SecureElementReader.App.Models.Configurations;
+using SecureElementReader.App.ViewModels;
+using SecureElementReader.App.ViewModels.Interfaces;
 using System;
 using System.Globalization;
 using System.IO;
@@ -18,8 +20,10 @@ namespace SecureElementReader.App.Services
         }
 
         public LanguageModel GetSavedLanguage()
-        {           
+        {
+
             return CreateFrom(new CultureInfo(_configuration.Language));
+
         }
 
         public void SaveLanguage(LanguageModel languageModel)
@@ -44,7 +48,26 @@ namespace SecureElementReader.App.Services
             SetAppSettingValue(nameof(_configuration.Language), languageModel.Code);            
         }
 
-        private static void SetAppSettingValue(string key, string value, string appSettingsJsonFilePath = null)
+        public void SaveLanguage1(LanguageModelTest language)
+        {
+            if (language is null)
+            {
+                throw new ArgumentNullException(nameof(language));
+            }
+            if (string.IsNullOrEmpty(language.Jezik))
+            {
+                throw new ArgumentException($"{nameof(language.Jezik)} can't be empty.");
+            }
+
+            _configuration.Language = language.Jezik;
+
+            SetAppSettingValue(nameof(_configuration.Language), language.Jezik);
+        }
+
+
+
+
+        public void SetAppSettingValue(string key, string value, string appSettingsJsonFilePath = null)
         {
             if (appSettingsJsonFilePath == null)
             {
