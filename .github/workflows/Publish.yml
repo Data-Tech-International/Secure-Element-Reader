@@ -8,8 +8,23 @@ env:
   PROJECT_PATH: src/SecureElementReader.App/SecureElementReader.App.csproj
 
 jobs:
-  deploy:
-    runs-on: windows-latest
+  build:
+    name: Build
+    runs-on: ${{ matrix.os }}
+    outputs:
+      semVer: ${{ steps.gitversion.outputs.semVer }}
+      gitSha: ${{ steps.gitversion.outputs.Sha }}
+    strategy:
+      matrix:
+        os: [macos-latest, windows-latest, ubuntu-latest]
+        include:
+          - os: ubuntu-latest
+            zip_name: linux-x64         
+          - os: macos-latest
+            zip_name: osx-x64            
+          - os: windows-latest
+            zip_name: win-x64
+            
     steps:
       - uses: actions/checkout@v2
         with:
@@ -32,70 +47,192 @@ jobs:
           configFilePath: .github/workflows/GitVersion.yml
 
       - name: Restore project 
+        if: matrix.os != 'macos-latest'
         run: dotnet restore ${{ env.PROJECT_PATH }}
 
       - name: Build project 
+        if: matrix.os != 'macos-latest'
         run: dotnet build ${{ env.PROJECT_PATH }} -c Release --no-restore
 
-      - name: Publish project 
-        run: dotnet publish ${{ env.PROJECT_PATH }} -c Release -r win-x64 -p:PublishSingleFile=true -p:AssemblyVersion=${{ steps.gitversion.outputs.semVer }}
-        
-      - name: Publish project for Linux
-        run: dotnet publish ${{ env.PROJECT_PATH }} -c Release -r linux-x64 -p:PublishSingleFile=true -p:AssemblyVersion=${{ steps.gitversion.outputs.semVer }}
+      - name: Publish project for Windows and Linux
+        if: matrix.os != 'macos-latest'
+        run: dotnet publish ${{ env.PROJECT_PATH }} -c Release -r ${{ matrix.zip_name }} -p:PublishSingleFile=true -p:AssemblyVersion=${{ steps.gitversion.outputs.semVer }}
+
+      #- name: Publish project for Windows
+      #  if: matrix.os == 'windows-latest'
+      #  run: dotnet publish ${{ env.PROJECT_PATH }} -c Release -r win-x64 -p:PublishSingleFile=true -p:AssemblyVersion=${{ steps.gitversion.outputs.semVer }}
+
+      #- name: Publish project for Linux
+      #  if: matrix.os == 'ubuntu-latest'
+      #  run: dotnet publish ${{ env.PROJECT_PATH }} -c Release -r linux-x64 -p:PublishSingleFile=true -p:AssemblyVersion=${{ steps.gitversion.outputs.semVer }}
 
       - name: Publish project for OSx
-        run: dotnet publish ${{ env.PROJECT_PATH }} -c Release -r osx-x64 -p:PublishSingleFile=true -p:AssemblyVersion=${{ steps.gitversion.outputs.semVer }}
+        if: matrix.os == 'macos-latest'        
+        run: |
+          cd src/SecureElementReader.App
+          dotnet restore -r osx-x64
+          dotnet msbuild -t:BundleApp -p:RuntimeIdentifier=osx-x64 -property:Configuration=Release -p:AssemblyVersion=${{ steps.gitversion.outputs.semVer }} -p:UseAppHost=true
+          mkdir Assets/logo.iconset
+          cp Assets/taxcore.png Assets/logo.iconset/icon_512x512.png
+          iconutil -c icns Assets/logo.iconset
+          cp Assets/logo.icns bin/Release/net6.0/osx-x64/publish/SecureElementReader.App.app/Contents/Resources/logo.icns
+          rm Assets/logo.icns
+          rm -rf Assets/logo.iconset
 
+      - name: Codesign app bundle
+        if: matrix.os == 'macos-latest'
+        env: 
+          MACOS_CERTIFICATE: ${{ secrets.PROD_MACOS_CERTIFICATE }}
+          MACOS_CERTIFICATE_PWD: ${{ secrets.PROD_MACOS_CERTIFICATE_PWD }}
+          MACOS_CERTIFICATE_NAME: ${{ secrets.PROD_MACOS_CERTIFICATE_NAME }}
+          MACOS_CI_KEYCHAIN_PWD: ${{ secrets.PROD_MACOS_CI_KEYCHAIN_PWD }}
+        run: |          
+          echo $MACOS_CERTIFICATE | base64 --decode > certificate.p12
+          
+          security create-keychain -p "$MACOS_CI_KEYCHAIN_PWD" build.keychain 
+          security default-keychain -s build.keychain
+          security unlock-keychain -p "$MACOS_CI_KEYCHAIN_PWD" build.keychain
+          security import certificate.p12 -k build.keychain -P "$MACOS_CERTIFICATE_PWD" -T /usr/bin/codesign
+          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$MACOS_CI_KEYCHAIN_PWD" build.keychain
+          xcrun notarytool store-credentials "AC_PASSWORD" --apple-id "${{ secrets.PROD_MACOS_NOTARIZATION_APPLE_ID }}" --team-id ${{ secrets.PROD_MACOS_NOTARIZATION_TEAM_ID }} --password "${{ secrets.PROD_MACOS_NOTARIZATION_PWD }}"
+    
+      - name: Codesign app
+        if: matrix.os == 'macos-latest'
+        run: |
+          find "src/SecureElementReader.App/bin/Release/net6.0/osx-x64/publish/SecureElementReader.App.app/Contents/MacOS/"|while read fname; do
+            if [ -f "$fname" ]
+              then
+                echo "[INFO] Signing $fname"
+                codesign --force --deep --timestamp --options=runtime --entitlements SEReader.entitlements --sign "${{ secrets.PROD_MACOS_CERTIFICATE_NAME }}" "$fname"
+            fi
+          done
+          #codesign --force --timestamp --options=runtime --entitlements SEReader.entitlements --sign "${{ secrets.PROD_MACOS_CERTIFICATE_NAME }}" "$RUNNER_TEMP/SEReader.app"
+        
+      - name: chmod
+        if: matrix.os == 'macos-latest'
+        run: |
+          cd src/SecureElementReader.App/bin/Release/net6.0/osx-x64/publish/SecureElementReader.App.app/Contents/MacOS
+          chmod u+x SecureElementReader.App
+          
+      - name: Notarise app
+        if: matrix.os == 'macos-latest'
+        run: |
+          ditto -c -k --sequesterRsrc --keepParent "src/SecureElementReader.App/bin/Release/net6.0/osx-x64/publish/SecureElementReader.App.app" "SEReader.zip"
+          xcrun notarytool submit "SEReader.zip" --wait --keychain-profile "AC_PASSWORD"
+          xcrun stapler staple src/SecureElementReader.App/bin/Release/net6.0/osx-x64/publish/SecureElementReader.App.app
+          
       - name: Windows code signing
+        if: matrix.os == 'windows-latest'
         uses: neoz-technologies/code-sign-action@v3
         with:        
           certificate: ${{ secrets.CERT_FOR_SIGN }}
           password: ${{ secrets.CERT_PW }}
           folder: 'src\SecureElementReader.App\bin\Release\net6.0\win-x64\publish\'
-          recursive: true
-
-      - name: Zip Win release 
-        uses: vimtor/action-zip@v1
-        with:   
-          files: src/SecureElementReader.App/bin/Release/net6.0/win-x64/publish/
-          dest: ${{ steps.gitversion.outputs.semVer }}.win-x64.zip
+          recursive: true        
      
-      - name: Zip Linux release
+      - name: Zip releases 
+        if: matrix.os != 'macos-latest'
         uses: vimtor/action-zip@v1
         with:   
-          files: src/SecureElementReader.App/bin/Release/net6.0/linux-x64/publish/
-          dest: ${{ steps.gitversion.outputs.semVer }}.linux-x64.zip
+          files: src/SecureElementReader.App/bin/Release/net6.0/${{ matrix.zip_name }}/publish/
+          dest: ${{ steps.gitversion.outputs.semVer }}.${{ matrix.zip_name }}.zip
+     
+      - name: Upload artifacts 
+        uses: actions/upload-artifact@v2
+        if: matrix.os != 'macos-latest'
+        with:
+          name: ${{ steps.gitversion.outputs.semVer }}.${{ matrix.zip_name }}.zip
+          path: ${{ steps.gitversion.outputs.semVer }}.${{ matrix.zip_name }}.zip          
+      
+      #- name: Zip Win release 
+      #  if: matrix.os == 'windows-latest'
+      #  uses: vimtor/action-zip@v1
+      #  with:   
+      #    files: src/SecureElementReader.App/bin/Release/net6.0/win-x64/publish/
+      #    dest: ${{ steps.gitversion.outputs.semVer }}.win-x64.zip
+     
+      #- uses: actions/upload-artifact@v2
+      #  if: matrix.os == 'windows-latest'
+      #  with:
+      #    name: ${{ steps.gitversion.outputs.semVer }}.win-x64.zip
+      #    path: ${{ steps.gitversion.outputs.semVer }}.win-x64.zip
+     
+      #- name: Zip Linux release
+      #  if: matrix.os == 'ubuntu-latest'
+      #  uses: vimtor/action-zip@v1
+      #  with:   
+      #    files: src/SecureElementReader.App/bin/Release/net6.0/linux-x64/publish/
+      #    dest: ${{ steps.gitversion.outputs.semVer }}.linux-x64.zip
+      
+      #- uses: actions/upload-artifact@v2
+      #  if: matrix.os == 'ubuntu-latest'
+      #  with:
+      #    name: ${{ steps.gitversion.outputs.semVer }}.linux-x64.zip
+      #    path: ${{ steps.gitversion.outputs.semVer }}.linux-x64.zip
           
       - name: Zip OSx release
+        if: matrix.os == 'macos-latest'
         uses: vimtor/action-zip@v1
         with:   
-          files: src/SecureElementReader.App/bin/Release/net6.0/osx-x64/publish/
+          files: src/SecureElementReader.App/bin/Release/net6.0/osx-x64/publish/SecureElementReader.App.app
           dest: ${{ steps.gitversion.outputs.semVer }}.osx-x64.zip
+    
+      - name: Upload OSx artifacts
+        uses: actions/upload-artifact@v2
+        if: matrix.os == 'macos-latest'
+        with:
+          name: ${{ steps.gitversion.outputs.semVer }}.osx-x64.zip
+          path: ${{ steps.gitversion.outputs.semVer }}.osx-x64.zip         
+     
+          
+  publis:
+    name: Publish
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
       
-      - name: Create Tag     
+      - uses: actions/download-artifact@v2
+        with:
+          name: ${{ needs.build.outputs.semVer }}.osx-x64.zip
+          
+      - uses: actions/download-artifact@v2
+        with:
+          name: ${{ needs.build.outputs.semVer }}.win-x64.zip
+          
+      - uses: actions/download-artifact@v2
+        with:
+          name: ${{ needs.build.outputs.semVer }}.linux-x64.zip
+      
+      - name: Create Tag
         uses: Yanjingzhu/FirstJSAction@v1.3
         with:            
-          tag: ${{ steps.gitversion.outputs.semVer }}         
-          message: ${{ steps.gitversion.outputs.semVer }}
-          commit: ${{ steps.gitversion.outputs.Sha }}
+          tag: ${{ needs.build.outputs.semVer }}         
+          message: ${{ needs.build.outputs.semVer }}
+          commit: ${{ needs.build.outputs.gitSha }}
           token: ${{ secrets.GITHUB_TOKEN }}
-    
-      - name: Create release 
+          
+      - name: Create release        
         uses: actions/create-release@v1
         id: create_release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.gitversion.outputs.semVer }}
-          release_name: ${{ steps.gitversion.outputs.semVer }}
+          tag_name: ${{ needs.build.outputs.semVer }}
+          release_name: ${{ needs.build.outputs.semVer }}
 
-      - name: Publish release 
+      - name: Publish release         
         uses: csexton/release-asset-action@v2
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          #pattern: ${{ steps.gitversion.outputs.semVer }}.zip
+          github-token: ${{ secrets.GITHUB_TOKEN }}         
           files: |
-            ${{ steps.gitversion.outputs.semVer }}.win-x64.zip
-            ${{ steps.gitversion.outputs.semVer }}.linux-x64.zip
-            ${{ steps.gitversion.outputs.semVer }}.osx-x64.zip
+            ${{ needs.build.outputs.semVer }}.win-x64.zip            
+            ${{ needs.build.outputs.semVer }}.osx-x64.zip
+            ${{ needs.build.outputs.semVer }}.linux-x64.zip
           release-url: ${{ steps.create_release.outputs.upload_url }}
+          
+      - name: Delete Build Artifact
+        uses: joutvhu/delete-artifact@v1.0.1
+        
+         
+
