@@ -191,15 +191,15 @@ namespace SecureElementReader.App.ViewModels
             var mainWindow = (MainWindow)mainWindowProvider.GetMainWindow();
             mainWindow.ShowLoadingOverlay();
         }
-
+        
         private async Task ShowMessage(List<string> errors)
         {
             var msg = MessageBoxManager.GetMessageBoxStandardWindow(
                     new MessageBoxStandardParams
                     {
+
+
                         ContentMessage = String.Join('\n', errors) + Environment.NewLine,
-                        ContentHeader = Properties.Resources.Error,
-                        ContentTitle = Properties.Resources.Error,
                         ShowInCenter = true,
                         Icon = MessageBoxAvaloniaEnums.Icon.Error,
                         Topmost = true,

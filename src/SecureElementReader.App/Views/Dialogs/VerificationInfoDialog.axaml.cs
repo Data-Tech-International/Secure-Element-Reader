@@ -23,12 +23,18 @@ namespace SecureElementReader.App.Views.Dialogs
 
             if (!string.IsNullOrWhiteSpace(details))
             {
+
+
+                App.Current.TryFindResource("PossibleSolution", out var PossibleSolution);
+                App.Current.TryFindResource("InstallRCAandICAurl", out var InstallRCAandICAurl);
+                App.Current.TryFindResource("InstallRCAandICA", out var InstallRCAandICA);
+
                 var sp = this.FindControl<StackPanel>("Panel");
                 sp.Children.Clear();
                 foreach (var item in details.Split('\n'))
                 {
-                    if (item.StartsWith(Properties.Resources.ErrorAtDepth.Split(" ")[0]) || 
-                        item.StartsWith(Properties.Resources.Status))
+                    if (item.StartsWith("Error".Split(" ")[0]) || 
+                        item.StartsWith("Status"))
                     {
                         sp.Children.Add(new TextBlock
                         {
@@ -49,18 +55,19 @@ namespace SecureElementReader.App.Views.Dialogs
                 }
                 sp.Children.Add(new TextBlock
                 {
-                    Text = $"{Properties.Resources.PossibleSolution}:",
+
+                    Text = $"{PossibleSolution}:",
                     FontWeight = FontWeight.Bold,
                     TextWrapping = TextWrapping.Wrap
                 });
                 sp.Children.Add(new TextBlock
                 {
-                    Text = $"{Properties.Resources.InstallRCAandICAurl}:",
+                    Text = $"{InstallRCAandICAurl}:",
                     TextWrapping = TextWrapping.Wrap
                 });
                 sp.Children.Add(new Button
                 {
-                    Content = $"{Properties.Resources.InstallRCAandICA}",
+                    Content = $"{InstallRCAandICA}",
                     Command = ViewModel.GoToTAP
                 });
             }

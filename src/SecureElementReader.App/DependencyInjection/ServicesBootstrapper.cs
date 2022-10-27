@@ -52,7 +52,8 @@ namespace SecureElementReader.App.DependencyInjection
             services.RegisterLazySingleton<ICardReaderService>(() => new CardReaderService(                   
                 resolver.GetRequiredService<IApduCommandService>(),
                 resolver.GetRequiredService<ILogger>(),
-                 resolver.GetRequiredService<IContextFactory>()
+                 resolver.GetRequiredService<IContextFactory>(),
+                resolver.GetRequiredService<IMainWindowProvider>()
 
                 ));
             services.RegisterLazySingleton<IDialogService>(() => new DialogService(

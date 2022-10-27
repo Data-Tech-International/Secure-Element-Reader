@@ -7,9 +7,10 @@
         x:Class="SecureElementReader.App.Views.Dialogs.VerificationInfoDialog"
         xmlns:p="clr-namespace:SecureElementReader.App.Properties"
         Width="500" Height="300"
-				Background="#e8e8e8"
-				ExtendClientAreaToDecorationsHint="True"
-				FontFamily="Highway Sans Pro">
+		Background="#e8e8e8"
+		ExtendClientAreaToDecorationsHint="True"
+		FontFamily="Highway Sans Pro"
+		SystemDecorations="None">
 
   <Design.DataContext>
     <dialogs:VerificationInfoDialogViewModel />

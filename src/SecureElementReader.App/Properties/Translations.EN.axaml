@@ -4,12 +4,12 @@
 
 	<system:String x:Key="About">About</system:String>
 	<system:String x:Key="AboutHeader">About</system:String>
-	<system:String x:Key="AllCommandsExecutedButFailedToNotifyTaxCoreSystem">All commands executed but failed to notify TaxCore system</system:String>
+	<system:String x:Key="AllCommandsExecutedButFailedToNotifyTaxCoreSystem">All commands executed but failed to confirm to the tax authority system</system:String>
 	<system:String x:Key="AllCommandsExecutedSuccessfully">All commands executed successfully</system:String>
 	<system:String x:Key="ApiUrl">API URL:</system:String>
 	<system:String x:Key="CardReaderName">Card Reader Name</system:String>
-	<system:String x:Key="CannotGetPendingCommands">Cannot get pending commands</system:String>
-	<system:String x:Key="CantReadInternal">Can't read internal data form card</system:String>
+	<system:String x:Key="CannotGetPendingCommands">Cannot download pending commands</system:String>
+	<system:String x:Key="CantReadInternal">Can't read internal data from the secure element</system:String>
 	<system:String x:Key="CertificateType">Certificate Type:</system:String>
 	<system:String x:Key="ChangeLang">Please restart application to view changes</system:String>
 	<system:String x:Key="Close">Close</system:String>
@@ -71,7 +71,7 @@
 	<system:String x:Key="Support">Support:</system:String>
 	<system:String x:Key="SurName">Surname:</system:String>
 	<system:String x:Key="Tin">TIN:</system:String>
-	<system:String x:Key="ThereIsNoPendingCommandsForThisCard">There is no pending commands for this card</system:String>
+	<system:String x:Key="ThereIsNoPendingCommandsForThisCard">There are no pending commands for this secure element</system:String>
 	<system:String x:Key="UnableToSubmit">Unable to submit internal data</system:String>
 	<system:String x:Key="UniqueIdentifier">UID:</system:String>
 	<system:String x:Key="VerficationDetails">Verfication Details</system:String>

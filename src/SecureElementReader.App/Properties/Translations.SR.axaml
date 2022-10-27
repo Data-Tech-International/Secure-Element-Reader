@@ -4,16 +4,16 @@
 
 	<system:String x:Key="About">О апликацији</system:String>
 	<system:String x:Key="AboutHeader">О апликацији</system:String>
-	<system:String x:Key="AllCommandsExecutedButFailedToNotifyTaxCoreSystem">Sprski</system:String>
-	<system:String x:Key="AllCommandsExecutedSuccessfully">Srpski</system:String>
+	<system:String x:Key="AllCommandsExecutedButFailedToNotifyTaxCoreSystem">Све команде су успешно извршене али је слање потврде Пореској управи било несупешно</system:String>
+	<system:String x:Key="AllCommandsExecutedSuccessfully">Све команде су успешно извршене</system:String>
 	<system:String x:Key="ApiUrl">URL API-ја:</system:String>
 	<system:String x:Key="CardReaderName">Назив читача картице</system:String>
-	<system:String x:Key="CannotGetPendingCommands">Sprski</system:String>
-	<system:String x:Key="CantReadInternal">Srpski</system:String>
+	<system:String x:Key="CannotGetPendingCommands">Неуспешно преузимање команди</system:String>
+	<system:String x:Key="CantReadInternal">Читање интерних података са безбедносног елемента није могуће</system:String>
 	<system:String x:Key="CertificateType">Тип сертификата:</system:String>
 	<system:String x:Key="ChangeLang">Покрените поново апликацију даби сте видели измене</system:String>
 	<system:String x:Key="Close">Затвори</system:String>
-	<system:String x:Key="CommandsNotExecuted">Srpski</system:String>
+	<system:String x:Key="CommandsNotExecuted">Команде нису извршене</system:String>
 	<system:String x:Key="CommonName">Идентитет сертификата:</system:String>
 	<system:String x:Key="Details">Детаљи</system:String>
 	<system:String x:Key="EnterPIN">Унесите ПИН овде</system:String>
@@ -36,7 +36,7 @@
 	<system:String x:Key="IssuerName">Издавалац:</system:String>
 	<system:String x:Key="Language">Језик</system:String>
 	<system:String x:Key="Loading">Учитавање...</system:String>
-	<system:String x:Key="NotAllCommandEexecutedSuccessfully">Srpski</system:String>
+	<system:String x:Key="NotAllCommandEexecutedSuccessfully">Неке команде нису извшрене успешно</system:String>
 	<system:String x:Key="NoCardReadesFounded">Није пронађен читач картица!</system:String>
 	<system:String x:Key="Options">Опције</system:String>
 	<system:String x:Key="Organization">Обвезник:</system:String>
@@ -66,13 +66,13 @@
 	<system:String x:Key="StatusInforamtion">Статус информације</system:String>
 	<system:String x:Key="StreetAddress">Улица:</system:String>
 	<system:String x:Key="Subject">Субјекат сертификата:</system:String>
-	<system:String x:Key="SubmitInternalData">Srpski</system:String>
+	<system:String x:Key="SubmitInternalData">Успешно слање интерних података</system:String>
 	<system:String x:Key="Support">Подршка:</system:String>
 	<system:String x:Key="SurName">Презиме:</system:String>
 	<system:String x:Key="SuccessSubmit">Srpski</system:String>
 	<system:String x:Key="Tin">ПИБ:</system:String>
-	<system:String x:Key="ThereIsNoPendingCommandsForThisCard">Srpski</system:String>
-	<system:String x:Key="UnableToSubmit">Srpski:</system:String>
+	<system:String x:Key="ThereIsNoPendingCommandsForThisCard">Нема команди на чекању за овај безбедносни елемент</system:String>
+	<system:String x:Key="UnableToSubmit">Неуспешно слање интерних података</system:String>
 	<system:String x:Key="UniqueIdentifier">ЈИД:</system:String>
 	<system:String x:Key="VerficationDetails">Детаљи верификације</system:String>
 	<system:String x:Key="Verify">Верификуј</system:String>

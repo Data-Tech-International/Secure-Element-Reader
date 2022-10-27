@@ -34,7 +34,7 @@
 						Source="/Assets/serbia.png"/>
 					</MenuItem.Icon>
 				</MenuItem>
-				<MenuItem Header="Francais" Command="{Binding Translate}" CommandParameter="FR">
+				<MenuItem Header="Français" Command="{Binding Translate}" CommandParameter="FR">
 					<MenuItem.Icon>
 						<Image
 						Width="20" Height="20"

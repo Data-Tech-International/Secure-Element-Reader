@@ -8,12 +8,12 @@
              Height="40">
 	<Grid>
 		<DockPanel
-               IsHitTestVisible="True"
+               IsHitTestVisible="False"
                Name="Macos">
 		</DockPanel>
 
 		<DockPanel>
-			<StackPanel Orientation="Horizontal"
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch"
 						DockPanel.Dock="Left"
 						Spacing="6"
 						Margin="6,0,0,0"
@@ -76,7 +76,7 @@
 						  Height="1"></Path>
 				</Button>
 
-				<main:MenuView DataContext="{Binding MenuViewModel}"/>
+				<main:MenuView Margin="500,0,0,0" DataContext="{Binding MenuViewModel}"/>
 
 			</StackPanel>		
 		</DockPanel>

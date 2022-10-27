@@ -110,7 +110,7 @@
        <Button Command="{Binding VerificationInfoCommand}"
                Content="{DynamicResource Details}"
                IsVisible="{Binding BtnVisibility}"
-               Margin="0,-55,0,55" Background="Red" Foreground="White" MaxWidth="100"
+               Margin="0,-25,0,45" Background="Red" Foreground="White" MaxWidth="100"
                MinHeight="30"  CornerRadius="0" HorizontalAlignment="Right"/>
      </StackPanel>
      
