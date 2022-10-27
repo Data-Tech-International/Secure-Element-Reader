@@ -21,9 +21,26 @@
 				<MenuItem Header="{DynamicResource AboutHeader}" Command="{Binding AboutCommand}" />
 			</MenuItem>
 			<MenuItem Header="{DynamicResource Language}" MinWidth="120" MaxWidth="120">
-				<MenuItem Header="English"  Command="{Binding Translate}" CommandParameter="EN"> </MenuItem>
-				<MenuItem Header="Српски"   Command="{Binding Translate}" CommandParameter="SR"> </MenuItem>
-				<MenuItem Header="Francais" Command="{Binding Translate}" CommandParameter="FR"> </MenuItem>
+				<MenuItem Header="English" Command="{Binding Translate}" CommandParameter="EN">
+					<MenuItem.Icon> <Image
+						Width="20" Height="20"
+						Source="/Assets/uk.png"/>
+					</MenuItem.Icon>
+				</MenuItem>
+				<MenuItem Header="Српски (Srpski)" Command="{Binding Translate}" CommandParameter="SR">
+					<MenuItem.Icon>
+						<Image
+						Width="20" Height="20"
+						Source="/Assets/serbia.png"/>
+					</MenuItem.Icon>
+				</MenuItem>
+				<MenuItem Header="Francais" Command="{Binding Translate}" CommandParameter="FR">
+					<MenuItem.Icon>
+						<Image
+						Width="20" Height="20"
+						Source="/Assets/france.png"/>
+					</MenuItem.Icon>
+				</MenuItem>
 			</MenuItem>
 
 		</Menu>
