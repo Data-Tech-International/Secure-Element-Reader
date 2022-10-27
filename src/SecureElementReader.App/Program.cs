@@ -63,8 +63,6 @@ namespace SecureElementReader.App
         private static void RegisterDependencies() =>
             Bootstrapper.Register(Locator.CurrentMutable, Locator.Current);
 
-        private static void RunBackgroundTasks() => BackgroundTasksRunner.Start(Locator.Current);
-
         // Avalonia configuration, don't remove; also used by visual designer.
         public static AppBuilder BuildAvaloniaApp()
             => AppBuilder.Configure<App>()

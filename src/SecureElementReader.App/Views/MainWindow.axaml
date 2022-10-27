@@ -46,6 +46,8 @@
 
 
 	<Grid x:Name="BaseWindowGrid" Width="800" Height="600">
+
+		
 		<Grid x:Name="DefinedGrid"
 			  ColumnDefinitions="100,100,100,100,100,100,100,100" RowDefinitions="auto,auto,auto,auto,auto,auto,auto">
 			

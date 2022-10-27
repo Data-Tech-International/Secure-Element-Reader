@@ -68,8 +68,8 @@
 				<Label Content="{DynamicResource SePinOK}" IsVisible="{Binding SePinOK}" Classes="Valid"/>
 				<Label Content="{DynamicResource PkiAppletLocked}" IsVisible="{Binding PkiAppletLocked}" Classes="Alert"/>
 				<Label Content="{DynamicResource SEAppletLocked}" IsVisible="{Binding SEAppletLocked}" Classes="Alert"/>
-				<StackPanel Orientation="Horizontal" IsVisible="{Binding WrongPinAlertText}" Classes="Alert">
-					<Label Content="{DynamicResource WrongPinAlertText}" Classes="Alert"/>
+				<StackPanel Orientation="Horizontal" Width="500" Height="100" IsVisible="{Binding WrongPinAlertText}" Classes="Alert">
+					<Label Content="{DynamicResource WrongPinAlertText}" Classes="Alert" />
 					<Label Content="{Binding TrysLeft}" Classes="Alert"/>
 				</StackPanel>
 			</StackPanel>

@@ -40,8 +40,6 @@ namespace SecureElementReader.App.ViewModels
         private readonly IMainWindowProvider mainWindowProvider;
         private readonly ITaxCoreApiProxy taxCoreApiProxy;
 
-        public string WelcomeMessage => Properties.Resources.Welcome;
-
         public IMenuViewModel MenuViewModel { get; }
         public ICertDetailsViewModel CertDetailsViewModel { get; }
 
@@ -86,8 +84,6 @@ namespace SecureElementReader.App.ViewModels
                 .Do(readerNames => SubscribeToReaderEvents(monitorFactory, readerNames))
                 .Subscribe()
                 .AddTo(_disposables);
-
-            //RefreshReaderListCommand.Execute();
         }
         
         private void UpdateReaderList(IEnumerable<string> readerNames)
@@ -134,8 +130,7 @@ namespace SecureElementReader.App.ViewModels
             }
             else if (string.Equals(obj.GetType().Name, "CardStatusChanged"))
             {
-                CertDetailsViewModel.ClearForm();
-                CardReaderName = String.Empty;
+                GetReaders();
             }
         }
 

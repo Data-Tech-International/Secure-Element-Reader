@@ -2,7 +2,9 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
+	  
+	  
     <!--Avalonia doesen't support TrimMode=link currently,but we are working on that https://github.com/AvaloniaUI/Avalonia/issues/6892 -->
     <TrimMode>copyused</TrimMode>
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
@@ -53,7 +55,7 @@
     <PackageReference Include="Serilog.Sinks.RollingFile" Version="3.3.0" />
     <PackageReference Include="SharpZipLib" Version="1.3.3" />
     <PackageReference Include="Splat.Microsoft.Extensions.Logging" Version="14.2.8" />
-    <PackageReference Include="TaxCore.Libraries.Certificates" Version="1.0.26" />
+    <PackageReference Include="TaxCore.Libraries.Certificates" Version="1.0.34" />
     <PackageReference Include="XamlNameReferenceGenerator" Version="1.3.4" />
 	<PackageDownload Include="GitVersion.Tool" Version="[5.10.3]" />
   </ItemGroup>
@@ -65,9 +67,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Update="Properties\Resources.sr.resx">
-      <Generator></Generator>
-    </EmbeddedResource>
     <EmbeddedResource Update="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

@@ -40,7 +40,7 @@
 	<system:String x:Key="NoCardReadesFounded">Aucun lecteur des cartes trouvé !</system:String>
 	<system:String x:Key="Options">Опције</system:String>
 	<system:String x:Key="Organization">Contribuable :</system:String>
-	<system:String x:Key="OrganizationUnit">Emplacement d'entreprise :</system:String>
+	<system:String x:Key="OrganizationUnit">Emplacement d'entreprise:</system:String>
 	<system:String x:Key="PinMustBe4char">Le code PIN doit comporter 4 caractères.</system:String>
 	<system:String x:Key="PkiAppletLocked">L'ICP de l'applet est BLOQUÉ</system:String>
 	<system:String x:Key="PkiCertDetailsError">Détails du certificat de l'ICP avec erreur</system:String>
@@ -79,6 +79,6 @@
 	<system:String x:Key="VerifyPin">Vérifier le PIN</system:String>
 	<system:String x:Key="Version">Version:</system:String>
 	<system:String x:Key="Welcome">Lecteur de l'élément de sécurité</system:String>
-	<system:String x:Key="WrongPinAlertText">Le PIN de l'ICP est INCORRECT, nombre de tentatives restantes :</system:String>
+	<system:String x:Key="WrongPinAlertText">PIN incorrect, nombre d’essais restants:</system:String>
 
 </ResourceDictionary>

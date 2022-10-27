@@ -1,4 +1,5 @@
-﻿using MessageBox.Avalonia;
+﻿using Avalonia.Controls;
+using MessageBox.Avalonia;
 using MessageBox.Avalonia.DTO;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -120,8 +121,8 @@ namespace SecureElementReader.App.ViewModels
                     new MessageBoxStandardParams
                     {
                         ContentMessage = String.Join('\n', errorList) + Environment.NewLine,
-                        ContentHeader = Properties.Resources.Error,
-                        ContentTitle = Properties.Resources.Error,
+                        ContentHeader = mainWindowProvider.GetMainWindow().GetResourceObservable("Error").ToString(),
+                        ContentTitle = mainWindowProvider.GetMainWindow().GetResourceObservable("Error").ToString(),
                         ShowInCenter = true,
                         Icon = MessageBoxAvaloniaEnums.Icon.Error,
                         Topmost = true,
@@ -189,18 +190,19 @@ namespace SecureElementReader.App.ViewModels
 
             if (result.SEAppletLocked & result.PKIAppletLocked)
             {
+
                 ShowTaxMessage = true;
-                TaxMessage = Properties.Resources.ReturnCard;//TaxMessageSE$PKI locked = vrati karticu u poresku
+                TaxMessage = mainWindowProvider.GetMainWindow().GetResourceObservable("ReturnCard").ToString();
             }
             else if(result.SEAppletLocked)
             {
                 ShowTaxMessage = true;
-                TaxMessage = "SE applet is locked, please return the card.";//TaxMessageSE locked = true;
+                TaxMessage = mainWindowProvider.GetMainWindow().GetResourceObservable("SeAppletLocked").ToString();
             }
             else if(result.PKIAppletLocked)
             {
                 ShowTaxMessage = true;
-                TaxMessage = "PKI applet is locked, please return the card.";//TaxMessagePKI locked = true;
+                TaxMessage = mainWindowProvider.GetMainWindow().GetResourceObservable("PkiAppletLocked").ToString();
             }
 
         }

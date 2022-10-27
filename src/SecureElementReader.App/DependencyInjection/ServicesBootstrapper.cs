@@ -27,7 +27,6 @@ namespace SecureElementReader.App.DependencyInjection
             var configuration = BuildConfiguration();
             RegisterDefaultThemeConfiguration(services, configuration);
             RegisterThemesNamesConfiguration(services, configuration);
-            RegisterLanguagesConfiguration(services, configuration);
             RegisterLoggingConfiguration(services, configuration);
             RegisterSelectedLanguagesConfiguration(services, configuration);
 
@@ -54,6 +53,7 @@ namespace SecureElementReader.App.DependencyInjection
                 resolver.GetRequiredService<IApduCommandService>(),
                 resolver.GetRequiredService<ILogger>(),
                  resolver.GetRequiredService<IContextFactory>()
+
                 ));
             services.RegisterLazySingleton<IDialogService>(() => new DialogService(
                     resolver.GetRequiredService<IMainWindowProvider>()
@@ -84,9 +84,7 @@ namespace SecureElementReader.App.DependencyInjection
                     resolver.GetRequiredService<IDialogService>()
                 ));
 
-            services.RegisterLazySingleton<ILanguageManager>(() => new LanguageManager(
-                    resolver.GetRequiredService<LanguagesConfiguration>()
-                ));
+
             services.RegisterLazySingleton<ILocalizationService>(() => new LocalizationService(
                     resolver.GetRequiredService<SelectedLanguageConfiguration>()
                 ));        
@@ -153,14 +151,6 @@ namespace SecureElementReader.App.DependencyInjection
         {
             var config = new ThemesNamesConfiguration();
             configuration.GetSection("Themes").Bind(config);
-            services.RegisterConstant(config);
-        }
-
-        private static void RegisterLanguagesConfiguration(IMutableDependencyResolver services,
-            IConfiguration configuration)
-        {
-            var config = new LanguagesConfiguration();
-            configuration.GetSection("Languages").Bind(config);
             services.RegisterConstant(config);
         }
 

@@ -61,96 +61,6 @@ namespace SecureElementReader.App.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to About.
-        /// </summary>
-        public static string About {
-            get {
-                return ResourceManager.GetString("About", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to _About.
-        /// </summary>
-        public static string AboutHeader {
-            get {
-                return ResourceManager.GetString("AboutHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to API URL:.
-        /// </summary>
-        public static string ApiUrl {
-            get {
-                return ResourceManager.GetString("ApiUrl", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Card Reader Name.
-        /// </summary>
-        public static string CardReaderName {
-            get {
-                return ResourceManager.GetString("CardReaderName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Certificate Type:.
-        /// </summary>
-        public static string CertificateType {
-            get {
-                return ResourceManager.GetString("CertificateType", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Please restart application to view changes.
-        /// </summary>
-        public static string ChangeLang {
-            get {
-                return ResourceManager.GetString("ChangeLang", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Close.
-        /// </summary>
-        public static string Close {
-            get {
-                return ResourceManager.GetString("Close", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Common Name:.
-        /// </summary>
-        public static string CommonName {
-            get {
-                return ResourceManager.GetString("CommonName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Details.
-        /// </summary>
-        public static string Details {
-            get {
-                return ResourceManager.GetString("Details", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Enter PIN here.
-        /// </summary>
-        public static string EnterPIN {
-            get {
-                return ResourceManager.GetString("EnterPIN", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         public static string Error {
@@ -169,60 +79,6 @@ namespace SecureElementReader.App.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to _Exit.
-        /// </summary>
-        public static string ExitHeader {
-            get {
-                return ResourceManager.GetString("ExitHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Expiry Date:.
-        /// </summary>
-        public static string ExpiryDate {
-            get {
-                return ResourceManager.GetString("ExpiryDate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Failed to read PKI data with error.
-        /// </summary>
-        public static string FailedToReadPkiData {
-            get {
-                return ResourceManager.GetString("FailedToReadPkiData", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Failed to read SE data with error.
-        /// </summary>
-        public static string FailedToReadSeData {
-            get {
-                return ResourceManager.GetString("FailedToReadSeData", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to _File.
-        /// </summary>
-        public static string FileHeader {
-            get {
-                return ResourceManager.GetString("FileHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Get Certificate.
-        /// </summary>
-        public static string GetCert {
-            get {
-                return ResourceManager.GetString("GetCert", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Get PKI cert error.
         /// </summary>
         public static string GetPkiCertError {
@@ -232,47 +88,11 @@ namespace SecureElementReader.App.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Get Reader.
-        /// </summary>
-        public static string GetReader {
-            get {
-                return ResourceManager.GetString("GetReader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Get SE cert error.
         /// </summary>
         public static string GetSeCertError {
             get {
                 return ResourceManager.GetString("GetSeCertError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Given Name:.
-        /// </summary>
-        public static string GivenName {
-            get {
-                return ResourceManager.GetString("GivenName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to _Help.
-        /// </summary>
-        public static string HelpHeader {
-            get {
-                return ResourceManager.GetString("HelpHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Change languages.
-        /// </summary>
-        public static string Info {
-            get {
-                return ResourceManager.GetString("Info", resourceCulture);
             }
         }
         
@@ -295,119 +115,11 @@ namespace SecureElementReader.App.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Issuer Name:.
-        /// </summary>
-        public static string IssuerName {
-            get {
-                return ResourceManager.GetString("IssuerName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Loading....
-        /// </summary>
-        public static string Loading {
-            get {
-                return ResourceManager.GetString("Loading", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No card readers found!.
-        /// </summary>
-        public static string NoCardReadesFounded {
-            get {
-                return ResourceManager.GetString("NoCardReadesFounded", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Options.
-        /// </summary>
-        public static string Options {
-            get {
-                return ResourceManager.GetString("Options", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Taxpayer:.
-        /// </summary>
-        public static string Organization {
-            get {
-                return ResourceManager.GetString("Organization", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Business location:.
-        /// </summary>
-        public static string OrganizationUnit {
-            get {
-                return ResourceManager.GetString("OrganizationUnit", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Pin must be 4 characters length..
-        /// </summary>
-        public static string PinMustBe4char {
-            get {
-                return ResourceManager.GetString("PinMustBe4char", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to PKI applet is LOCKED.
-        /// </summary>
-        public static string PkiAppletLocked {
-            get {
-                return ResourceManager.GetString("PkiAppletLocked", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to PKI cert details error.
         /// </summary>
         public static string PkiCertDetailsError {
             get {
                 return ResourceManager.GetString("PkiCertDetailsError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to PKI certificate chain is invalid.
-        /// </summary>
-        public static string PkiCertInvalid {
-            get {
-                return ResourceManager.GetString("PkiCertInvalid", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to PKI certificate chain is valid.
-        /// </summary>
-        public static string PkiCertValid {
-            get {
-                return ResourceManager.GetString("PkiCertValid", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to PKI pin is OK.
-        /// </summary>
-        public static string PkiPinOK {
-            get {
-                return ResourceManager.GetString("PkiPinOK", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to PKI pin is WRONG, you have [xxx] tries left.
-        /// </summary>
-        public static string PkiPinWrong {
-            get {
-                return ResourceManager.GetString("PkiPinWrong", resourceCulture);
             }
         }
         
@@ -421,15 +133,6 @@ namespace SecureElementReader.App.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please enter PIN code.
-        /// </summary>
-        public static string PleaseInsertPIN {
-            get {
-                return ResourceManager.GetString("PleaseInsertPIN", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Possible solution.
         /// </summary>
         public static string PossibleSolution {
@@ -439,56 +142,11 @@ namespace SecureElementReader.App.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Requested By:.
-        /// </summary>
-        public static string RequestedBy {
-            get {
-                return ResourceManager.GetString("RequestedBy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Please return the card to the tax authority..
-        /// </summary>
-        public static string ReturnCard {
-            get {
-                return ResourceManager.GetString("ReturnCard", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to SE applet is LOCKED.
-        /// </summary>
-        public static string SeAppletLocked {
-            get {
-                return ResourceManager.GetString("SeAppletLocked", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to SE cert details error.
         /// </summary>
         public static string SeCertDetailsError {
             get {
                 return ResourceManager.GetString("SeCertDetailsError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to SE certificate chain is invalid.
-        /// </summary>
-        public static string SeCertInvalid {
-            get {
-                return ResourceManager.GetString("SeCertInvalid", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to SE certificate chain is valid.
-        /// </summary>
-        public static string SeCertValid {
-            get {
-                return ResourceManager.GetString("SeCertValid", resourceCulture);
             }
         }
         
@@ -511,42 +169,6 @@ namespace SecureElementReader.App.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SE pin is OK.
-        /// </summary>
-        public static string SePinOK {
-            get {
-                return ResourceManager.GetString("SePinOK", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to SE pin is WRONG.
-        /// </summary>
-        public static string SePinWrong {
-            get {
-                return ResourceManager.GetString("SePinWrong", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Smart Card Reader.
-        /// </summary>
-        public static string SmartCardReader {
-            get {
-                return ResourceManager.GetString("SmartCardReader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to State:.
-        /// </summary>
-        public static string State {
-            get {
-                return ResourceManager.GetString("State", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Status.
         /// </summary>
         public static string Status {
@@ -561,114 +183,6 @@ namespace SecureElementReader.App.Properties {
         public static string StatusInforamtion {
             get {
                 return ResourceManager.GetString("StatusInforamtion", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Street Address:.
-        /// </summary>
-        public static string StreetAddress {
-            get {
-                return ResourceManager.GetString("StreetAddress", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Subject:.
-        /// </summary>
-        public static string Subject {
-            get {
-                return ResourceManager.GetString("Subject", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Submit Internal Data.
-        /// </summary>
-        public static string SubmitInternalData {
-            get {
-                return ResourceManager.GetString("SubmitInternalData", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Support:.
-        /// </summary>
-        public static string Support {
-            get {
-                return ResourceManager.GetString("Support", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Surname:.
-        /// </summary>
-        public static string SurName {
-            get {
-                return ResourceManager.GetString("SurName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to TIN:.
-        /// </summary>
-        public static string Tin {
-            get {
-                return ResourceManager.GetString("Tin", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to UID:.
-        /// </summary>
-        public static string UniqueIdentifier {
-            get {
-                return ResourceManager.GetString("UniqueIdentifier", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Verfication Details.
-        /// </summary>
-        public static string VerficationDetails {
-            get {
-                return ResourceManager.GetString("VerficationDetails", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Verify.
-        /// </summary>
-        public static string Verify {
-            get {
-                return ResourceManager.GetString("Verify", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Verify Pin.
-        /// </summary>
-        public static string VerifyPin {
-            get {
-                return ResourceManager.GetString("VerifyPin", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Version:.
-        /// </summary>
-        public static string Version {
-            get {
-                return ResourceManager.GetString("Version", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Secure Element Reader.
-        /// </summary>
-        public static string Welcome {
-            get {
-                return ResourceManager.GetString("Welcome", resourceCulture);
             }
         }
     }

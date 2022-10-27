@@ -17,6 +17,7 @@
 		<Style Selector="TextBox.h1">
 			<Setter Property="CornerRadius" Value="0"/>
 			<Setter Property="BorderThickness" Value="0"/>
+			<Setter Property="Foreground" Value="Black"/>
 		</Style>
 
 		<Style Selector="TextBlock.h2">
@@ -29,13 +30,15 @@
 			<Setter Property="CornerRadius" Value="0"/>
 			<Setter Property="BorderThickness" Value="0"/>
 			<Setter Property="IsEnabled" Value="False"/>
+			<Setter Property="Foreground" Value="Black"/>
+			
 		</Style>
 	</UserControl.Styles>
 
 
  <Border Background="#e8e8e8">
 	 <StackPanel Margin="5">
-		 <Rectangle HorizontalAlignment="Stretch" Fill="#1b7dbc" Height="3" Margin="5,0,5,0"/>
+		 <Rectangle HorizontalAlignment="Stretch" Fill="Gray" Height="3" Margin="5,0,5,0"/>
 
 		 <Grid IsEnabled="False" Width="800" Height="350">
 			 <Grid.ColumnDefinitions>
@@ -95,7 +98,7 @@
 		 </Grid>
 	
      
-    <Rectangle HorizontalAlignment="Stretch" Fill="#1b7dbc" Height="3" Margin="5" />
+    <Rectangle HorizontalAlignment="Stretch" Fill="Gray" Height="3" Margin="5" />
 
      <StackPanel Orientation="Vertical" Width="780" HorizontalAlignment="Left">
        <Label Content="{DynamicResource SeCertValid}" IsVisible="{Binding SeCertValid}" Foreground="Green" FontSize="15" FontWeight="Bold" Padding="0" />

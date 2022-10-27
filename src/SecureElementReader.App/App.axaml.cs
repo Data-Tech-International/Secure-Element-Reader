@@ -37,16 +37,8 @@ namespace SecureElementReader.App
 
         private static void LoadLanguage()
         {
-            var localizationService = GetRequiredService<ILocalizationService>();
-            var savedLanguage = localizationService.GetSavedLanguage();
             var menuView = GetRequiredService<IMenuViewModel>();
             menuView.StartUpTranslate();
-            if (savedLanguage != null)
-            {
-                var languageManager = GetRequiredService<ILanguageManager>();
-
-                languageManager.SetLanguage(savedLanguage.Code);
-            }
         }
     }
 }

@@ -6,7 +6,6 @@
         xmlns:dialogs="clr-namespace:SecureElementReader.App.ViewModels"
         x:Class="SecureElementReader.App.Views.Dialogs.VerificationInfoDialog"
         xmlns:p="clr-namespace:SecureElementReader.App.Properties"
-        Title="{x:Static p:Resources.VerficationDetails}"
         Width="500" Height="300"
 				Background="#e8e8e8"
 				ExtendClientAreaToDecorationsHint="True"
