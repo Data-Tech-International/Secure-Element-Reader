@@ -12,6 +12,8 @@ namespace SecureElementReader.App.ViewModels
 
         public string AssemblyVersion => GetAssemblyVersion();
 
+        public ICommand CloseButton { get; }
+
         public string GetAssemblyVersion()
         {
             return PlatformServices.Default.Application.ApplicationVersion;
@@ -22,11 +24,17 @@ namespace SecureElementReader.App.ViewModels
         public AboutDialogViewModel()
         {
             GoToGitHubRepository = ReactiveCommand.Create(OnButtonClick);
+            CloseButton = ReactiveCommand.Create(ButtonClose);
         }
 
         private void OnButtonClick()
         {
             Process.Start(new ProcessStartInfo("https://github.com/Data-Tech-International/Secure-Element-Reader") { UseShellExecute = true });
+        }
+
+        private void ButtonClose()
+        {
+            Close();
         }
     }
 }

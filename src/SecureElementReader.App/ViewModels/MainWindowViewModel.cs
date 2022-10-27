@@ -21,6 +21,8 @@ using MessageBox.Avalonia.DTO;
 using SecureElementReader.App.Views;
 using SecureElementReader.App.Models;
 using System.Runtime.InteropServices;
+using Avalonia.Controls;
+using SecureElementReader.App.Enums;
 
 namespace SecureElementReader.App.ViewModels
 {
@@ -38,16 +40,13 @@ namespace SecureElementReader.App.ViewModels
         private readonly IMainWindowProvider mainWindowProvider;
         private readonly ITaxCoreApiProxy taxCoreApiProxy;
 
-        public string WelcomeMessage => Properties.Resources.Welcome;
-
         public IMenuViewModel MenuViewModel { get; }
         public ICertDetailsViewModel CertDetailsViewModel { get; }
-        public ITopLanguageViewModel LanguageViewModel { get; }
 
 
         [Reactive]
-        public string CardReaderName { get; set; }        
-
+        public string CardReaderName { get; set; }
+        
         [Reactive]
         public bool IsEnabled { get; set; }
 
@@ -58,7 +57,6 @@ namespace SecureElementReader.App.ViewModels
             ICardReaderService cardReaderService,
             IMenuViewModel menuViewModel,
             ICertDetailsViewModel certDetailsViewModel,
-            ITopLanguageViewModel languageViewModel,
             IMonitorFactory monitorFactory,
             IApplicationDispatcher applicationDispatcher,
             IMainWindowProvider mainWindowProvider,
@@ -74,7 +72,7 @@ namespace SecureElementReader.App.ViewModels
             VerifyPinCommand = ReactiveCommand.CreateFromTask(ShowVerifyPinDialog);
             MenuViewModel = menuViewModel;
             CertDetailsViewModel = certDetailsViewModel;
-            LanguageViewModel = languageViewModel;
+
 
             Readers = new Reactive.Bindings.ReactiveCollection<string>().AddTo(_disposables);
             RefreshReaderListCommand = new Reactive.Bindings.ReactiveCommand().AddTo(_disposables);
@@ -86,8 +84,6 @@ namespace SecureElementReader.App.ViewModels
                 .Do(readerNames => SubscribeToReaderEvents(monitorFactory, readerNames))
                 .Subscribe()
                 .AddTo(_disposables);
-
-            //RefreshReaderListCommand.Execute();
         }
         
         private void UpdateReaderList(IEnumerable<string> readerNames)
@@ -131,7 +127,11 @@ namespace SecureElementReader.App.ViewModels
             {
                GetReaders();
                _ = GetCertDetails();   
-            }           
+            }
+            else if (string.Equals(obj.GetType().Name, "CardStatusChanged"))
+            {
+                GetReaders();
+            }
         }
 
         private string[] GetReaders()
@@ -144,7 +144,7 @@ namespace SecureElementReader.App.ViewModels
             }
             else
             {
-                CardReaderName = Properties.Resources.NoCardReadesFounded;
+                CardReaderName = String.Empty;
                 applicationDispatcher.Dispatch(() => HideLoadingOverlay());
                 CertDetailsViewModel.ClearForm();
                 IsEnabled = false;
@@ -155,6 +155,7 @@ namespace SecureElementReader.App.ViewModels
 
         private async Task GetCertDetails()
         {
+
             applicationDispatcher.Dispatch(() => ShowLoadingOverlay(this));
 
             var details = cardReaderService.GetCertDetails();
@@ -172,7 +173,7 @@ namespace SecureElementReader.App.ViewModels
                     taxCoreApiProxy.Configure(CertDetailsViewModel.CertDetailsModel.UniqueIdentifier, CertDetailsViewModel.CertDetailsModel.CommonName, CertDetailsViewModel.CertDetailsModel.ApiUrl);
                     var internalDataStatus = await SubmitInternalData();
                     var commandsStatus = await ProcessPendingCommands();
-                    CertDetailsViewModel.SetStatusFileds(internalDataStatus, commandsStatus);
+                    CertDetailsViewModel.SetStatusFields(internalDataStatus, commandsStatus);                    
                 }
             }
 
@@ -190,15 +191,15 @@ namespace SecureElementReader.App.ViewModels
             var mainWindow = (MainWindow)mainWindowProvider.GetMainWindow();
             mainWindow.ShowLoadingOverlay();
         }
-
+        
         private async Task ShowMessage(List<string> errors)
         {
             var msg = MessageBoxManager.GetMessageBoxStandardWindow(
                     new MessageBoxStandardParams
                     {
+
+
                         ContentMessage = String.Join('\n', errors) + Environment.NewLine,
-                        ContentHeader = Properties.Resources.Error,
-                        ContentTitle = Properties.Resources.Error,
                         ShowInCenter = true,
                         Icon = MessageBoxAvaloniaEnums.Icon.Error,
                         Topmost = true,
@@ -235,6 +236,7 @@ namespace SecureElementReader.App.ViewModels
         {
             var internalData = cardReaderService.GetInternalData();
             var amountData = cardReaderService.GetAmountStatus();
+
             if (internalData != null && amountData != null)
             {
                 var request = new SecureElementAuditRequest
@@ -247,16 +249,16 @@ namespace SecureElementReader.App.ViewModels
                
                 if (response)
                 {
-                    return "Success to submint internal data";
+                    return SubmitMessages.SuccessSubmit.ToString();
                 }
                 else
                 {
-                    return "Unable to submint internal data";
+                    return SubmitMessages.UnableToSubmit.ToString();
                 }
             }
             else
             {                
-                return "Can't read internal data form card";
+                return SubmitMessages.CantReadInternal.ToString();
             }
         }
 
@@ -264,7 +266,7 @@ namespace SecureElementReader.App.ViewModels
         {
             var commands = await taxCoreApiProxy.GetPendingCommands();
             if (commands == null)
-                return "Cant't get pending commands";
+                return CommandsMessages.CannotGetPendingCommands.ToString();
 
             if (commands.Count > 0)
             {                
@@ -274,27 +276,28 @@ namespace SecureElementReader.App.ViewModels
                 {
                     var notifyCommandResult = await taxCoreApiProxy.CommandStatusUpdate(commandStatus);
                     if (ChechIsAllCommandExecutedSuccessfully(commands, commandStatus))
-                    {   
-                        if (CheckIsAllNotificationSentSuccessfuly(notifyCommandResult, commandStatus)) 
-                            return "All commands executed successfully";
+                    {
+                        if (CheckIsAllNotificationSentSuccessfuly(notifyCommandResult, commandStatus))
+                            return CommandsMessages.AllCommandsExecutedSuccessfully.ToString();
                         else
-                            return "All commands executed but faild to notify TaxCore system";
+                            return CommandsMessages.AllCommandsExecutedButFailedToNotifyTaxCoreSystem.ToString();
                     }
                     else
                     {
-                        return "Not all command executed successfully";
+                        return CommandsMessages.NotAllCommandEexecutedSuccessfully.ToString();
                     }
                 }
                 else
                 {
-                    return "Commands not executed";
+                    return CommandsMessages.CommandsNotExecuted.ToString();
                 }                
             }
             else
             {
-                return "There is no pending commands for this card";
+                return CommandsMessages.ThereIsNoPendingCommandsForThisCard.ToString();
             }
         }
+
 
         private bool CheckIsAllNotificationSentSuccessfuly(List<CommandsStatusResult> notifyCommandResult, List<CommandsStatusResult> commandStatus)
         {

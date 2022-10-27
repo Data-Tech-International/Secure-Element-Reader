@@ -27,7 +27,6 @@ namespace SecureElementReader.App.DependencyInjection
             var configuration = BuildConfiguration();
             RegisterDefaultThemeConfiguration(services, configuration);
             RegisterThemesNamesConfiguration(services, configuration);
-            RegisterLanguagesConfiguration(services, configuration);
             RegisterLoggingConfiguration(services, configuration);
             RegisterSelectedLanguagesConfiguration(services, configuration);
 
@@ -53,7 +52,9 @@ namespace SecureElementReader.App.DependencyInjection
             services.RegisterLazySingleton<ICardReaderService>(() => new CardReaderService(                   
                 resolver.GetRequiredService<IApduCommandService>(),
                 resolver.GetRequiredService<ILogger>(),
-                 resolver.GetRequiredService<IContextFactory>()
+                 resolver.GetRequiredService<IContextFactory>(),
+                resolver.GetRequiredService<IMainWindowProvider>()
+
                 ));
             services.RegisterLazySingleton<IDialogService>(() => new DialogService(
                     resolver.GetRequiredService<IMainWindowProvider>()
@@ -67,7 +68,6 @@ namespace SecureElementReader.App.DependencyInjection
                 resolver.GetRequiredService<ICardReaderService>(),
                 resolver.GetRequiredService<IMenuViewModel>(),
                 resolver.GetRequiredService<ICertDetailsViewModel>(),
-                resolver.GetRequiredService<ITopLanguageViewModel>(),
                 resolver.GetRequiredService<IMonitorFactory>(),
                 resolver.GetRequiredService<IApplicationDispatcher>(),
                 resolver.GetRequiredService<IMainWindowProvider>(),
@@ -77,23 +77,18 @@ namespace SecureElementReader.App.DependencyInjection
             
             services.RegisterLazySingleton<IMenuViewModel>(() => new MenuViewModel(
                     resolver.GetRequiredService<IApplicationCloser>(),
-                    resolver.GetRequiredService<IDialogService>()
+                    resolver.GetRequiredService<IDialogService>(),
+                    resolver.GetRequiredService<ILocalizationService>(),
+                    resolver.GetRequiredService<SelectedLanguageConfiguration>()
                 ));
             services.RegisterLazySingleton<ICertDetailsViewModel>(() => new CertDetailsViewModel(
                     resolver.GetRequiredService<IDialogService>()
                 ));
 
-            services.RegisterLazySingleton<ILanguageManager>(() => new LanguageManager(
-                    resolver.GetRequiredService<LanguagesConfiguration>()
-                ));
+
             services.RegisterLazySingleton<ILocalizationService>(() => new LocalizationService(
                     resolver.GetRequiredService<SelectedLanguageConfiguration>()
-                ));
-            services.RegisterLazySingleton<ITopLanguageViewModel>(() => new TopLanguageViewModel(
-                    resolver.GetRequiredService<ILanguageManager>(),
-                    resolver.GetRequiredService<ILocalizationService>(),
-                    resolver.GetRequiredService<IMainWindowProvider>()
-                ));            
+                ));        
         }
 
         public static void RegisterLogging(IMutableDependencyResolver services, IReadonlyDependencyResolver resolver)
@@ -157,14 +152,6 @@ namespace SecureElementReader.App.DependencyInjection
         {
             var config = new ThemesNamesConfiguration();
             configuration.GetSection("Themes").Bind(config);
-            services.RegisterConstant(config);
-        }
-
-        private static void RegisterLanguagesConfiguration(IMutableDependencyResolver services,
-            IConfiguration configuration)
-        {
-            var config = new LanguagesConfiguration();
-            configuration.GetSection("Languages").Bind(config);
             services.RegisterConstant(config);
         }
 

@@ -12,6 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+using Avalonia.Controls;
 
 namespace SecureElementReader.App.Services
 {
@@ -21,12 +22,14 @@ namespace SecureElementReader.App.Services
         private readonly ILogger logger;
         private IsoReader reader;
         private readonly IContextFactory contextFactory;
+        private readonly IMainWindowProvider mainWindowProvider;
 
-        public CardReaderService(IApduCommandService apduCommandService, ILogger logger, IContextFactory contextFactory)
+        public CardReaderService(IApduCommandService apduCommandService, ILogger logger, IContextFactory contextFactory, IMainWindowProvider mainWindowProvider)
         {
             this.apduCommandService = apduCommandService;
             this.logger = logger;
             this.contextFactory = contextFactory;
+            this.mainWindowProvider = mainWindowProvider;
         }
 
         public VerifyPinModel VerifyPin(string pin)
@@ -64,7 +67,8 @@ namespace SecureElementReader.App.Services
             }
             else
             {
-                returnModel.ErrorList.Add($"{Properties.Resources.SelectPkiError}: {response.SW1} {response.SW2}");
+                App.Current.TryFindResource("SelectPkiError", out var SelectPkiError);
+                returnModel.ErrorList.Add($"{SelectPkiError}: {response.SW1} {response.SW2}");
             }
 
             return returnModel;
@@ -91,7 +95,8 @@ namespace SecureElementReader.App.Services
             }
             else
             {
-                returnModel.ErrorList.Add($"{Properties.Resources.SelectSeError}: {response.SW1} {response.SW2}");
+                App.Current.TryFindResource("SelectSeError", out var SelectSeError);
+                returnModel.ErrorList.Add($"{SelectSeError}: {response.SW1} {response.SW2}");
             }
 
             return returnModel;
@@ -113,7 +118,8 @@ namespace SecureElementReader.App.Services
             {
                 if (string.IsNullOrWhiteSpace(reader.ReaderName))
                 {
-                    model.ErrorCodes.Add($"{Properties.Resources.PleaseInseretCard}");
+                    App.Current.TryFindResource("PleaseInseretCard", out var PleaseInseretCard);
+                    model.ErrorCodes.Add($"{PleaseInseretCard}");
                     return model;
                 }
 
@@ -136,17 +142,20 @@ namespace SecureElementReader.App.Services
                     }
                     else
                     {
-                        model.ErrorCodes.Add($"{Properties.Resources.GetSeCertError}: {response.SW1} {response.SW2}");
+                        App.Current.TryFindResource("GetSeCertError", out var GetSeCertError);
+                        model.ErrorCodes.Add($"{GetSeCertError}: {response.SW1} {response.SW2}");
                     }
                 }
                 else
                 {
-                    model.ErrorCodes.Add($"{Properties.Resources.SelectSeError}: {response.SW1} {response.SW2}");
+                    App.Current.TryFindResource("SelectSeError", out var SelectSeError);
+                    model.ErrorCodes.Add($"{SelectSeError}: {response.SW1} {response.SW2}");
                 }
             }
             catch (Exception ex)
             {
-                model.ErrorCodes.Add($"{Properties.Resources.SeCertDetailsError}: {ex.Message}");
+                App.Current.TryFindResource("SeCertDetailsError", out var SeCertDetailsError);
+                model.ErrorCodes.Add($"{SeCertDetailsError}: {ex.Message}");
                 logger.LogError($"Failed to read SE data with error: {ex}");
             }
 
@@ -193,17 +202,20 @@ namespace SecureElementReader.App.Services
                     }
                     else
                     {
-                        model.ErrorCodes.Add($"{Properties.Resources.GetPkiCertError}: {response.SW1} {response.SW2}");
+                        App.Current.TryFindResource("GetPkiCertError", out var GetPkiCertError);
+                        model.ErrorCodes.Add($"{GetPkiCertError}: {response.SW1} {response.SW2}");
                     }
                 }
                 else
                 {
-                    model.ErrorCodes.Add($"{Properties.Resources.SelectPkiError}: {response.SW1} {response.SW2}");
+                    App.Current.TryFindResource("SelectPkiError", out var SelectPkiError);
+                    model.ErrorCodes.Add($"{SelectPkiError}: {response.SW1} {response.SW2}");
                 }
             }
             catch (Exception ex)
             {
-                model.ErrorCodes.Add($"{Properties.Resources.PkiCertDetailsError}: {ex.Message}");
+                App.Current.TryFindResource("PkiCertDetailsError", out var PkiCertDetailsError);
+                model.ErrorCodes.Add($"{PkiCertDetailsError}: {ex.Message}");
                 logger.LogError($"Failed to read PKI data with error: {ex}");
             }
 
@@ -404,14 +416,17 @@ namespace SecureElementReader.App.Services
                             model.PKIVerificationInfo += Environment.NewLine;
                             model.PKIVerificationInfo += "------------------------------";
                             model.PKIVerificationInfo += Environment.NewLine;
-                            model.PKIVerificationInfo += $"{Properties.Resources.ErrorAtDepth} {i}:{Environment.NewLine}{element.Certificate.Issuer}";
+                            App.Current.TryFindResource("ErrorAtDepth", out var ErrorAtDepth);
+                            model.PKIVerificationInfo += $"{ErrorAtDepth} {i}:{Environment.NewLine}{element.Certificate.Issuer}";
                             model.PKIVerificationInfo += Environment.NewLine;
 
                             foreach (var status in element.ChainElementStatus)
                             {
-                                model.PKIVerificationInfo += $"{Properties.Resources.Status}:{Environment.NewLine}{status.Status}";
+                                App.Current.TryFindResource("Status", out var Status);
+                                model.PKIVerificationInfo += $"{Status}:{Environment.NewLine}{status.Status}";
                                 model.PKIVerificationInfo += Environment.NewLine;
-                                model.PKIVerificationInfo += $"{Properties.Resources.StatusInforamtion}:{Environment.NewLine}{status.StatusInformation}";
+                                App.Current.TryFindResource("StatusInforamtion", out var StatusInforamtion);
+                                model.PKIVerificationInfo += $"{StatusInforamtion}:{Environment.NewLine}{status.StatusInformation}";
                                 model.PKIVerificationInfo += Environment.NewLine;
                             }
 
@@ -421,7 +436,8 @@ namespace SecureElementReader.App.Services
                         {
                             model.SEVerificationInfo += Environment.NewLine;
                             model.SEVerificationInfo += "------------------------------";
-                            model.SEVerificationInfo += $"{Properties.Resources.ErrorAtDepth} {i}: {element.Certificate.Issuer}";
+                            App.Current.TryFindResource("ErrorAtDepth", out var ErrorAtDepth);
+                            model.SEVerificationInfo += $"{ErrorAtDepth} {i}: {element.Certificate.Issuer}";
                             model.SEVerificationInfo += Environment.NewLine;
 
                             foreach (var status in element.ChainElementStatus)

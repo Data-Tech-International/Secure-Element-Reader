@@ -13,37 +13,38 @@ namespace SecureElementReader.App.ViewModels
     public class CertDetailsViewModel : ViewModelBase, ICertDetailsViewModel
     {
         private readonly IDialogService dialogService;
-        
+
+        public delegate void StatusAction(string internalDataStatus, string commandsStatus);
+        public event StatusAction SetStaus;
+
+        public delegate void ClearAction();
+        public event ClearAction ClearFields;
+
         public ICommand VerificationInfoCommand { get; }
 
         [Reactive]
         public CertDetailsModel? CertDetailsModel { get; set; }
 
         [Reactive]
-        public string SeVerify { get; set; }
-
-        [Reactive]
-        public string PkiVerify { get; set; }
-
-        [Reactive]
-        public IBrush SeColor { get; set; }
-
-        [Reactive]
-        public IBrush PkiColor { get; set; }
-
-        [Reactive]
         public bool BtnVisibility { get; set; }
-        
-        [Reactive]
-        public string SubmitInternalDataStatus { get; set; }
 
         [Reactive]
-        public string PendingCommandsStatus { get; set; }
+        public bool SeCertValid { get; set; }
+
+        [Reactive]
+        public bool SeCertInvalid { get; set; }
+
+        [Reactive]
+        public bool PkiCertValid { get; set; }
+
+        [Reactive]
+        public bool PkiCertInvalid { get; set; }
+        
 
         public CertDetailsViewModel(IDialogService dialogService)
         {
             this.dialogService = dialogService;
-            VerificationInfoCommand = ReactiveCommand.CreateFromTask(ShowVerificationInfoDialogAsync);            
+            VerificationInfoCommand = ReactiveCommand.CreateFromTask(ShowVerificationInfoDialogAsync);
         }
 
         private Task ShowVerificationInfoDialogAsync()
@@ -54,46 +55,50 @@ namespace SecureElementReader.App.ViewModels
         public void ClearForm()
         {
             CertDetailsModel = null;
-            SeVerify = String.Empty;
-            PkiVerify = String.Empty;
+            SeCertValid = false;
+            SeCertInvalid = false;
+            PkiCertValid = false;
+            PkiCertInvalid = false;
             BtnVisibility = false;
-            SubmitInternalDataStatus = String.Empty;
-            PendingCommandsStatus = String.Empty;
+
+            ClearFields?.Invoke();
         }
 
         public void SetVerifyFields()
         {
             if (CertDetailsModel.SEVerify)
             {
-                SeVerify = Properties.Resources.SeCertValid;
-                SeColor = Brushes.Green;
+
                 BtnVisibility = false;
+                SeCertValid = true;
+                SeCertInvalid = false;
             }
             else
             {
-                SeVerify = Properties.Resources.SeCertInvalid;
-                SeColor = Brushes.Red;
+
                 BtnVisibility = true;
+                SeCertValid = false;
+                SeCertInvalid = true;
             }
 
             if (CertDetailsModel.PkiVerifyed)
             {
-                PkiVerify = Properties.Resources.PkiCertValid;
-                PkiColor = Brushes.Green;
+
                 BtnVisibility = false;
+                PkiCertValid = true;
+                PkiCertInvalid = false;
             }
             else
             {
-                PkiVerify = Properties.Resources.PkiCertInvalid;
-                PkiColor = Brushes.Red;
                 BtnVisibility = true;
+                PkiCertValid = false;
+                PkiCertInvalid = true;
             }
         }
 
-        public void SetStatusFileds(string internalDataStatus, string commandsStatus)
+        public void SetStatusFields(string internalDataStatus, string commandsStatus)
         {
-            SubmitInternalDataStatus = internalDataStatus;
-            PendingCommandsStatus = commandsStatus;
+            SetStaus?.Invoke(internalDataStatus, commandsStatus);
         }
     }
 }
