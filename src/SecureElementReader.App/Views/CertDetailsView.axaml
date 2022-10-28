@@ -18,10 +18,12 @@
 			<Setter Property="CornerRadius" Value="0"/>
 			<Setter Property="BorderThickness" Value="0"/>
 			<Setter Property="Foreground" Value="Black"/>
+			<Setter Property="FontSize" Value="12"/>
 		</Style>
 
 		<Style Selector="TextBlock.h2">
 			<Setter Property="VerticalAlignment" Value="Center"/>
+			<Setter Property="FontSize" Value="13"/>
 		</Style>
 
 		<Style Selector="TextBox.h3">
@@ -31,6 +33,7 @@
 			<Setter Property="BorderThickness" Value="0"/>
 			<Setter Property="IsEnabled" Value="False"/>
 			<Setter Property="Foreground" Value="Black"/>
+			<Setter Property="FontSize" Value="13"/>
 			
 		</Style>
 	</UserControl.Styles>
@@ -42,10 +45,10 @@
 
 		 <Grid IsEnabled="False" Width="800" Height="350">
 			 <Grid.ColumnDefinitions>
-				 <ColumnDefinition MinWidth="160" MaxWidth="160"/>
-				 <ColumnDefinition MinWidth="245" MaxWidth="245"/>
+				 <ColumnDefinition MinWidth="170" MaxWidth="160"/>
+				 <ColumnDefinition MinWidth="240" MaxWidth="245"/>
 				 <ColumnDefinition MinWidth="140" MaxWidth="140"/>
-				 <ColumnDefinition MinWidth="245" MaxWidth="245"/>
+				 <ColumnDefinition MinWidth="240" MaxWidth="245"/>
 			 </Grid.ColumnDefinitions>
 			 <Grid.RowDefinitions>
 				 <RowDefinition Height="18"/>
