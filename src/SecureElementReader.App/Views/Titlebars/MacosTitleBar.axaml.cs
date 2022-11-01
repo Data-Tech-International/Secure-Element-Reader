@@ -27,8 +27,8 @@ namespace SecureElementReader.App.Views.Titlebars
                 SetValue(IsSeamlessProperty, value);
                 if (titleBarBackground != null && titleAndWindowIconWrapper != null)
                 {
-                    titleBarBackground.IsVisible = IsSeamless ? false : true;
-                    titleAndWindowIconWrapper.IsVisible = IsSeamless ? false : true;
+                    titleBarBackground.IsVisible = !IsSeamless;
+                    titleAndWindowIconWrapper.IsVisible = !IsSeamless;
                 }
             }
         }
