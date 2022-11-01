@@ -59,12 +59,12 @@
 			<Rectangle Grid.Row="2" Grid.ColumnSpan="5" HorizontalAlignment="Stretch" Fill="Gray" Height="2" Margin="10,5,10,0" />
 
 			<StackPanel x:Name="Labels" Grid.Row="3" Grid.ColumnSpan="5" Height="120" Margin="10,5,10,0">
-				<Label Content="{DynamicResource PleaseInsertPIN}" IsVisible="{Binding PleaseInsertPIN}" Classes="Alert"/>
-				<Label Content="{DynamicResource PinMustBe4char}" IsVisible="{Binding PinMustBe4char}" Classes="Alert"/>
-				<Label Content="{DynamicResource PkiPinOK}" IsVisible="{Binding PkiPinOK}" Classes="Valid"/>
-				<Label Content="{DynamicResource SePinOK}" IsVisible="{Binding SePinOK}" Classes="Valid"/>
+				<Label Content="{DynamicResource PleaseInsertPIN}" IsVisible="{Binding PleaseInsertPin}" Classes="Alert"/>
+				<Label Content="{DynamicResource PinMustBe4char}" IsVisible="{Binding PinMustBe4Char}" Classes="Alert"/>
+				<Label Content="{DynamicResource PkiPinOK}" IsVisible="{Binding PkiPinOk}" Classes="Valid"/>
+				<Label Content="{DynamicResource SePinOK}" IsVisible="{Binding SePinOk}" Classes="Valid"/>
 				<Label Content="{DynamicResource PkiAppletLocked}" IsVisible="{Binding PkiAppletLocked}" Classes="Alert"/>
-				<Label Content="{DynamicResource SEAppletLocked}" IsVisible="{Binding SEAppletLocked}" Classes="Alert"/>
+				<Label Content="{DynamicResource SEAppletLocked}" IsVisible="{Binding SeAppletLocked}" Classes="Alert"/>
 				<StackPanel Orientation="Horizontal" Width="500" Height="100" IsVisible="{Binding WrongPinAlertText}" Classes="Alert">
 					<Label Content="{DynamicResource WrongPinAlertText}" Classes="Alert" />
 					<Label Content="{Binding TrysLeft}" Classes="Alert"/>

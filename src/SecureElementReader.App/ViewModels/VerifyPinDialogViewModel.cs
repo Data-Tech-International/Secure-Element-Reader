@@ -91,7 +91,7 @@ namespace SecureElementReader.App.ViewModels
                 WrongPinAlertText = false;
 
             }
-            else if (Pin.Length == 4)
+            else if (Pin.Length != 4)
             {             
                 PinMustBe4Char = true;
                 PleaseInsertPin = false;

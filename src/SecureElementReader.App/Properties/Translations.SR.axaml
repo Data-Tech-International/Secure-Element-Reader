@@ -69,7 +69,7 @@
 	<system:String x:Key="SubmitInternalData">Успешно слање интерних података</system:String>
 	<system:String x:Key="Support">Подршка:</system:String>
 	<system:String x:Key="SurName">Презиме:</system:String>
-	<system:String x:Key="SuccessSubmit">Srpski</system:String>
+	<system:String x:Key="SuccessSubmit">Успешно слање интерних података</system:String>
 	<system:String x:Key="Tin">ПИБ:</system:String>
 	<system:String x:Key="ThereIsNoPendingCommandsForThisCard">Нема команди на чекању за овај безбедносни елемент</system:String>
 	<system:String x:Key="UnableToSubmit">Неуспешно слање интерних података</system:String>

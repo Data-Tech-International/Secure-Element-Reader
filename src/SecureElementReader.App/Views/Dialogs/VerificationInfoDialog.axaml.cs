@@ -23,11 +23,9 @@ namespace SecureElementReader.App.Views.Dialogs
 
             if (!string.IsNullOrWhiteSpace(details))
             {
-
-
-                App.Current.TryFindResource("PossibleSolution", out var PossibleSolution);
-                App.Current.TryFindResource("InstallRCAandICAurl", out var InstallRCAandICAurl);
-                App.Current.TryFindResource("InstallRCAandICA", out var InstallRCAandICA);
+                App.Current.TryFindResource("PossibleSolution", out var possibleSolution);
+                App.Current.TryFindResource("InstallRCAandICAurl", out var installRCAandICAurl);
+                App.Current.TryFindResource("InstallRCAandICA", out var installRCAandICA);
 
                 var sp = this.FindControl<StackPanel>("Panel");
                 sp.Children.Clear();
@@ -51,27 +49,24 @@ namespace SecureElementReader.App.Views.Dialogs
                             TextWrapping = TextWrapping.Wrap
                         });
                     }
-
                 }
                 sp.Children.Add(new TextBlock
                 {
-
-                    Text = $"{PossibleSolution}:",
+                    Text = $"{possibleSolution}:",
                     FontWeight = FontWeight.Bold,
                     TextWrapping = TextWrapping.Wrap
                 });
                 sp.Children.Add(new TextBlock
                 {
-                    Text = $"{InstallRCAandICAurl}:",
+                    Text = $"{installRCAandICAurl}:",
                     TextWrapping = TextWrapping.Wrap
                 });
                 sp.Children.Add(new Button
                 {
-                    Content = $"{InstallRCAandICA}",
+                    Content = $"{installRCAandICA}",
                     Command = ViewModel.GoToTap
                 });
             }
-
             base.OnOpened();
         }
 
