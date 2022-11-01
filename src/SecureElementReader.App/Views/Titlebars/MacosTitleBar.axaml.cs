@@ -1,13 +1,8 @@
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Controls.Shapes;
-using Avalonia.LogicalTree;
 using Avalonia.Markup.Xaml;
-using Avalonia.Media.Imaging;
-using Avalonia.Platform;
 using System;
 using System.Runtime.InteropServices;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace SecureElementReader.App.Views.Titlebars
@@ -92,13 +87,6 @@ namespace SecureElementReader.App.Views.Titlebars
                 if (s == WindowState.Maximized)
                 {
                     hostWindow.Padding = new Thickness(7, 7, 7, 7);
-
-                    // This should be a more universal approach in both cases, but I found it to be less reliable, when for example double-clicking the title bar.
-                    /*hostWindow.Padding = new Thickness(
-                            hostWindow.OffScreenMargin.Left,
-                            hostWindow.OffScreenMargin.Top,
-                            hostWindow.OffScreenMargin.Right,
-                            hostWindow.OffScreenMargin.Bottom);*/
                 }
             });
         }

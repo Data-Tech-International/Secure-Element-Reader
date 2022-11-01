@@ -47,12 +47,12 @@
 	<system:String x:Key="PkiCertInvalid">Le certificat de l'ICP est invalide</system:String>
 	<system:String x:Key="PkiCertValid">Le certificat de l'ICP est valide</system:String>
 	<system:String x:Key="PkiPinOK">Le PIN de l'ICP est CORRECT</system:String>
-	<system:String x:Key="PleaseInseretCard">Veuillez insérez la carte</system:String>
+	<system:String x:Key="PleaseInsertCard">Veuillez insérez la carte</system:String>
 	<system:String x:Key="PleaseInsertPIN">Veuillez insérer le code PIN</system:String>
 	<system:String x:Key="PossibleSolution">Solution possible</system:String>
 	<system:String x:Key="RequestedBy">Demandé par :</system:String>
 	<system:String x:Key="ReturnCard">Veuillez retourner la carte à l'autorité fiscale.</system:String>
-	<system:String x:Key="SeAppletLocked">L'ES de l'applet est BLOQUÉ</system:String>
+	<system:String x:Key="SEAppletLocked">L'ES de l'applet est BLOQUÉ</system:String>
 	<system:String x:Key="SeCertDetailsError">Détails de l'erreur de l'ES du certificat</system:String>
 	<system:String x:Key="SeCertInvalid">Le certificat de l'ES est invalide</system:String>
 	<system:String x:Key="SeCertValid">Le certificat de l'ES est valide</system:String>
@@ -74,7 +74,7 @@
 	<system:String x:Key="ThereIsNoPendingCommandsForThisCard">Il n'y a pas de commandes en attente pour cette carte</system:String>
 	<system:String x:Key="UnableToSubmit">Impossible de soumettre les données internes</system:String>
 	<system:String x:Key="UniqueIdentifier">IU:</system:String>
-	<system:String x:Key="VerficationDetails">Détails de la vérification</system:String>
+	<system:String x:Key="VerificationDetails">Détails de la vérification</system:String>
 	<system:String x:Key="Verify">Vérifier</system:String>
 	<system:String x:Key="VerifyPin">Vérifier le PIN</system:String>
 	<system:String x:Key="Version">Version:</system:String>

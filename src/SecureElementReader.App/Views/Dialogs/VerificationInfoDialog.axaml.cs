@@ -68,7 +68,7 @@ namespace SecureElementReader.App.Views.Dialogs
                 sp.Children.Add(new Button
                 {
                     Content = $"{InstallRCAandICA}",
-                    Command = ViewModel.GoToTAP
+                    Command = ViewModel.GoToTap
                 });
             }
 

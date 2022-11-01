@@ -16,8 +16,8 @@ namespace SecureElementReader.App.ViewModels
 {
     public class VerifyPinDialogViewModel : DialogViewModelBase
     {
-        private readonly ICardReaderService cardReaderService;
-        private readonly IMainWindowProvider mainWindowProvider;
+        private readonly ICardReaderService _cardReaderService;
+        private readonly IMainWindowProvider _mainWindowProvider;
 
         public ICommand CloseButton { get; }
 
@@ -32,23 +32,22 @@ namespace SecureElementReader.App.ViewModels
 
         [Reactive]
         public string TaxMessage { get; set; }
-
-        //MARIO
+        
         [Reactive]
-        public bool PleaseInsertPIN { get; set; }
-
-        [Reactive]
-        public bool PinMustBe4char { get; set; }
+        public bool PleaseInsertPin { get; set; }
 
         [Reactive]
-        public bool PkiPinOK { get; set; }
+        public bool PinMustBe4Char { get; set; }
 
         [Reactive]
-        public bool SePinOK { get; set; }
+        public bool PkiPinOk { get; set; }
+
+        [Reactive]
+        public bool SePinOk { get; set; }
 
 
         [Reactive]
-        public bool SEAppletLocked { get; set; }
+        public bool SeAppletLocked { get; set; }
 
         [Reactive]
         public bool SePinWrong { get; set; }
@@ -75,8 +74,8 @@ namespace SecureElementReader.App.ViewModels
 
         public VerifyPinDialogViewModel(ICardReaderService cardReaderService, IMainWindowProvider mainWindowProvider)
         {
-            this.cardReaderService = cardReaderService; 
-            this.mainWindowProvider = mainWindowProvider;
+            this._cardReaderService = cardReaderService; 
+            this._mainWindowProvider = mainWindowProvider;
             CloseButton = ReactiveCommand.Create(ButtonClose);
             VerifyCommand = ReactiveCommand.Create(VerifyPin);           
         }
@@ -85,26 +84,26 @@ namespace SecureElementReader.App.ViewModels
         {
             if (string.IsNullOrWhiteSpace(Pin))
             {
-                PleaseInsertPIN = true;
-                PinMustBe4char = false;
-                PkiPinOK = false;
-                SePinOK = false;
+                PleaseInsertPin = true;
+                PinMustBe4Char = false;
+                PkiPinOk = false;
+                SePinOk = false;
                 WrongPinAlertText = false;
 
             }
-            else if (Pin.Length < 4 || Pin.Length > 4)
+            else if (Pin.Length == 4)
             {             
-                PinMustBe4char = true;
-                PleaseInsertPIN = false;
-                PkiPinOK = false;
-                SePinOK = false;
+                PinMustBe4Char = true;
+                PleaseInsertPin = false;
+                PkiPinOk = false;
+                SePinOk = false;
                 WrongPinAlertText = false;
 
             }
             else
             {
-                var result = cardReaderService.VerifyPin(Pin);
-                if (result.ErrorList.Count() > 0)
+                var result = _cardReaderService.VerifyPin(Pin);
+                if (result.ErrorList.Any())
                 {
                     ShowErrorMsg(result.ErrorList);                    
                 }
@@ -121,88 +120,88 @@ namespace SecureElementReader.App.ViewModels
                     new MessageBoxStandardParams
                     {
                         ContentMessage = String.Join('\n', errorList) + Environment.NewLine,
-                        ContentHeader = mainWindowProvider.GetMainWindow().GetResourceObservable("Error").ToString(),
-                        ContentTitle = mainWindowProvider.GetMainWindow().GetResourceObservable("Error").ToString(),
+                        ContentHeader = _mainWindowProvider.GetMainWindow().GetResourceObservable("Error").ToString(),
+                        ContentTitle = _mainWindowProvider.GetMainWindow().GetResourceObservable("Error").ToString(),
                         ShowInCenter = true,
                         Icon = MessageBoxAvaloniaEnums.Icon.Error,
                         Topmost = true,
                         WindowStartupLocation = Avalonia.Controls.WindowStartupLocation.CenterOwner,
                         SizeToContent = Avalonia.Controls.SizeToContent.WidthAndHeight
                     });
-            msg.ShowDialog(mainWindowProvider.GetMainWindow());
+            msg.ShowDialog(_mainWindowProvider.GetMainWindow());
         }
 
         private void ValidateResult(VerifyPinModel result)
         {
             if (result.PkiPinSuccess)
             {
-                PkiPinOK = true;
-                PinMustBe4char = false;
-                PleaseInsertPIN = false;
+                PkiPinOk = true;
+                PinMustBe4Char = false;
+                PleaseInsertPin = false;
                 WrongPinAlertText = false;
             }
             else
             {
-                if (result.PKIAppletLocked)
+                if (result.PkiAppletLocked)
                 {
                     PkiAppletLocked = true;
-                    PinMustBe4char = false;
-                    PleaseInsertPIN = false;
-                    PkiPinOK = false;
-                    SePinOK = false;
+                    PinMustBe4Char = false;
+                    PleaseInsertPin = false;
+                    PkiPinOk = false;
+                    SePinOk = false;
 
                 }
                 else
                 {
                     TrysLeft = (result.PkiTrysLeft - 192).ToString();
                     WrongPinAlertText = true;
-                    PinMustBe4char = false;
-                    PleaseInsertPIN = false;
-                    SePinOK = false;
-                    PkiPinOK = false;
+                    PinMustBe4Char = false;
+                    PleaseInsertPin = false;
+                    SePinOk = false;
+                    PkiPinOk = false;
                 }
             }
 
             if (result.SePinSuccess)
             {
-                SePinOK = true;
-                PinMustBe4char = false;
-                PleaseInsertPIN = false;
+                SePinOk = true;
+                PinMustBe4Char = false;
+                PleaseInsertPin = false;
                 WrongPinAlertText = false;
             }
             else
             {
-                if (result.SEAppletLocked)
+                if (result.SeAppletLocked)
                 {
-                    SEAppletLocked = true;
-                    PinMustBe4char = false;
-                    PleaseInsertPIN = false;
+                    SeAppletLocked = true;
+                    PinMustBe4Char = false;
+                    PleaseInsertPin = false;
                     WrongPinAlertText = false;
 
                 }
                 else
                 {
                     SePinWrong = true;
-                    PinMustBe4char = false;
-                    PleaseInsertPIN = false;
+                    PinMustBe4Char = false;
+                    PleaseInsertPin = false;
                 }                
             }
 
-            if (result.SEAppletLocked & result.PKIAppletLocked)
+            if (result.SeAppletLocked & result.PkiAppletLocked)
             {
 
                 ShowTaxMessage = true;
-                TaxMessage = mainWindowProvider.GetMainWindow().GetResourceObservable("ReturnCard").ToString();
+                TaxMessage = _mainWindowProvider.GetMainWindow().GetResourceObservable("ReturnCard").ToString();
             }
-            else if(result.SEAppletLocked)
+            else if(result.SeAppletLocked)
             {
                 ShowTaxMessage = true;
-                TaxMessage = mainWindowProvider.GetMainWindow().GetResourceObservable("SeAppletLocked").ToString();
+                TaxMessage = _mainWindowProvider.GetMainWindow().GetResourceObservable("SeAppletLocked").ToString();
             }
-            else if(result.PKIAppletLocked)
+            else if(result.PkiAppletLocked)
             {
                 ShowTaxMessage = true;
-                TaxMessage = mainWindowProvider.GetMainWindow().GetResourceObservable("PkiAppletLocked").ToString();
+                TaxMessage = _mainWindowProvider.GetMainWindow().GetResourceObservable("PkiAppletLocked").ToString();
             }
 
         }

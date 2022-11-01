@@ -1,9 +1,6 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:dialogs="clr-namespace:SecureElementReader.App.ViewModels"
-        xmlns:p="clr-namespace:SecureElementReader.App.Properties"
         x:Class="SecureElementReader.App.Views.Dialogs.VerifyPinDialog"
         Icon="/Assets/taxcore.png"
         WindowStartupLocation="CenterOwner"
@@ -74,7 +71,7 @@
 				</StackPanel>
 			</StackPanel>
 
-			<Button Grid.Row="4" Grid.Column="5" Margin="10" HorizontalAlignment="Right" VerticalAlignment="Bottom"
+			<Button Grid.Row="3" Grid.Column="4" Margin="10" HorizontalAlignment="Right" VerticalAlignment="Bottom"
 				Command="{Binding CloseButton}" Background="Red"
 				Foreground="White" MaxWidth="90" MinHeight="30"
 				CornerRadius="0" Content="{DynamicResource Close}"/>
