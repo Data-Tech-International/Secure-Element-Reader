@@ -1,14 +1,8 @@
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Controls.Shapes;
-using Avalonia.LogicalTree;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
-using Avalonia.Media.Imaging;
-using Avalonia.Platform;
-using System;
 using System.Runtime.InteropServices;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace SecureElementReader.App.Views.Titlebars
@@ -42,7 +36,7 @@ namespace SecureElementReader.App.Views.Titlebars
                     seamlessMenuBar.IsVisible = IsSeamless ? true : false;
                     defaultMenuBar.IsVisible = IsSeamless ? false : true;
 
-                    if (IsSeamless == false)
+                    if (!IsSeamless)
                     {
                         titleBar.Resources["SystemControlForegroundBaseHighBrush"] = new SolidColorBrush { Color = new Color(255, 0, 0, 0) };
                     }

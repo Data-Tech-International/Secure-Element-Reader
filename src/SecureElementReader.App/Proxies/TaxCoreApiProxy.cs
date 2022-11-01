@@ -5,7 +5,6 @@ using SecureElementReader.App.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Security.Cryptography.X509Certificates;
@@ -16,9 +15,9 @@ namespace SecureElementReader.App.Proxies
 {
     public class TaxCoreApiProxy : ITaxCoreApiProxy
     {
-        private string commonName { get; set; }
-        private string apiUrl { get; set; }
-        private string uniqueIdentifier { get; set; }
+        private string CommonName { get; set; }
+        private string ApiUrl { get; set; }
+        private string UniqueIdentifier { get; set; }
 
         public async Task<List<CommandsStatusResult>> CommandStatusUpdate(List<CommandsStatusResult> commandResult)
         {
@@ -67,7 +66,7 @@ namespace SecureElementReader.App.Proxies
                     using (HttpClient client = new HttpClient(handler))
                     {
                         GetClientAndHandler(handler, client);                        
-                        var response = await client.PostAsync($"{EndpointUrls.GetPendingCommands}?serialNumber={uniqueIdentifier}", null);
+                        var response = await client.PostAsync($"{EndpointUrls.GetPendingCommands}?serialNumber={UniqueIdentifier}", null);
 
                         string responseBody = await response.Content.ReadAsStringAsync();
                         if (!response.IsSuccessStatusCode)
@@ -117,9 +116,9 @@ namespace SecureElementReader.App.Proxies
 
         public void Configure(string uniqueIdentifier, string commonName, string apiUrl)
         {
-            this.commonName = commonName;
-            this.uniqueIdentifier = uniqueIdentifier;
-            this.apiUrl = apiUrl.EndsWith('/') ? apiUrl : apiUrl + "/";
+            this.CommonName = commonName;
+            this.UniqueIdentifier = uniqueIdentifier;
+            this.ApiUrl = apiUrl.EndsWith('/') ? apiUrl : apiUrl + "/";
         }
 
         private void GetClientAndHandler(out HttpClientHandler handler, out HttpClient client)
@@ -127,7 +126,7 @@ namespace SecureElementReader.App.Proxies
             handler = CreateWebRequestHandler();
             client = new HttpClient(handler);
 
-            client.BaseAddress = new Uri(apiUrl);
+            client.BaseAddress = new Uri(ApiUrl);
             client.DefaultRequestHeaders.Accept.Clear();
         }
 
@@ -137,7 +136,7 @@ namespace SecureElementReader.App.Proxies
             handler.ClientCertificateOptions = ClientCertificateOption.Manual;
             handler.ClientCertificates.Add(cert);
 
-            client.BaseAddress = new Uri(apiUrl);
+            client.BaseAddress = new Uri(ApiUrl);
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             client.DefaultRequestHeaders.ConnectionClose = false;
@@ -158,7 +157,7 @@ namespace SecureElementReader.App.Proxies
             var store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
 
             store.Open(OpenFlags.OpenExistingOnly | OpenFlags.ReadOnly);
-            return store.Certificates.Find(X509FindType.FindBySubjectName, commonName, false)[0];
+            return store.Certificates.Find(X509FindType.FindBySubjectName, CommonName, false)[0];
         }
     }
 }

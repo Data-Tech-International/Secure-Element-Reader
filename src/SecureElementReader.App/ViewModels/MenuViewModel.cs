@@ -14,7 +14,7 @@ namespace SecureElementReader.App.ViewModels
     public class MenuViewModel : ViewModelBase, IMenuViewModel
     {
         private readonly SelectedLanguageConfiguration _configuration;
-        private readonly IDialogService dialogService;
+        private readonly IDialogService _dialogService;
         private readonly ILocalizationService _localizationService;
 
 
@@ -28,7 +28,7 @@ namespace SecureElementReader.App.ViewModels
             ILocalizationService localizationService,
             SelectedLanguageConfiguration configuration)
         {
-            this.dialogService = dialogService;
+            this._dialogService = dialogService;
             _localizationService = localizationService;
             _configuration = configuration;
 
@@ -39,7 +39,7 @@ namespace SecureElementReader.App.ViewModels
 
         private Task ShowAboutDialogAsync()
         {
-            return dialogService.ShowDialogAsync(nameof(AboutDialogViewModel));
+            return _dialogService.ShowDialogAsync(nameof(AboutDialogViewModel));
         }
 
         public void Translate(string targetLanguage)
@@ -56,7 +56,7 @@ namespace SecureElementReader.App.ViewModels
                     Source = new Uri($"avares://SecureElementReader.App/Properties/Translations.{targetLanguage}.axaml")
                 });
 
-            _localizationService.SetAppSettingValue(nameof(_configuration.Language), targetLanguage);// PRREKO _conf.Lang IZAZVATI PREVOD PRI STARTU
+            _localizationService.SetAppSettingValue(nameof(_configuration.Language), targetLanguage);
         }
 
         public void StartUpTranslate()

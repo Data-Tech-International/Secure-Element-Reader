@@ -47,12 +47,12 @@
 	<system:String x:Key="PkiCertInvalid">PKI низ сертификата је невалидан</system:String>
 	<system:String x:Key="PkiCertValid">PKI низ сертификата је валидан</system:String>
 	<system:String x:Key="PkiPinOK">PKI ПИН је исправан</system:String>
-	<system:String x:Key="PleaseInseretCard">Уметните картицу у читач</system:String>
+	<system:String x:Key="PleaseInsertCard">Уметните картицу у читач</system:String>
 	<system:String x:Key="PleaseInsertPIN">Унесите ПИН</system:String>
 	<system:String x:Key="PossibleSolution">Могуће решење</system:String>
 	<system:String x:Key="RequestedBy">Захтевао:</system:String>
 	<system:String x:Key="ReturnCard">Вратите картицу у Пореску управу.</system:String>
-	<system:String x:Key="SeAppletLocked">SE аплет је закључан</system:String>
+	<system:String x:Key="SEAppletLocked">SE аплет је закључан</system:String>
 	<system:String x:Key="SeCertDetailsError">Грешка читања SE сертификата</system:String>
 	<system:String x:Key="SeCertInvalid">SE низ сертификата је невалидан</system:String>
 	<system:String x:Key="SeCertValid">SE низ сертификата је валидан</system:String>
@@ -74,7 +74,7 @@
 	<system:String x:Key="ThereIsNoPendingCommandsForThisCard">Нема команди на чекању за овај безбедносни елемент</system:String>
 	<system:String x:Key="UnableToSubmit">Неуспешно слање интерних података</system:String>
 	<system:String x:Key="UniqueIdentifier">ЈИД:</system:String>
-	<system:String x:Key="VerficationDetails">Детаљи верификације</system:String>
+	<system:String x:Key="VerificationDetails">Детаљи верификације</system:String>
 	<system:String x:Key="Verify">Верификуј</system:String>
 	<system:String x:Key="VerifyPin">Провера ПИН-а</system:String>
 	<system:String x:Key="Version">Верзија:</system:String>

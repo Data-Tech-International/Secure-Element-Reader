@@ -3,10 +3,7 @@ using Avalonia.Controls;
 using SecureElementReader.App.ViewModels.Implementations.Dialogs;
 using SecureElementReader.App.ViewModels.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace SecureElementReader.App.Views.Dialogs
 {
@@ -15,7 +12,7 @@ namespace SecureElementReader.App.Views.Dialogs
     {
         private Window ParentWindow => (Window)Owner;
 
-        protected DialogViewModelBase<TResult> ViewModel => (DialogViewModelBase<TResult>)DataContext;
+        private DialogViewModelBase<TResult> ViewModel => (DialogViewModelBase<TResult>)DataContext;
 
         protected DialogWindowBase()
         {

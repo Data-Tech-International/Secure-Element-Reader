@@ -1,11 +1,5 @@
-using SecureElementReader.App.Extensions;
 using SecureElementReader.App.Interfaces;
-using SecureElementReader.App.Models;
 using SecureElementReader.App.Models.Configurations;
-using SecureElementReader.App.ViewModels;
-using SecureElementReader.App.ViewModels.Interfaces;
-using System;
-using System.Globalization;
 using System.IO;
 
 namespace SecureElementReader.App.Services

@@ -1,7 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
-using Avalonia.Media;
 using Avalonia.Threading;
 using SecureElementReader.App.Enums;
 using SecureElementReader.App.ViewModels;
@@ -19,10 +18,10 @@ namespace SecureElementReader.App.Views
         {
             InitializeComponent();
 
-            WaithForViewModel();
+            WaitForViewModel();
         }
 
-        private async Task WaithForViewModel()
+        private async Task WaitForViewModel()
         {
             Window hostWindow = (Window)this.VisualRoot;
 
@@ -32,7 +31,7 @@ namespace SecureElementReader.App.Views
                 var vm = (CertDetailsViewModel)DataContext;
                 if (vm != null)
                 {
-                    vm.SetStaus += SetStatus_Event;
+                    vm.SetStatus += SetStatus_Event;
                     vm.ClearFields += ClearFields_Event;
                 }
                 await Task.Delay(50);
@@ -58,9 +57,7 @@ namespace SecureElementReader.App.Views
                 case SubmitMessages.CantReadInternal:
                     Dispatcher.UIThread.Post(() => { lblAuditMsg.Bind(Label.ContentProperty, this.GetResourceObservable("CantReadInternal")); });
                     break;
-
-                default:
-                    break;
+                
             }
 
 
@@ -76,8 +73,8 @@ namespace SecureElementReader.App.Views
                 case CommandsMessages.AllCommandsExecutedButFailedToNotifyTaxCoreSystem:
                     Dispatcher.UIThread.Post(() => { lblCommandsMsg.Bind(Label.ContentProperty, this.GetResourceObservable("AllCommandsExecutedButFailedToNotifyTaxCoreSystem")); });
                     break;
-                case CommandsMessages.NotAllCommandEexecutedSuccessfully:
-                    Dispatcher.UIThread.Post(() => { lblCommandsMsg.Bind(Label.ContentProperty, this.GetResourceObservable("NotAllCommandEexecutedSuccessfully")); });
+                case CommandsMessages.NotAllCommandExecutedSuccessfully:
+                    Dispatcher.UIThread.Post(() => { lblCommandsMsg.Bind(Label.ContentProperty, this.GetResourceObservable("NotAllCommandExecutedSuccessfully")); });
                     break;
                 case CommandsMessages.CommandsNotExecuted:
                     Dispatcher.UIThread.Post(() => { lblCommandsMsg.Bind(Label.ContentProperty, this.GetResourceObservable("CommandsNotExecuted")); });
@@ -85,9 +82,7 @@ namespace SecureElementReader.App.Views
                 case CommandsMessages.ThereIsNoPendingCommandsForThisCard:
                     Dispatcher.UIThread.Post(() => { lblCommandsMsg.Bind(Label.ContentProperty, this.GetResourceObservable("ThereIsNoPendingCommandsForThisCard")); });
                     break;
-
-                default:
-                    break;
+                
             }
         }
 

@@ -52,8 +52,7 @@ namespace SecureElementReader.App.DependencyInjection
             services.RegisterLazySingleton<ICardReaderService>(() => new CardReaderService(                   
                 resolver.GetRequiredService<IApduCommandService>(),
                 resolver.GetRequiredService<ILogger>(),
-                 resolver.GetRequiredService<IContextFactory>(),
-                resolver.GetRequiredService<IMainWindowProvider>()
+                 resolver.GetRequiredService<IContextFactory>()
 
                 ));
             services.RegisterLazySingleton<IDialogService>(() => new DialogService(
@@ -91,12 +90,12 @@ namespace SecureElementReader.App.DependencyInjection
                 ));        
         }
 
-        public static void RegisterLogging(IMutableDependencyResolver services, IReadonlyDependencyResolver resolver)
+        private static void RegisterLogging(IMutableDependencyResolver services, IReadonlyDependencyResolver resolver)
         {
             services.RegisterLazySingleton(() =>
             {
                 var config = resolver.GetRequiredService<LoggingConfiguration>();
-                var logFilePath = GetLogFileName(config, resolver);
+                var logFilePath = GetLogFileName(config);
                 var logger = new LoggerConfiguration()
                     .MinimumLevel.Override("Default", config.DefaultLogLevel)
                     .MinimumLevel.Override("Microsoft", config.MicrosoftLogLevel)
@@ -111,8 +110,7 @@ namespace SecureElementReader.App.DependencyInjection
             });
         }
 
-        private static string GetLogFileName(LoggingConfiguration config,
-            IReadonlyDependencyResolver resolver)
+        private static string GetLogFileName(LoggingConfiguration config)
         {
             string logDirectory = Directory.GetCurrentDirectory();
 

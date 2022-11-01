@@ -47,12 +47,12 @@
 	<system:String x:Key="PkiCertInvalid">PKI certificate chain is invalid</system:String>
 	<system:String x:Key="PkiCertValid">PKI certificate chain is valid</system:String>
 	<system:String x:Key="PkiPinOK">PKI pin is OK</system:String>
-	<system:String x:Key="PleaseInseretCard">Please insert a card</system:String>
+	<system:String x:Key="PleaseInsertCard">Please insert a card</system:String>
 	<system:String x:Key="PleaseInsertPIN">Please enter PIN code</system:String>
 	<system:String x:Key="PossibleSolution">Possible solution</system:String>
 	<system:String x:Key="RequestedBy">Requested By:</system:String>
 	<system:String x:Key="ReturnCard">Please return the card to the tax authority.</system:String>
-	<system:String x:Key="SeAppletLocked">SE applet is LOCKED</system:String>
+	<system:String x:Key="SEAppletLocked">SE applet is LOCKED</system:String>
 	<system:String x:Key="SeCertDetailsError">SE cert details error</system:String>
 	<system:String x:Key="SeCertInvalid">SE certificate chain is invalid</system:String>
 	<system:String x:Key="SeCertValid">SE certificate chain is valid</system:String>
@@ -74,7 +74,7 @@
 	<system:String x:Key="ThereIsNoPendingCommandsForThisCard">There are no pending commands for this secure element</system:String>
 	<system:String x:Key="UnableToSubmit">Unable to submit internal data</system:String>
 	<system:String x:Key="UniqueIdentifier">UID:</system:String>
-	<system:String x:Key="VerficationDetails">Verfication Details</system:String>
+	<system:String x:Key="VerificationDetails">Verfication Details</system:String>
 	<system:String x:Key="Verify">Verify</system:String>
 	<system:String x:Key="VerifyPin">Verify Pin</system:String>
 	<system:String x:Key="Version">Version:</system:String>

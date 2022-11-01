@@ -6,7 +6,6 @@
         xmlns:main="clr-namespace:SecureElementReader.App.Views"
 		xmlns:local="clr-namespace:SecureElementReader.App.ViewModels"
 		xmlns:titlebars="clr-namespace:SecureElementReader.App.Views.Titlebars;assembly=SecureElementReader.App"
-		xmlns:p="clr-namespace:SecureElementReader.App.Properties"
         x:Class="SecureElementReader.App.Views.MainWindow"
         WindowStartupLocation="CenterScreen"
 		ExtendClientAreaToDecorationsHint="True"

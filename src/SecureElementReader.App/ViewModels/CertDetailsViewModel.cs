@@ -1,10 +1,8 @@
-﻿using Avalonia.Media;
-using ReactiveUI;
+﻿using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using SecureElementReader.App.Models;
 using SecureElementReader.App.ViewModels.Interfaces;
 using SecureElementReader.App.ViewModels.Services;
-using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -12,10 +10,10 @@ namespace SecureElementReader.App.ViewModels
 {
     public class CertDetailsViewModel : ViewModelBase, ICertDetailsViewModel
     {
-        private readonly IDialogService dialogService;
+        private readonly IDialogService _dialogService;
 
         public delegate void StatusAction(string internalDataStatus, string commandsStatus);
-        public event StatusAction SetStaus;
+        public event StatusAction SetStatus;
 
         public delegate void ClearAction();
         public event ClearAction ClearFields;
@@ -23,7 +21,7 @@ namespace SecureElementReader.App.ViewModels
         public ICommand VerificationInfoCommand { get; }
 
         [Reactive]
-        public CertDetailsModel? CertDetailsModel { get; set; }
+        public CertDetailsModel CertDetailsModel { get; set; }
 
         [Reactive]
         public bool BtnVisibility { get; set; }
@@ -43,13 +41,13 @@ namespace SecureElementReader.App.ViewModels
 
         public CertDetailsViewModel(IDialogService dialogService)
         {
-            this.dialogService = dialogService;
+            this._dialogService = dialogService;
             VerificationInfoCommand = ReactiveCommand.CreateFromTask(ShowVerificationInfoDialogAsync);
         }
 
         private Task ShowVerificationInfoDialogAsync()
         {
-            return dialogService.ShowDialogAsync(nameof(VerificationInfoDialogViewModel));
+            return _dialogService.ShowDialogAsync(nameof(VerificationInfoDialogViewModel));
         }
 
         public void ClearForm()
@@ -66,7 +64,7 @@ namespace SecureElementReader.App.ViewModels
 
         public void SetVerifyFields()
         {
-            if (CertDetailsModel.SEVerify)
+            if (CertDetailsModel.SeVerify)
             {
 
                 BtnVisibility = false;
@@ -81,7 +79,7 @@ namespace SecureElementReader.App.ViewModels
                 SeCertInvalid = true;
             }
 
-            if (CertDetailsModel.PkiVerifyed)
+            if (CertDetailsModel.PkiVerified)
             {
 
                 BtnVisibility = false;
@@ -98,7 +96,7 @@ namespace SecureElementReader.App.ViewModels
 
         public void SetStatusFields(string internalDataStatus, string commandsStatus)
         {
-            SetStaus?.Invoke(internalDataStatus, commandsStatus);
+            SetStatus?.Invoke(internalDataStatus, commandsStatus);
         }
     }
 }
