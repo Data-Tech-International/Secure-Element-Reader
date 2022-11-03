@@ -31,10 +31,10 @@ namespace SecureElementReader.App.Views.Titlebars
                     seamlessMenuBar != null &&
                     defaultMenuBar != null)
                 {
-                    titleBarBackground.IsVisible = IsSeamless;
-                    systemChromeTitle.IsVisible = IsSeamless;
+                    titleBarBackground.IsVisible = !IsSeamless;
+                    systemChromeTitle.IsVisible = !IsSeamless;
                     seamlessMenuBar.IsVisible = IsSeamless;
-                    defaultMenuBar.IsVisible = IsSeamless;
+                    defaultMenuBar.IsVisible = !IsSeamless;
 
                     if (!IsSeamless)
                     {
