@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SecureElementReader.App.Enums
+﻿namespace SecureElementReader.App.Enums
 {
     public enum ApduP1
     {
@@ -17,7 +11,7 @@ namespace SecureElementReader.App.Enums
         /// P1 used for Get Response if there is more then 256 bytes for T0 protocol
         /// </summary>
         GetResponse = 0x00,
-        
+
         PKIExport = 0xA0
     }
 }

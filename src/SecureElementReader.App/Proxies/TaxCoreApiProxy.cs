@@ -65,7 +65,7 @@ namespace SecureElementReader.App.Proxies
                 {
                     using (HttpClient client = new HttpClient(handler))
                     {
-                        GetClientAndHandler(handler, client);                        
+                        GetClientAndHandler(handler, client);
                         var response = await client.PostAsync($"{EndpointUrls.GetPendingCommands}?serialNumber={UniqueIdentifier}", null);
 
                         string responseBody = await response.Content.ReadAsStringAsync();
@@ -75,7 +75,7 @@ namespace SecureElementReader.App.Proxies
                         }
 
                         var commands = JsonConvert.DeserializeObject<List<Command>>(responseBody);
-                        return commands.Where(s=>s.Type == Enums.CommandsType.ForwardSecureElementDirective 
+                        return commands.Where(s => s.Type == Enums.CommandsType.ForwardSecureElementDirective
                                 || s.Type == Enums.CommandsType.ForwardProofOfAudit).ToList();
                     }
                 }

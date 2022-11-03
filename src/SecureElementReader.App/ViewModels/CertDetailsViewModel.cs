@@ -37,11 +37,11 @@ namespace SecureElementReader.App.ViewModels
 
         [Reactive]
         public bool PkiCertInvalid { get; set; }
-        
+
 
         public CertDetailsViewModel(IDialogService dialogService)
         {
-            this._dialogService = dialogService;
+            _dialogService = dialogService;
             VerificationInfoCommand = ReactiveCommand.CreateFromTask(ShowVerificationInfoDialogAsync);
         }
 
@@ -66,14 +66,12 @@ namespace SecureElementReader.App.ViewModels
         {
             if (CertDetailsModel.SeVerify)
             {
-
                 BtnVisibility = false;
                 SeCertValid = true;
                 SeCertInvalid = false;
             }
             else
             {
-
                 BtnVisibility = true;
                 SeCertValid = false;
                 SeCertInvalid = true;
@@ -81,7 +79,6 @@ namespace SecureElementReader.App.ViewModels
 
             if (CertDetailsModel.PkiVerified)
             {
-
                 BtnVisibility = false;
                 PkiCertValid = true;
                 PkiCertInvalid = false;

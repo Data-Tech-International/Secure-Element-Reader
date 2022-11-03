@@ -1,20 +1,20 @@
+using Microsoft.Extensions.Configuration;
+using PCSC;
+using PCSC.Iso7816;
+using PCSC.Monitoring;
 using SecureElementReader.App.Interfaces;
+using SecureElementReader.App.Models.Configurations;
+using SecureElementReader.App.Proxies;
 using SecureElementReader.App.Services;
 using SecureElementReader.App.ViewModels;
 using SecureElementReader.App.ViewModels.Interfaces;
 using SecureElementReader.App.ViewModels.Services;
-using Splat;
-using Microsoft.Extensions.Configuration;
-using SecureElementReader.App.Models.Configurations;
-using System.IO;
 using Serilog;
 using Serilog.Extensions.Logging;
-using ILogger = Microsoft.Extensions.Logging.ILogger;
+using Splat;
 using Splat.Microsoft.Extensions.Logging;
-using PCSC.Iso7816;
-using PCSC;
-using PCSC.Monitoring;
-using SecureElementReader.App.Proxies;
+using System.IO;
+using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace SecureElementReader.App.DependencyInjection
 {
@@ -49,7 +49,7 @@ namespace SecureElementReader.App.DependencyInjection
             services.RegisterLazySingleton<IMainWindowProvider>(() => new MainWindowProvider());
             services.RegisterLazySingleton<IApduCommandService>(() => new ApduCommandService());
             services.RegisterLazySingleton<ITaxCoreApiProxy>(() => new TaxCoreApiProxy());
-            services.RegisterLazySingleton<ICardReaderService>(() => new CardReaderService(                   
+            services.RegisterLazySingleton<ICardReaderService>(() => new CardReaderService(
                 resolver.GetRequiredService<IApduCommandService>(),
                 resolver.GetRequiredService<ILogger>(),
                  resolver.GetRequiredService<IContextFactory>()
@@ -61,7 +61,7 @@ namespace SecureElementReader.App.DependencyInjection
             services.RegisterLazySingleton<IApplicationDispatcher>(() => new AvaloniaDispatcher());
             services.RegisterLazySingleton<IContextFactory>(() => new ContextFactory());
             services.RegisterLazySingleton<IMonitorFactory>(() => new MonitorFactory(
-                resolver.GetRequiredService<IContextFactory>())); 
+                resolver.GetRequiredService<IContextFactory>()));
             services.RegisterLazySingleton<IMainWindowViewModel>(() => new MainWindowViewModel(
                 resolver.GetRequiredService<IDialogService>(),
                 resolver.GetRequiredService<ICardReaderService>(),
@@ -73,7 +73,7 @@ namespace SecureElementReader.App.DependencyInjection
                 resolver.GetRequiredService<ITaxCoreApiProxy>()
                 ));
             services.RegisterLazySingleton<IApplicationCloser>(() => new ApplicationCloser());
-            
+
             services.RegisterLazySingleton<IMenuViewModel>(() => new MenuViewModel(
                     resolver.GetRequiredService<IApplicationCloser>(),
                     resolver.GetRequiredService<IDialogService>(),
@@ -87,7 +87,7 @@ namespace SecureElementReader.App.DependencyInjection
 
             services.RegisterLazySingleton<ILocalizationService>(() => new LocalizationService(
                     resolver.GetRequiredService<SelectedLanguageConfiguration>()
-                ));        
+                ));
         }
 
         private static void RegisterLogging(IMutableDependencyResolver services, IReadonlyDependencyResolver resolver)

@@ -1,5 +1,4 @@
-﻿
-namespace SecureElementReader.App.Enums
+﻿namespace SecureElementReader.App.Enums
 {
     public enum ApduInstructions : byte
     {

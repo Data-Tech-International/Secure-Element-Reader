@@ -1,5 +1,4 @@
-﻿
-namespace SecureElementReader.App.Interfaces
+﻿namespace SecureElementReader.App.Interfaces
 {
     public interface IApplicationCloser
     {

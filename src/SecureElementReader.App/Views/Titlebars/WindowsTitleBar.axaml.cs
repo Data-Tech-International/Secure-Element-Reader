@@ -31,10 +31,10 @@ namespace SecureElementReader.App.Views.Titlebars
                     seamlessMenuBar != null &&
                     defaultMenuBar != null)
                 {
-                    titleBarBackground.IsVisible = !IsSeamless;
-                    systemChromeTitle.IsVisible = !IsSeamless;
-                    seamlessMenuBar.IsVisible = !IsSeamless;
-                    defaultMenuBar.IsVisible = !IsSeamless;
+                    titleBarBackground.IsVisible = IsSeamless;
+                    systemChromeTitle.IsVisible = IsSeamless;
+                    seamlessMenuBar.IsVisible = IsSeamless;
+                    defaultMenuBar.IsVisible = IsSeamless;
 
                     if (!IsSeamless)
                     {
@@ -46,7 +46,7 @@ namespace SecureElementReader.App.Views.Titlebars
 
         public WindowsTitleBar()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) == false)
             {
@@ -56,19 +56,15 @@ namespace SecureElementReader.App.Views.Titlebars
             {
                 minimizeButton = this.FindControl<Button>("MinimizeButton");
                 closeButton = this.FindControl<Button>("CloseButton");
-                
-
-                minimizeButton.Click += MinimizeWindow;
-                closeButton.Click += CloseWindow;
-                
-
                 titleBar = this.FindControl<DockPanel>("TitleBar");
                 titleBarBackground = this.FindControl<DockPanel>("TitleBarBackground");
                 systemChromeTitle = this.FindControl<TextBlock>("SystemChromeTitle");
                 seamlessMenuBar = this.FindControl<NativeMenuBar>("SeamlessMenuBar");
                 defaultMenuBar = this.FindControl<NativeMenuBar>("DefaultMenuBar");
+                minimizeButton.Click += MinimizeWindow;
+                closeButton.Click += CloseWindow;
 
-                SubscribeToWindowState();
+                _ = SubscribeToWindowState();
             }
         }
 
@@ -84,7 +80,7 @@ namespace SecureElementReader.App.Views.Titlebars
             hostWindow.WindowState = WindowState.Minimized;
         }
 
-        private async void SubscribeToWindowState()
+        private async Task SubscribeToWindowState()
         {
             Window hostWindow = (Window)this.VisualRoot;
 

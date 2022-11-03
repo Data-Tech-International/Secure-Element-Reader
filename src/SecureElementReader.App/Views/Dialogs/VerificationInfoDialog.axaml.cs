@@ -24,14 +24,14 @@ namespace SecureElementReader.App.Views.Dialogs
             if (!string.IsNullOrWhiteSpace(details))
             {
                 App.Current.TryFindResource("PossibleSolution", out var possibleSolution);
-                App.Current.TryFindResource("InstallRCAandICAurl", out var installRCAandICAurl);
+                App.Current.TryFindResource("InstallRCAandICAurl", out var installRCAandICAUrl);
                 App.Current.TryFindResource("InstallRCAandICA", out var installRCAandICA);
 
                 var sp = this.FindControl<StackPanel>("Panel");
                 sp.Children.Clear();
                 foreach (var item in details.Split('\n'))
                 {
-                    if (item.StartsWith("Error".Split(" ")[0]) || 
+                    if (item.StartsWith("Error".Split(" ")[0]) ||
                         item.StartsWith("Status"))
                     {
                         sp.Children.Add(new TextBlock
@@ -58,7 +58,7 @@ namespace SecureElementReader.App.Views.Dialogs
                 });
                 sp.Children.Add(new TextBlock
                 {
-                    Text = $"{installRCAandICAurl}:",
+                    Text = $"{installRCAandICAUrl}:",
                     TextWrapping = TextWrapping.Wrap
                 });
                 sp.Children.Add(new Button

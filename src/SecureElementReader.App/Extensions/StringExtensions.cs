@@ -1,6 +1,4 @@
-﻿
-
-namespace SecureElementReader.App.Extensions
+﻿namespace SecureElementReader.App.Extensions
 {
     public static class StringExtensions
     {

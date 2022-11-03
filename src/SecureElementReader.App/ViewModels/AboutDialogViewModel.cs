@@ -1,8 +1,7 @@
-
+using Microsoft.Extensions.PlatformAbstractions;
 using ReactiveUI;
 using SecureElementReader.App.ViewModels.Implementations.Dialogs;
 using System.Diagnostics;
-using Microsoft.Extensions.PlatformAbstractions;
 using System.Windows.Input;
 
 namespace SecureElementReader.App.ViewModels

@@ -1,5 +1,4 @@
-﻿
-namespace SecureElementReader.App.Models
+﻿namespace SecureElementReader.App.Models
 {
     public class SecureElementAuditRequest
     {

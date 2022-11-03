@@ -1,6 +1,4 @@
-﻿
-
-namespace SecureElementReader.App.Enums
+﻿namespace SecureElementReader.App.Enums
 {
     public enum Theme : byte
     {

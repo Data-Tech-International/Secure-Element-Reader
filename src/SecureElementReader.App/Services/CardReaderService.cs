@@ -1,5 +1,5 @@
-﻿using BerTlv;
-using TaxCore.Libraries.Certificates;
+﻿using Avalonia.Controls;
+using BerTlv;
 using ICSharpCode.SharpZipLib.Zip.Compression;
 using Microsoft.Extensions.Logging;
 using PCSC;
@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
-using Avalonia.Controls;
+using TaxCore.Libraries.Certificates;
 
 namespace SecureElementReader.App.Services
 {
@@ -24,9 +24,9 @@ namespace SecureElementReader.App.Services
 
         public CardReaderService(IApduCommandService apduCommandService, ILogger logger, IContextFactory contextFactory)
         {
-            this._apduCommandService = apduCommandService;
-            this._logger = logger;
-            this._contextFactory = contextFactory;
+            _apduCommandService = apduCommandService;
+            _logger = logger;
+            _contextFactory = contextFactory;
 
         }
 
@@ -272,9 +272,9 @@ namespace SecureElementReader.App.Services
 
                 szReaders = context.GetReaders();
                 _reader = new IsoReader(context);
-                
+
                 foreach (var sZReader in szReaders)
-                {                   
+                {
                     _reader.Connect(sZReader, SCardShareMode.Shared, SCardProtocol.T1);
                 }
 
@@ -290,7 +290,7 @@ namespace SecureElementReader.App.Services
 
         public void Disconnect()
         {
-            _reader.Disconnect(SCardReaderDisposition.Leave);            
+            _reader.Disconnect(SCardReaderDisposition.Leave);
         }
 
         public byte[]? GetInternalData()
@@ -303,7 +303,7 @@ namespace SecureElementReader.App.Services
                 {
                     return response.GetData();
                 }
-                else 
+                else
                 {
                     return null;
                 }
@@ -355,7 +355,7 @@ namespace SecureElementReader.App.Services
                         {
                             response = _reader.Transmit(_apduCommandService.FinishAudit(Convert.FromBase64String(item.Payload)));
                         }
-                        
+
                         if (response.SW1 == 0x90)
                         {
                             result.Add(new CommandsStatusResult { CommandId = item.CommandId, DateAndTime = DateTime.UtcNow, Success = true });

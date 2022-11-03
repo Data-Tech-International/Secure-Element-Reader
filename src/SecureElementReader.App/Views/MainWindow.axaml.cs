@@ -9,7 +9,6 @@ namespace SecureElementReader.App.Views
     {
         private Grid overlayGrid => this.FindControl<Grid>("OverlayGrid");
         private Label lblLoading => this.FindControl<Label>("LblLoading");
-
         public MainWindow()
         {
             InitializeComponent();
@@ -17,13 +16,8 @@ namespace SecureElementReader.App.Views
             this.AttachDevTools();
 #endif
         }
-
-        public void ShowOverlay() => overlayGrid.ZIndex = 1000;
-         
+        public void ShowOverlay() => overlayGrid.ZIndex = 1000;      
         public void HideOverlay() => overlayGrid.ZIndex = -1;
-
-
-
         public void ShowLoadingOverlay() 
         {
             overlayGrid.ZIndex = 1000;
@@ -32,7 +26,6 @@ namespace SecureElementReader.App.Views
             lblLoading.Opacity = 1;
             lblLoading.ZIndex = 1001;
         }
-
         public void HideLoadingOverlay() 
         {
             overlayGrid.ZIndex = -1;
@@ -41,7 +34,6 @@ namespace SecureElementReader.App.Views
             lblLoading.Opacity = 0;
             lblLoading.ZIndex = -2;
         } 
-
         private void InitializeComponent() => AvaloniaXamlLoader.Load(this);
     }
 }

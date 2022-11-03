@@ -1,5 +1,4 @@
-﻿
-namespace SecureElementReader.App.ViewModels.Interfaces
+﻿namespace SecureElementReader.App.ViewModels.Interfaces
 {
     public interface IMainWindowViewModel
     {

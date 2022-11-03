@@ -12,7 +12,6 @@ namespace SecureElementReader.App.Views.Titlebars
         private Button closeButton;
         private Button minimizeButton;
 
-
         private DockPanel titleBarBackground;
         private StackPanel titleAndWindowIconWrapper;
 
@@ -27,8 +26,8 @@ namespace SecureElementReader.App.Views.Titlebars
                 SetValue(IsSeamlessProperty, value);
                 if (titleBarBackground != null && titleAndWindowIconWrapper != null)
                 {
-                    titleBarBackground.IsVisible = !IsSeamless;
-                    titleAndWindowIconWrapper.IsVisible = !IsSeamless;
+                    titleBarBackground.IsVisible = IsSeamless;
+                    titleAndWindowIconWrapper.IsVisible = IsSeamless;
                 }
             }
         }
@@ -45,14 +44,11 @@ namespace SecureElementReader.App.Views.Titlebars
             {
                 minimizeButton = this.FindControl<Button>("MinimizeButton");
                 closeButton = this.FindControl<Button>("CloseButton");
-
-                minimizeButton.Click += MinimizeWindow;
-                closeButton.Click += CloseWindow;
-
                 titleBarBackground = this.FindControl<DockPanel>("TitleBarBackground");
                 titleAndWindowIconWrapper = this.FindControl<StackPanel>("TitleAndWindowIconWrapper");
-
-                SubscribeToWindowState();
+                minimizeButton.Click += MinimizeWindow;
+                closeButton.Click += CloseWindow;
+                _ = SubscribeToWindowState();
             }
         }
 
@@ -67,7 +63,7 @@ namespace SecureElementReader.App.Views.Titlebars
             Window hostWindow = (Window)this.VisualRoot;
             hostWindow.WindowState = WindowState.Minimized;
         }
-        private async void SubscribeToWindowState()
+        private async Task SubscribeToWindowState()
         {
             Window hostWindow = (Window)this.VisualRoot;
 
