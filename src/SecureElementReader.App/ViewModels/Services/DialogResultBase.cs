@@ -1,5 +1,4 @@
-﻿
-namespace SecureElementReader.App.ViewModels.Services
+﻿namespace SecureElementReader.App.ViewModels.Services
 {
     public class DialogResultBase
     {

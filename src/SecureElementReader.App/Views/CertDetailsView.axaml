@@ -35,7 +35,6 @@
 		</Style>
 	</UserControl.Styles>
 
-
  <Border Background="#e8e8e8">
 	 <Grid x:Name="CertView" ColumnDefinitions="5,700,90,5" RowDefinitions="3,350,3,18,18,18,18">
 
@@ -109,32 +108,6 @@
 				IsVisible="{Binding BtnVisibility}" Background="Red" Foreground="White"  CornerRadius="0"
 				HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center"
 					 Width="90"/>
-			 
-			 
-			 
-			 
-			 
-			 
-			 
-			 
-
-	 </Grid>
-
-	
-     
-    <!--<Rectangle HorizontalAlignment="Stretch" Fill="Gray" Height="3" Margin="5" />
-
-     <StackPanel Orientation="Vertical" Width="780" HorizontalAlignment="Left">
-       <Label Name="lblCommnads" FontSize="15" FontWeight="Bold" Padding="0" />
-       <Label Name="lblAudit" FontSize="15" FontWeight="Bold" Padding="0" />
-       <Button Command="{Binding VerificationInfoCommand}"
-               Content="{DynamicResource Details}"
-               IsVisible="{Binding BtnVisibility}"
-               Margin="0,-25,0,45" Background="Red" Foreground="White" MaxWidth="100"
-               MinHeight="30"  CornerRadius="0" HorizontalAlignment="Right"/>
-     </StackPanel>-->
-     
-
-
+		 </Grid>
 	</Border>
 </UserControl>

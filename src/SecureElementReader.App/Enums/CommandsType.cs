@@ -1,9 +1,8 @@
-﻿
-namespace SecureElementReader.App.Enums
+﻿namespace SecureElementReader.App.Enums
 {
     public enum CommandsType
-    {        
-        ForwardProofOfAudit = 5,     
+    {
+        ForwardProofOfAudit = 5,
         ForwardSecureElementDirective = 8
     }
 }

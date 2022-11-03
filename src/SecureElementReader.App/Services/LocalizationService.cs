@@ -30,6 +30,6 @@ namespace SecureElementReader.App.Services
             File.WriteAllText(appSettingsJsonFilePath, output);
         }
 
-        
+
     }
 }

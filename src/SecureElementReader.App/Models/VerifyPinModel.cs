@@ -1,5 +1,4 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace SecureElementReader.App.Models
 {
@@ -14,6 +13,6 @@ namespace SecureElementReader.App.Models
         public bool SePinSuccess { get; set; }
         public bool SeAppletLocked { get; internal set; }
         public bool PkiAppletLocked { get; internal set; }
-        public List<string> ErrorList { get; set; } 
+        public List<string> ErrorList { get; set; }
     }
 }

@@ -1,7 +1,7 @@
-﻿using TaxCore.Libraries.Certificates;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
+using TaxCore.Libraries.Certificates;
 
 namespace SecureElementReader.App.Models
 {

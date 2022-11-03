@@ -1,8 +1,6 @@
-﻿
-
-namespace SecureElementReader.App.Enums
+﻿namespace SecureElementReader.App.Enums
 {
-    public enum SubmitMessages 
+    public enum SubmitMessages
     {
         SuccessSubmit,
         UnableToSubmit,

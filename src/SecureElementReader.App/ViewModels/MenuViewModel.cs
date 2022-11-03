@@ -28,7 +28,7 @@ namespace SecureElementReader.App.ViewModels
             ILocalizationService localizationService,
             SelectedLanguageConfiguration configuration)
         {
-            this._dialogService = dialogService;
+            _dialogService = dialogService;
             _localizationService = localizationService;
             _configuration = configuration;
 
@@ -47,8 +47,9 @@ namespace SecureElementReader.App.ViewModels
             var translations = App.Current.Resources.MergedDictionaries.OfType<ResourceInclude>().FirstOrDefault(x => x.Source?.OriginalString?.Contains("Translations.EN.axaml") ?? false);
 
             if (translations != null)
+            {
                 App.Current.Resources.MergedDictionaries.Remove(translations);
-
+            }
 
             App.Current.Resources.MergedDictionaries.Add(
                 new ResourceInclude()

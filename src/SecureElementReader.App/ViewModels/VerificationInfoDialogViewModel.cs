@@ -1,7 +1,6 @@
 ﻿using ReactiveUI;
 using SecureElementReader.App.ViewModels.Implementations.Dialogs;
 using SecureElementReader.App.ViewModels.Interfaces;
-
 using System.Diagnostics;
 using System.Windows.Input;
 
@@ -21,15 +20,15 @@ namespace SecureElementReader.App.ViewModels
         public VerificationInfoDialogViewModel(ICertDetailsViewModel certDetailsViewModel)
         {
             CertDetailsViewModel = certDetailsViewModel;
-            PopulateDialog();            
+            PopulateDialog();
         }
 
-       
+
         private void PopulateDialog()
-        {            
+        {
             VerificationDetails = CertDetailsViewModel?.CertDetailsModel?.PkiVerificationInfo;
-            TapUrl = CertDetailsViewModel?.CertDetailsModel?.ApiUrl.Replace("api","tap");
-            GoToTap = ReactiveCommand.Create(OnButtonTAP);
+            TapUrl = CertDetailsViewModel?.CertDetailsModel?.ApiUrl.Replace("api", "tap");
+            GoToTap = ReactiveCommand.Create(OnButtonTap);
         }
 
         public VerificationInfoDialogViewModel()
@@ -42,7 +41,7 @@ namespace SecureElementReader.App.ViewModels
             Close();
         }
 
-        private void OnButtonTAP()
+        private void OnButtonTap()
         {
             Process.Start(new ProcessStartInfo("https://tap.sandbox.suf.purs.gov.rs/Help/view/1048069196/Инсталирање-RCA-и-ICA-сертификата/sr-Cyrl-RS") { UseShellExecute = true });
 

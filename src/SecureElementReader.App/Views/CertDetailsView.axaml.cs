@@ -18,16 +18,16 @@ namespace SecureElementReader.App.Views
         {
             InitializeComponent();
 
-            WaitForViewModel();
+            _ = WaitForViewModel();
         }
 
         private async Task WaitForViewModel()
         {
-            Window hostWindow = (Window)this.VisualRoot;
+            Window hostWindow = (Window)VisualRoot;
 
             while (hostWindow == null)
             {
-                hostWindow = (Window)this.VisualRoot;
+                hostWindow = (Window)VisualRoot;
                 var vm = (CertDetailsViewModel)DataContext;
                 if (vm != null)
                 {
@@ -56,11 +56,8 @@ namespace SecureElementReader.App.Views
                     break;
                 case SubmitMessages.CantReadInternal:
                     Dispatcher.UIThread.Post(() => { lblAuditMsg.Bind(Label.ContentProperty, this.GetResourceObservable("CantReadInternal")); });
-                    break;
-                
+                    break;               
             }
-
-
 
             switch (Enum.Parse(typeof(CommandsMessages), commandsStatus))
             {
@@ -81,11 +78,9 @@ namespace SecureElementReader.App.Views
                     break;
                 case CommandsMessages.ThereIsNoPendingCommandsForThisCard:
                     Dispatcher.UIThread.Post(() => { lblCommandsMsg.Bind(Label.ContentProperty, this.GetResourceObservable("ThereIsNoPendingCommandsForThisCard")); });
-                    break;
-                
+                    break;              
             }
         }
-
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);

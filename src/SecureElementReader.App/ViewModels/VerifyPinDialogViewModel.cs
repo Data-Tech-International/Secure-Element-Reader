@@ -32,7 +32,7 @@ namespace SecureElementReader.App.ViewModels
 
         [Reactive]
         public string TaxMessage { get; set; }
-        
+
         [Reactive]
         public bool PleaseInsertPin { get; set; }
 
@@ -74,10 +74,10 @@ namespace SecureElementReader.App.ViewModels
 
         public VerifyPinDialogViewModel(ICardReaderService cardReaderService, IMainWindowProvider mainWindowProvider)
         {
-            this._cardReaderService = cardReaderService; 
-            this._mainWindowProvider = mainWindowProvider;
+            _cardReaderService = cardReaderService;
+            _mainWindowProvider = mainWindowProvider;
             CloseButton = ReactiveCommand.Create(ButtonClose);
-            VerifyCommand = ReactiveCommand.Create(VerifyPin);           
+            VerifyCommand = ReactiveCommand.Create(VerifyPin);
         }
 
         private void VerifyPin()
@@ -89,27 +89,25 @@ namespace SecureElementReader.App.ViewModels
                 PkiPinOk = false;
                 SePinOk = false;
                 WrongPinAlertText = false;
-
             }
             else if (Pin.Length != 4)
-            {             
+            {
                 PinMustBe4Char = true;
                 PleaseInsertPin = false;
                 PkiPinOk = false;
                 SePinOk = false;
                 WrongPinAlertText = false;
-
             }
             else
             {
                 var result = _cardReaderService.VerifyPin(Pin);
                 if (result.ErrorList.Any())
                 {
-                    ShowErrorMsg(result.ErrorList);                    
+                    ShowErrorMsg(result.ErrorList);
                 }
                 else
                 {
-                    ValidateResult(result);                    
+                    ValidateResult(result);
                 }
             }
         }
@@ -149,7 +147,6 @@ namespace SecureElementReader.App.ViewModels
                     PleaseInsertPin = false;
                     PkiPinOk = false;
                     SePinOk = false;
-
                 }
                 else
                 {
@@ -177,28 +174,26 @@ namespace SecureElementReader.App.ViewModels
                     PinMustBe4Char = false;
                     PleaseInsertPin = false;
                     WrongPinAlertText = false;
-
                 }
                 else
                 {
                     SePinWrong = true;
                     PinMustBe4Char = false;
                     PleaseInsertPin = false;
-                }                
+                }
             }
 
             if (result.SeAppletLocked & result.PkiAppletLocked)
             {
-
                 ShowTaxMessage = true;
                 TaxMessage = _mainWindowProvider.GetMainWindow().GetResourceObservable("ReturnCard").ToString();
             }
-            else if(result.SeAppletLocked)
+            else if (result.SeAppletLocked)
             {
                 ShowTaxMessage = true;
                 TaxMessage = _mainWindowProvider.GetMainWindow().GetResourceObservable("SeAppletLocked").ToString();
             }
-            else if(result.PkiAppletLocked)
+            else if (result.PkiAppletLocked)
             {
                 ShowTaxMessage = true;
                 TaxMessage = _mainWindowProvider.GetMainWindow().GetResourceObservable("PkiAppletLocked").ToString();
