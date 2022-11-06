@@ -412,38 +412,32 @@ namespace SecureElementReader.App.Services
                         if (isPki)
                         {
                             model.PkiVerificationInfo += Environment.NewLine;
-                            model.PkiVerificationInfo += "------------------------------";
                             model.PkiVerificationInfo += Environment.NewLine;
                             App.Current.TryFindResource("ErrorAtDepth", out var errorAtDepth);
                             model.PkiVerificationInfo += $"{errorAtDepth} {i}:{Environment.NewLine}{element.Certificate.Issuer}";
+                            model.PkiVerificationInfo += Environment.NewLine;
                             model.PkiVerificationInfo += Environment.NewLine;
 
                             foreach (var status in element.ChainElementStatus)
                             {
                                 App.Current.TryFindResource("Status", out var statusMessage);
-                                model.PkiVerificationInfo += $"{statusMessage}:{Environment.NewLine}{status.Status}";
-                                model.PkiVerificationInfo += Environment.NewLine;
+                                model.PkiVerificationInfo += $"{statusMessage}:{Environment.NewLine}{status.Status}{Environment.NewLine}";
                                 App.Current.TryFindResource("StatusInformation", out var statusInformation);
-                                model.PkiVerificationInfo += $"{statusInformation}:{Environment.NewLine}{status.StatusInformation}";
+                                model.PkiVerificationInfo += $"{statusInformation}:{Environment.NewLine}{status.StatusInformation}{Environment.NewLine}";
                                 model.PkiVerificationInfo += Environment.NewLine;
                             }
-
-                            model.PkiVerificationInfo += "------------------------------";
                         }
                         else
                         {
-                            model.PkiVerificationInfo += Environment.NewLine;
-                            model.PkiVerificationInfo += "------------------------------";
                             App.Current.TryFindResource("ErrorAtDepth", out var errorAtDepth);
-                            model.PkiVerificationInfo += $"{errorAtDepth} {i}: {element.Certificate.Issuer}";
-                            model.PkiVerificationInfo += Environment.NewLine;
+                            model.PkiVerificationInfo += $"{errorAtDepth} {i}:{Environment.NewLine}";
+                            model.PkiVerificationInfo += $"{element.Certificate.Issuer}{Environment.NewLine}{Environment.NewLine}";
 
                             foreach (var status in element.ChainElementStatus)
                             {
                                 model.SeVerificationInfo += $"{status.Status}: {status.StatusInformation}";
                                 model.SeVerificationInfo += Environment.NewLine;
                             }
-                            model.SeVerificationInfo += "------------------------------";
                         }
                     }
                 }

@@ -32,28 +32,16 @@
 
 	</Window.Styles>
 	
-	
-	
-	
-  
 	<Grid x:Name="BaseVerifyPinWindow" Width="500" Height="200">
 		<Grid x:Name="DefinedGrid" ColumnDefinitions="100,100,100,100,100" RowDefinitions="auto,auto,auto,auto">
 
 			<Label Grid.Row="0" Grid.ColumnSpan="5" Height="25" Margin="5" HorizontalContentAlignment="Left" Content="{DynamicResource VerifyPin}"/>
 
 			<StackPanel  Grid.Row="1" Grid.ColumnSpan="5" Orientation="Horizontal" Height="25" Spacing="10" Margin="10,5">
-				<TextBox Watermark="{DynamicResource EnterPIN}"
-						 Width="150"
-						 VerticalAlignment="Top"
-						 Text="{Binding Pin}"
-						 PasswordChar="•"
+				<TextBox Watermark="{DynamicResource EnterPIN}" Width="150" VerticalAlignment="Top" Text="{Binding Pin}" PasswordChar="•"
 						 Margin="0,-3" CornerRadius="0"/>
-				<Button VerticalAlignment="Top"
-						Command="{Binding VerifyCommand}"
-						VerticalContentAlignment="Center"
-						MinHeight="32" Margin="0,-3" CornerRadius="0" BorderThickness="0"
-						Background="#19aa8c" Foreground="White"
-						Content="{DynamicResource Verify}"/>
+				<Button VerticalAlignment="Top" Command="{Binding VerifyCommand}" VerticalContentAlignment="Center" MinHeight="32"
+						Margin="0,-3" CornerRadius="0" BorderThickness="0" Background="#19aa8c" Foreground="White" Content="{DynamicResource Verify}"/>
 			</StackPanel>
 
 			<Rectangle Grid.Row="2" Grid.ColumnSpan="5" HorizontalAlignment="Stretch" Fill="Gray" Height="2" Margin="10,5,10,0" />
@@ -65,8 +53,13 @@
 				<Label Content="{DynamicResource SePinOK}" IsVisible="{Binding SePinOk}" Classes="Valid"/>
 				<Label Content="{DynamicResource PkiAppletLocked}" IsVisible="{Binding PkiAppletLocked}" Classes="Alert"/>
 				<Label Content="{DynamicResource SEAppletLocked}" IsVisible="{Binding SeAppletLocked}" Classes="Alert"/>
+				<Label Content="{DynamicResource ReturnCard}" IsVisible="{Binding ShowTaxMessage}" Classes="Alert"/>
 				<StackPanel Orientation="Horizontal" Width="500" Height="100" IsVisible="{Binding WrongPinAlertText}" Classes="Alert">
-					<Label Content="{DynamicResource WrongPinAlertText}" Classes="Alert" />
+					<Label Content="{DynamicResource WrongPkiPinAlertText}" Classes="Alert" />
+					<Label Content="{Binding TrysLeft}" Classes="Alert"/>
+				</StackPanel>
+				<StackPanel Orientation="Horizontal" Width="500" Height="100" IsVisible="{Binding WrongPinAlertText}" Classes="Alert">
+					<Label Content="{DynamicResource WrongSePinAlertText}" Classes="Alert" />
 					<Label Content="{Binding TrysLeft}" Classes="Alert"/>
 				</StackPanel>
 			</StackPanel>

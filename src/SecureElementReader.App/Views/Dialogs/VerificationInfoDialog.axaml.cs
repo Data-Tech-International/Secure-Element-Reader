@@ -26,13 +26,15 @@ namespace SecureElementReader.App.Views.Dialogs
                 App.Current.TryFindResource("PossibleSolution", out var possibleSolution);
                 App.Current.TryFindResource("InstallRCAandICAurl", out var installRCAandICAUrl);
                 App.Current.TryFindResource("InstallRCAandICA", out var installRCAandICA);
+                App.Current.TryFindResource("ErrorAtDepth", out var errorAtDepth);
+                App.Current.TryFindResource("Status", out var status);
 
                 var sp = this.FindControl<StackPanel>("Panel");
                 sp.Children.Clear();
                 foreach (var item in details.Split('\n'))
                 {
-                    if (item.StartsWith("Error".Split(" ")[0]) ||
-                        item.StartsWith("Status"))
+                    if (item.StartsWith(errorAtDepth.ToString().Split(" ")[0]) ||
+                        item.StartsWith(status.ToString()))
                     {
                         sp.Children.Add(new TextBlock
                         {

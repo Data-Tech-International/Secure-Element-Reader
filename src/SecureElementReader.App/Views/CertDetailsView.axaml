@@ -36,9 +36,9 @@
 	</UserControl.Styles>
 
  <Border Background="#e8e8e8">
-	 <Grid x:Name="CertView" ColumnDefinitions="5,700,90,5" RowDefinitions="3,350,3,18,18,18,18">
+	 <Grid x:Name="CertView" ColumnDefinitions="5,700,90,5" RowDefinitions="8,350,8,18,18,18,18">
 
-			 <Rectangle Fill="Gray" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"/>
+			 <Rectangle Fill="Gray" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Height="2" VerticalAlignment="Center"/>
 		 
 			 <Grid x:Name="CertInfo" IsEnabled="False" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4">
 				 <Grid.ColumnDefinitions>
@@ -94,7 +94,7 @@
 				 <TextBox   Grid.Column="3" Grid.Row="8" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.ExpiryDate}"/>
 			 </Grid>
 
-			 <Rectangle Fill="Gray" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"/>
+			 <Rectangle Fill="Gray" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Height="2" VerticalAlignment="Center"/>
 
 		  	 <Label Grid.Column="1" Grid.Row="3" Content="{DynamicResource SeCertValid}" IsVisible="{Binding SeCertValid}" Foreground="Green" FontSize="15" FontWeight="Bold" Padding="0" />
 			 <Label Grid.Column="1" Grid.Row="3" Content="{DynamicResource SeCertInvalid}" IsVisible="{Binding SeCertInvalid}" Foreground="Red" FontSize="15" FontWeight="Bold" Padding="0"/>

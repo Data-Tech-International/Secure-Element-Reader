@@ -63,7 +63,7 @@
 	<system:String x:Key="SmartCardReader">Smart Card Reader</system:String>
 	<system:String x:Key="State">State:</system:String>
 	<system:String x:Key="Status">Status</system:String>
-	<system:String x:Key="StatusInforamtion">Status inforamtion</system:String>
+	<system:String x:Key="StatusInformation">Status information</system:String>
 	<system:String x:Key="StreetAddress">Street Address:</system:String>
 	<system:String x:Key="Subject">Subject:</system:String>
 	<system:String x:Key="SubmitInternalData">Submit Internal Data</system:String>
@@ -79,6 +79,7 @@
 	<system:String x:Key="VerifyPin">Verify Pin</system:String>
 	<system:String x:Key="Version">Version:</system:String>
 	<system:String x:Key="Welcome">Secure Element Reader</system:String>
-	<system:String x:Key="WrongPinAlertText">PKI pin is wrong, number of tries left:</system:String>
+	<system:String x:Key="WrongPkiPinAlertText">PKI pin is wrong, number of tries left:</system:String>
+	<system:String x:Key="WrongSePinAlertText">SE pin is wrong, number of tries left:</system:String>
 
 </ResourceDictionary>

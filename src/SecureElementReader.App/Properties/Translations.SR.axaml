@@ -63,7 +63,7 @@
 	<system:String x:Key="SmartCardReader">Читач паметне картице</system:String>
 	<system:String x:Key="State">Општина:</system:String>
 	<system:String x:Key="Status">Статус</system:String>
-	<system:String x:Key="StatusInforamtion">Статус информације</system:String>
+	<system:String x:Key="StatusInformation">Статус информације</system:String>
 	<system:String x:Key="StreetAddress">Улица:</system:String>
 	<system:String x:Key="Subject">Субјекат сертификата:</system:String>
 	<system:String x:Key="SubmitInternalData">Успешно слање интерних података</system:String>
@@ -79,6 +79,8 @@
 	<system:String x:Key="VerifyPin">Провера ПИН-а</system:String>
 	<system:String x:Key="Version">Верзија:</system:String>
 	<system:String x:Key="Welcome">Читач безбедносног елемента</system:String>
-	<system:String x:Key="WrongPinAlertText">PKI ПИН је неисправан.Број преосталих покушаја:</system:String>
+	<system:String x:Key="WrongPkiPinAlertText">PKI ПИН је неисправан.Број преосталих покушаја:</system:String>
+	<system:String x:Key="WrongSePinAlertText">SE ПИН је неисправан.Број преосталих покушаја:</system:String>
+	
 
 </ResourceDictionary>

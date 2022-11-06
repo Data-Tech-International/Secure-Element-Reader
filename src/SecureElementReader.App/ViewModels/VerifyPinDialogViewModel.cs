@@ -45,7 +45,6 @@ namespace SecureElementReader.App.ViewModels
         [Reactive]
         public bool SePinOk { get; set; }
 
-
         [Reactive]
         public bool SeAppletLocked { get; set; }
 
