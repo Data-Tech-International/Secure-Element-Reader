@@ -63,10 +63,10 @@
 	<system:String x:Key="SmartCardReader">Lecteur de la carte à puce intelligente</system:String>
 	<system:String x:Key="State">Statut:</system:String>
 	<system:String x:Key="Status">Statut</system:String>
-	<system:String x:Key="StatusInforamtion">Informations d'état</system:String>
+	<system:String x:Key="StatusInformation">Informations d'état</system:String>
 	<system:String x:Key="StreetAddress">Adresse postale :</system:String>
 	<system:String x:Key="Subject">Sujet:</system:String>
-	<system:String x:Key="SubmitInternalData">Franc</system:String>
+	<system:String x:Key="SubmitInternalData">Soumettre des données internes</system:String>
 	<system:String x:Key="Support">Appui</system:String>
 	<system:String x:Key="SurName">Nom de famille :</system:String>
 	<system:String x:Key="SuccessSubmit">Succès de la soumission des données internes</system:String>
@@ -79,6 +79,7 @@
 	<system:String x:Key="VerifyPin">Vérifier le PIN</system:String>
 	<system:String x:Key="Version">Version:</system:String>
 	<system:String x:Key="Welcome">Lecteur de l'élément de sécurité</system:String>
-	<system:String x:Key="WrongPinAlertText">PIN incorrect, nombre d’essais restants:</system:String>
+	<system:String x:Key="WrongPinAlertText">PKI pin incorrect, nombre d’essais restants:</system:String>
+	<system:String x:Key="WrongSePinAlertText">SE pin incorrect, nombre d’essais restants:</system:String>
 
 </ResourceDictionary>

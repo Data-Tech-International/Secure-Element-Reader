@@ -5,7 +5,7 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         xmlns:dialogs="clr-namespace:SecureElementReader.App.ViewModels"
         x:Class="SecureElementReader.App.Views.Dialogs.VerificationInfoDialog"
-        Width="500" Height="300"
+        Width="500" Height="400"
 		Background="#e8e8e8"
 		ExtendClientAreaToDecorationsHint="True"
 		ExtendClientAreaChromeHints="NoChrome"
@@ -26,7 +26,7 @@
 		</StackPanel>
 		<ScrollViewer >
 			<StackPanel Name="Panel" ScrollViewer.VerticalScrollBarVisibility="Visible" MaxWidth="490">
-				<TextBlock TextWrapping="Wrap" Name="ErrorText" Text="{Binding VerificationDetails}" />
+				<TextBlock  Name="ErrorText" Text="{Binding VerificationDetails}" />
 			</StackPanel>
 		</ScrollViewer>
 
