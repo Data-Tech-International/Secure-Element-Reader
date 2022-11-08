@@ -8,7 +8,6 @@ namespace SecureElementReader.App.ViewModels
 {
     public class AboutDialogViewModel : DialogViewModelBase
     {
-
         public string AssemblyVersion => GetAssemblyVersion();
 
         public ICommand CloseButton { get; }

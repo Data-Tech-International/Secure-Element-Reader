@@ -43,8 +43,11 @@ namespace SecureElementReader.App.ViewModels
 
         private void OnButtonTap()
         {
-            Process.Start(new ProcessStartInfo("https://tap.sandbox.suf.purs.gov.rs/Help/view/1048069196/Инсталирање-RCA-и-ICA-сертификата/sr-Cyrl-RS") { UseShellExecute = true });
-
+            Process.Start(
+                new ProcessStartInfo("https://tap.sandbox.suf.purs.gov.rs/Help/view/1048069196/Инсталирање-RCA-и-ICA-сертификата/sr-Cyrl-RS") 
+                { 
+                    UseShellExecute = true 
+                });
         }
     }
 }

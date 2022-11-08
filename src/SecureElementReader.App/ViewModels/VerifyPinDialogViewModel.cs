@@ -197,7 +197,6 @@ namespace SecureElementReader.App.ViewModels
                 ShowTaxMessage = true;
                 TaxMessage = _mainWindowProvider.GetMainWindow().GetResourceObservable("PkiAppletLocked").ToString();
             }
-
         }
         private void ButtonClose()
         {

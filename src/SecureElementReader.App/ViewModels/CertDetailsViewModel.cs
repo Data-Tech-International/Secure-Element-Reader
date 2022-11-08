@@ -38,7 +38,6 @@ namespace SecureElementReader.App.ViewModels
         [Reactive]
         public bool PkiCertInvalid { get; set; }
 
-
         public CertDetailsViewModel(IDialogService dialogService)
         {
             _dialogService = dialogService;

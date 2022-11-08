@@ -69,13 +69,13 @@
 				 <TextBlock Grid.Column="0" Grid.Row="7" Margin="9,4" Classes="h2" Text="{DynamicResource IssuerName}"/>
 				 <TextBlock Grid.Column="0" Grid.Row="8" Margin="9,4" Classes="h2" Text="{DynamicResource ApiUrl}"/>
 
-				 <TextBox   Grid.Column="1" Grid.Row="2" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.UniqueIdentifier}"/>
-				 <TextBox   Grid.Column="1" Grid.Row="3" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.Tin}"/>
-				 <TextBox   Grid.Column="1" Grid.Row="4" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.Organization}"/>
-				 <TextBox   Grid.Column="1" Grid.Row="5" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.OrganizationUnit}"/>
-				 <TextBox   Grid.Column="1" Grid.Row="6" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.CommonName}"/>
-				 <TextBox   Grid.Column="1" Grid.Row="7" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.IssuerName}"/>
-				 <TextBox   Grid.Column="1" Grid.Row="8" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.ApiUrl}"/>
+				 <TextBox Grid.Column="1" Grid.Row="2" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.UniqueIdentifier}"/>
+				 <TextBox Grid.Column="1" Grid.Row="3" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.Tin}"/>
+				 <TextBox Grid.Column="1" Grid.Row="4" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.Organization}"/>
+				 <TextBox Grid.Column="1" Grid.Row="5" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.OrganizationUnit}"/>
+				 <TextBox Grid.Column="1" Grid.Row="6" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.CommonName}"/>
+				 <TextBox Grid.Column="1" Grid.Row="7" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.IssuerName}"/>
+				 <TextBox Grid.Column="1" Grid.Row="8" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.ApiUrl}"/>
 
 				 <TextBlock Grid.Column="2" Grid.Row="2" Margin="4" Classes="h2" Text="{DynamicResource GivenName}"/>
 				 <TextBlock Grid.Column="2" Grid.Row="3" Margin="4" Classes="h2" Text="{DynamicResource SurName}"/>
@@ -85,18 +85,18 @@
 				 <TextBlock Grid.Column="2" Grid.Row="7" Margin="4" Classes="h2" Text="{DynamicResource RequestedBy}"/>
 				 <TextBlock Grid.Column="2" Grid.Row="8" Margin="4" Classes="h2" Text="{DynamicResource ExpiryDate}"/>
 
-				 <TextBox   Grid.Column="3" Grid.Row="2" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.GivenName}"/>
-				 <TextBox   Grid.Column="3" Grid.Row="3" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.SurName}"/>
-				 <TextBox   Grid.Column="3" Grid.Row="4" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.State}"/>
-				 <TextBox   Grid.Column="3" Grid.Row="5" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.StreetAddress}"/>
-				 <TextBox   Grid.Column="3" Grid.Row="6" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.CertificateType}"/>
-				 <TextBox   Grid.Column="3" Grid.Row="7" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.RequestedBy}"/>
-				 <TextBox   Grid.Column="3" Grid.Row="8" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.ExpiryDate}"/>
+				 <TextBox Grid.Column="3" Grid.Row="2" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.GivenName}"/>
+				 <TextBox Grid.Column="3" Grid.Row="3" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.SurName}"/>
+				 <TextBox Grid.Column="3" Grid.Row="4" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.State}"/>
+				 <TextBox Grid.Column="3" Grid.Row="5" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.StreetAddress}"/>
+				 <TextBox Grid.Column="3" Grid.Row="6" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.CertificateType}"/>
+				 <TextBox Grid.Column="3" Grid.Row="7" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.RequestedBy}"/>
+				 <TextBox Grid.Column="3" Grid.Row="8" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.ExpiryDate}"/>
 			 </Grid>
 
 			 <Rectangle Fill="Gray" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Height="2" VerticalAlignment="Center"/>
 
-		  	 <Label Grid.Column="1" Grid.Row="3" Content="{DynamicResource SeCertValid}" IsVisible="{Binding SeCertValid}" Foreground="Green" FontSize="15" FontWeight="Bold" Padding="0" />
+		   <Label Grid.Column="1" Grid.Row="3" Content="{DynamicResource SeCertValid}" IsVisible="{Binding SeCertValid}" Foreground="Green" FontSize="15" FontWeight="Bold" Padding="0" />
 			 <Label Grid.Column="1" Grid.Row="3" Content="{DynamicResource SeCertInvalid}" IsVisible="{Binding SeCertInvalid}" Foreground="Red" FontSize="15" FontWeight="Bold" Padding="0"/>
 			 <Label Grid.Column="1" Grid.Row="4" Content="{DynamicResource PkiCertValid}" IsVisible="{Binding PkiCertValid}" Foreground="Green" FontSize="15" FontWeight="Bold" Padding="0" />
 			 <Label Grid.Column="1" Grid.Row="4" Content="{DynamicResource PkiCertInvalid}" IsVisible="{Binding PkiCertInvalid}" Foreground="Red" FontSize="15" FontWeight="Bold" Padding="0"/>

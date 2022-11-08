@@ -63,8 +63,6 @@ namespace SecureElementReader.App.ViewModels
         public void StartUpTranslate()
         {
             Translate(_configuration.Language);
-        }
-
+        }        
     }
-
 }

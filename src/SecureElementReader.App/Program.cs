@@ -32,7 +32,6 @@ namespace SecureElementReader.App
 
                 SubscribeToDomainUnhandledEvents();
                 RegisterDependencies();
-                //RunBackgroundTasks();
                 LogStart();
 
 
