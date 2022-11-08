@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace SecureElementReader.App.Models
 {
@@ -15,9 +11,8 @@ namespace SecureElementReader.App.Models
         public bool PkiPinSuccess { get; set; }
         public int PkiTrysLeft { get; set; }
         public bool SePinSuccess { get; set; }
-        public int SeTrysLeft { get; set; }
-        public bool SEAppletLocked { get; internal set; }
-        public bool PKIAppletLocked { get; internal set; }
-        public List<string> ErrorList { get; set; } 
+        public bool SeAppletLocked { get; internal set; }
+        public bool PkiAppletLocked { get; internal set; }
+        public List<string> ErrorList { get; set; }
     }
 }

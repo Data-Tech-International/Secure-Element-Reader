@@ -2,12 +2,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:model="using: SecureElementReader.App.Models"
              xmlns:vm="clr-namespace:SecureElementReader.App.ViewModels"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-						 xmlns:p="clr-namespace:SecureElementReader.App.Properties"
              x:Class="SecureElementReader.App.Views.CertDetailsView"
-						 FontFamily="Highway Sans Pro">
+		     FontFamily="Highway Sans Pro">
 
   <Design.DataContext>
     <vm:CertDetailsViewModel/>
@@ -17,10 +14,13 @@
 		<Style Selector="TextBox.h1">
 			<Setter Property="CornerRadius" Value="0"/>
 			<Setter Property="BorderThickness" Value="0"/>
+			<Setter Property="Foreground" Value="Black"/>
+			<Setter Property="FontSize" Value="12"/>
 		</Style>
 
 		<Style Selector="TextBlock.h2">
 			<Setter Property="VerticalAlignment" Value="Center"/>
+			<Setter Property="FontSize" Value="13"/>
 		</Style>
 
 		<Style Selector="TextBox.h3">
@@ -29,86 +29,85 @@
 			<Setter Property="CornerRadius" Value="0"/>
 			<Setter Property="BorderThickness" Value="0"/>
 			<Setter Property="IsEnabled" Value="False"/>
+			<Setter Property="Foreground" Value="Black"/>
+			<Setter Property="FontSize" Value="13"/>
+			
 		</Style>
 	</UserControl.Styles>
 
-
  <Border Background="#e8e8e8">
-	 <StackPanel Margin="5">
-		 <Rectangle HorizontalAlignment="Stretch" Fill="#1b7dbc" Height="3" Margin="5"/>
+	 <Grid x:Name="CertView" ColumnDefinitions="5,700,90,5" RowDefinitions="8,350,8,18,18,18,18">
 
-		 <Grid IsEnabled="False">
-			 <Grid.ColumnDefinitions>
-				 <ColumnDefinition Width="160"/>
-				 <ColumnDefinition Width="245"/>
-				 <ColumnDefinition Width="140"/>
-				 <ColumnDefinition Width="245"/>
-			 </Grid.ColumnDefinitions>
-			 <Grid.RowDefinitions>
-				 <RowDefinition Height="18"/>
-				 <RowDefinition Height="60"/>
-				 <RowDefinition Height="40"/>
-				 <RowDefinition Height="40"/>
-				 <RowDefinition Height="40"/>
-				 <RowDefinition Height="40"/>
-				 <RowDefinition Height="40"/>
-				 <RowDefinition Height="40"/>
-				 <RowDefinition Height="40"/>
-			 </Grid.RowDefinitions>
-			 <TextBlock Grid.Column="0" Grid.Row="0" Margin="6,0" Text="{x:Static p:Resources.Subject}"/>
-			 <TextBox Grid.ColumnSpan="4" Grid.Row="1" Classes="h3"  Text="{Binding CertDetailsModel.Subject}"/>
+			 <Rectangle Fill="Gray" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Height="2" VerticalAlignment="Center"/>
+		 
+			 <Grid x:Name="CertInfo" IsEnabled="False" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4">
+				 <Grid.ColumnDefinitions>
+					 <ColumnDefinition MinWidth="170" MaxWidth="160"/>
+					 <ColumnDefinition MinWidth="240" MaxWidth="245"/>
+					 <ColumnDefinition MinWidth="140" MaxWidth="140"/>
+					 <ColumnDefinition MinWidth="240" MaxWidth="245"/>
+				 </Grid.ColumnDefinitions>
+				 <Grid.RowDefinitions>
+					 <RowDefinition Height="18"/>
+					 <RowDefinition Height="60"/>
+					 <RowDefinition Height="30"/>
+					 <RowDefinition Height="30"/>
+					 <RowDefinition Height="30"/>
+					 <RowDefinition Height="30"/>
+					 <RowDefinition Height="30"/>
+					 <RowDefinition Height="30"/>
+					 <RowDefinition Height="30"/>
+				 </Grid.RowDefinitions>
+				 <TextBlock Grid.Column="0" Grid.Row="0" Margin="6,0" Text="{DynamicResource Subject}"/>
+				 <TextBox Grid.ColumnSpan="4" Grid.Row="1" Classes="h3"  Text="{Binding CertDetailsModel.Subject}"/>
 
-			 <TextBlock Grid.Column="0" Grid.Row="2" Margin="9,4" Classes="h2" Text="{x:Static p:Resources.UniqueIdentifier}"/>
-			 <TextBlock Grid.Column="0" Grid.Row="3" Margin="9,4" Classes="h2" Text="{x:Static p:Resources.Tin}"/>
-			 <TextBlock Grid.Column="0" Grid.Row="4" Margin="9,4" Classes="h2" Text="{x:Static p:Resources.Organization}"/>
-			 <TextBlock Grid.Column="0" Grid.Row="5" Margin="9,4" Classes="h2" Text="{x:Static p:Resources.OrganizationUnit}"/>
-			 <TextBlock Grid.Column="0" Grid.Row="6" Margin="9,4" Classes="h2" Text="{x:Static p:Resources.CommonName}"/>
-			 <TextBlock Grid.Column="0" Grid.Row="7" Margin="9,4" Classes="h2" Text="{x:Static p:Resources.IssuerName}"/>
-			 <TextBlock Grid.Column="0" Grid.Row="8" Margin="9,4" Classes="h2" Text="{x:Static p:Resources.ApiUrl}"/>
+				 <TextBlock Grid.Column="0" Grid.Row="2" Margin="9,4" Classes="h2" Text="{DynamicResource UniqueIdentifier}"/>
+				 <TextBlock Grid.Column="0" Grid.Row="3" Margin="9,4" Classes="h2" Text="{DynamicResource Tin}"/>
+				 <TextBlock Grid.Column="0" Grid.Row="4" Margin="9,4" Classes="h2" Text="{DynamicResource Organization}"/>
+				 <TextBlock Grid.Column="0" Grid.Row="5" Margin="9,4" Classes="h2" Text="{DynamicResource OrganizationUnit}"/>
+				 <TextBlock Grid.Column="0" Grid.Row="6" Margin="9,4" Classes="h2" Text="{DynamicResource CommonName}"/>
+				 <TextBlock Grid.Column="0" Grid.Row="7" Margin="9,4" Classes="h2" Text="{DynamicResource IssuerName}"/>
+				 <TextBlock Grid.Column="0" Grid.Row="8" Margin="9,4" Classes="h2" Text="{DynamicResource ApiUrl}"/>
 
+				 <TextBox Grid.Column="1" Grid.Row="2" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.UniqueIdentifier}"/>
+				 <TextBox Grid.Column="1" Grid.Row="3" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.Tin}"/>
+				 <TextBox Grid.Column="1" Grid.Row="4" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.Organization}"/>
+				 <TextBox Grid.Column="1" Grid.Row="5" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.OrganizationUnit}"/>
+				 <TextBox Grid.Column="1" Grid.Row="6" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.CommonName}"/>
+				 <TextBox Grid.Column="1" Grid.Row="7" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.IssuerName}"/>
+				 <TextBox Grid.Column="1" Grid.Row="8" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.ApiUrl}"/>
 
-			 <TextBox   Grid.Column="1" Grid.Row="2" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.UniqueIdentifier}"/>
-			 <TextBox   Grid.Column="1" Grid.Row="3" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.Tin}"/>
-			 <TextBox   Grid.Column="1" Grid.Row="4" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.Organization}"/>
-			 <TextBox   Grid.Column="1" Grid.Row="5" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.OrganizationUnit}"/>
-			 <TextBox   Grid.Column="1" Grid.Row="6" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.CommonName}"/>
-			 <TextBox   Grid.Column="1" Grid.Row="7" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.IssuerName}"/>
-			 <TextBox   Grid.Column="1" Grid.Row="8" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.ApiUrl}"/>
+				 <TextBlock Grid.Column="2" Grid.Row="2" Margin="4" Classes="h2" Text="{DynamicResource GivenName}"/>
+				 <TextBlock Grid.Column="2" Grid.Row="3" Margin="4" Classes="h2" Text="{DynamicResource SurName}"/>
+				 <TextBlock Grid.Column="2" Grid.Row="4" Margin="4" Classes="h2" Text="{DynamicResource State}"/>
+				 <TextBlock Grid.Column="2" Grid.Row="5" Margin="4" Classes="h2" Text="{DynamicResource StreetAddress}"/>
+				 <TextBlock Grid.Column="2" Grid.Row="6" Margin="4" Classes="h2" Text="{DynamicResource CertificateType}"/>
+				 <TextBlock Grid.Column="2" Grid.Row="7" Margin="4" Classes="h2" Text="{DynamicResource RequestedBy}"/>
+				 <TextBlock Grid.Column="2" Grid.Row="8" Margin="4" Classes="h2" Text="{DynamicResource ExpiryDate}"/>
 
+				 <TextBox Grid.Column="3" Grid.Row="2" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.GivenName}"/>
+				 <TextBox Grid.Column="3" Grid.Row="3" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.SurName}"/>
+				 <TextBox Grid.Column="3" Grid.Row="4" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.State}"/>
+				 <TextBox Grid.Column="3" Grid.Row="5" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.StreetAddress}"/>
+				 <TextBox Grid.Column="3" Grid.Row="6" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.CertificateType}"/>
+				 <TextBox Grid.Column="3" Grid.Row="7" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.RequestedBy}"/>
+				 <TextBox Grid.Column="3" Grid.Row="8" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.ExpiryDate}"/>
+			 </Grid>
 
-			 <TextBlock Grid.Column="2" Grid.Row="2" Margin="4" Classes="h2" Text="{x:Static p:Resources.GivenName}"/>
-			 <TextBlock Grid.Column="2" Grid.Row="3" Margin="4" Classes="h2" Text="{x:Static p:Resources.SurName}"/>
-			 <TextBlock Grid.Column="2" Grid.Row="4" Margin="4" Classes="h2" Text="{x:Static p:Resources.State}"/>
-			 <TextBlock Grid.Column="2" Grid.Row="5" Margin="4" Classes="h2" Text="{x:Static p:Resources.StreetAddress}"/>
-			 <TextBlock Grid.Column="2" Grid.Row="6" Margin="4" Classes="h2" Text="{x:Static p:Resources.CertificateType}"/>
-			 <TextBlock Grid.Column="2" Grid.Row="7" Margin="4" Classes="h2" Text="{x:Static p:Resources.RequestedBy}"/>
-			 <TextBlock Grid.Column="2" Grid.Row="8" Margin="4" Classes="h2" Text="{x:Static p:Resources.ExpiryDate}"/>
+			 <Rectangle Fill="Gray" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Height="2" VerticalAlignment="Center"/>
 
-
-			 <TextBox   Grid.Column="3" Grid.Row="2" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.GivenName}"/>
-			 <TextBox   Grid.Column="3" Grid.Row="3" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.SurName}"/>
-			 <TextBox   Grid.Column="3" Grid.Row="4" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.State}"/>
-			 <TextBox   Grid.Column="3" Grid.Row="5" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.StreetAddress}"/>
-			 <TextBox   Grid.Column="3" Grid.Row="6" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.CertificateType}"/>
-			 <TextBox   Grid.Column="3" Grid.Row="7" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.RequestedBy}"/>
-			 <TextBox   Grid.Column="3" Grid.Row="8" Margin="4" Classes="h1" Text="{Binding CertDetailsModel.ExpiryDate}"/>
+		   <Label Grid.Column="1" Grid.Row="3" Content="{DynamicResource SeCertValid}" IsVisible="{Binding SeCertValid}" Foreground="Green" FontSize="15" FontWeight="Bold" Padding="0" />
+			 <Label Grid.Column="1" Grid.Row="3" Content="{DynamicResource SeCertInvalid}" IsVisible="{Binding SeCertInvalid}" Foreground="Red" FontSize="15" FontWeight="Bold" Padding="0"/>
+			 <Label Grid.Column="1" Grid.Row="4" Content="{DynamicResource PkiCertValid}" IsVisible="{Binding PkiCertValid}" Foreground="Green" FontSize="15" FontWeight="Bold" Padding="0" />
+			 <Label Grid.Column="1" Grid.Row="4" Content="{DynamicResource PkiCertInvalid}" IsVisible="{Binding PkiCertInvalid}" Foreground="Red" FontSize="15" FontWeight="Bold" Padding="0"/>
+			 <Label Grid.Column="1" Grid.Row="5" Name="lblCommnads" FontSize="15" FontWeight="Bold" Padding="0" />
+			 <Label Grid.Column="1" Grid.Row="6" Name="lblAudit" FontSize="15" FontWeight="Bold" Padding="0" />
+		 
+			 <Button Grid.Column="2" Grid.Row="3" Grid.RowSpan="2" Command="{Binding VerificationInfoCommand}"
+				Content="{DynamicResource Details}"
+				IsVisible="{Binding BtnVisibility}" Background="Red" Foreground="White"  CornerRadius="0"
+				HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center"
+					 Width="90"/>
 		 </Grid>
-	
-     
-    <Rectangle HorizontalAlignment="Stretch" Fill="#1b7dbc" Height="3" Margin="5" />
-
-     <StackPanel Orientation="Vertical" Width="780" HorizontalAlignment="Left">
-       <Label Content="{Binding SeVerify}" Foreground="{Binding SeColor}" FontSize="15" FontWeight="Bold" Padding="0" />
-       <Label Content="{Binding PkiVerify}" Foreground="{Binding PkiColor}" FontSize="15" FontWeight="Bold" Padding="0"/>
-       <Label FontSize="15" FontWeight="Bold" Padding="0" Content="{Binding SubmitInternalDataStatus}"/>
-       <Label FontSize="15" FontWeight="Bold" Padding="0" Content="{Binding PendingCommandsStatus}"/>
-       <Button Command="{Binding VerificationInfoCommand}"
-               Content="{x:Static p:Resources.Details}"
-               IsVisible="{Binding BtnVisibility}"
-               Margin="0,-55,0,55" Background="Red" Foreground="White" MaxWidth="100"
-               MinHeight="30"  CornerRadius="0" HorizontalAlignment="Right"/>
-     </StackPanel>
-     
-	 </StackPanel>
 	</Border>
 </UserControl>

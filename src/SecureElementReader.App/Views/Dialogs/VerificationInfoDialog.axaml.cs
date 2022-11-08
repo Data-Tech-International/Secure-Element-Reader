@@ -23,12 +23,18 @@ namespace SecureElementReader.App.Views.Dialogs
 
             if (!string.IsNullOrWhiteSpace(details))
             {
+                App.Current.TryFindResource("PossibleSolution", out var possibleSolution);
+                App.Current.TryFindResource("InstallRCAandICAurl", out var installRCAandICAUrl);
+                App.Current.TryFindResource("InstallRCAandICA", out var installRCAandICA);
+                App.Current.TryFindResource("ErrorAtDepth", out var errorAtDepth);
+                App.Current.TryFindResource("Status", out var status);
+
                 var sp = this.FindControl<StackPanel>("Panel");
                 sp.Children.Clear();
                 foreach (var item in details.Split('\n'))
                 {
-                    if (item.StartsWith(Properties.Resources.ErrorAtDepth.Split(" ")[0]) || 
-                        item.StartsWith(Properties.Resources.Status))
+                    if (item.StartsWith(errorAtDepth.ToString().Split(" ")[0]) ||
+                        item.StartsWith(status.ToString()))
                     {
                         sp.Children.Add(new TextBlock
                         {
@@ -45,26 +51,24 @@ namespace SecureElementReader.App.Views.Dialogs
                             TextWrapping = TextWrapping.Wrap
                         });
                     }
-
                 }
                 sp.Children.Add(new TextBlock
                 {
-                    Text = $"{Properties.Resources.PossibleSolution}:",
+                    Text = $"{possibleSolution}:",
                     FontWeight = FontWeight.Bold,
                     TextWrapping = TextWrapping.Wrap
                 });
                 sp.Children.Add(new TextBlock
                 {
-                    Text = $"{Properties.Resources.InstallRCAandICAurl}:",
+                    Text = $"{installRCAandICAUrl}:",
                     TextWrapping = TextWrapping.Wrap
                 });
                 sp.Children.Add(new Button
                 {
-                    Content = $"{Properties.Resources.InstallRCAandICA}",
-                    Command = ViewModel.GoToTAP
+                    Content = $"{installRCAandICA}",
+                    Command = ViewModel.GoToTap
                 });
             }
-
             base.OnOpened();
         }
 

@@ -1,12 +1,7 @@
 ﻿using ReactiveUI;
 using SecureElementReader.App.ViewModels.Implementations.Dialogs;
 using SecureElementReader.App.ViewModels.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace SecureElementReader.App.ViewModels
@@ -18,22 +13,22 @@ namespace SecureElementReader.App.ViewModels
 
         public ICommand CloseButton { get; }
 
-        public ICommand GoToTAP { get; set; }
+        public ICommand GoToTap { get; set; }
 
         public ICertDetailsViewModel CertDetailsViewModel { get; }
 
         public VerificationInfoDialogViewModel(ICertDetailsViewModel certDetailsViewModel)
         {
             CertDetailsViewModel = certDetailsViewModel;
-            PopulateDialog();            
+            PopulateDialog();
         }
 
-       
+
         private void PopulateDialog()
-        {            
-            VerificationDetails = CertDetailsViewModel?.CertDetailsModel?.PKIVerificationInfo;
-            TapUrl = CertDetailsViewModel?.CertDetailsModel?.ApiUrl.Replace("api","tap");
-            GoToTAP = ReactiveCommand.Create(OnButtonTAP);
+        {
+            VerificationDetails = CertDetailsViewModel?.CertDetailsModel?.PkiVerificationInfo;
+            TapUrl = CertDetailsViewModel?.CertDetailsModel?.ApiUrl.Replace("api", "tap");
+            GoToTap = ReactiveCommand.Create(OnButtonTap);
         }
 
         public VerificationInfoDialogViewModel()
@@ -46,10 +41,13 @@ namespace SecureElementReader.App.ViewModels
             Close();
         }
 
-        private void OnButtonTAP()
+        private void OnButtonTap()
         {
-            Process.Start(new ProcessStartInfo("https://tap.sandbox.suf.purs.gov.rs/Help/view/1048069196/Инсталирање-RCA-и-ICA-сертификата/sr-Cyrl-RS") { UseShellExecute = true });
-
+            Process.Start(
+                new ProcessStartInfo("https://tap.sandbox.suf.purs.gov.rs/Help/view/1048069196/Инсталирање-RCA-и-ICA-сертификата/sr-Cyrl-RS") 
+                { 
+                    UseShellExecute = true 
+                });
         }
     }
 }

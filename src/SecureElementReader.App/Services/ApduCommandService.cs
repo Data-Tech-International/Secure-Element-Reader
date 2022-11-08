@@ -88,7 +88,7 @@ namespace SecureElementReader.App.Services
                 P2 = (byte)ApduP2.Default
             };
         }
-        
+
         public CommandApdu GetExportInternalData()
         {
             return new CommandApdu(IsoCase.Case2Extended, SCardProtocol.T1)

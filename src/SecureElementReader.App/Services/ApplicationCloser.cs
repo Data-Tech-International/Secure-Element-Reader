@@ -8,9 +8,9 @@ namespace SecureElementReader.App.Services
     {
         public void CloseApp()
         {
-            var lifetime = (IClassicDesktopStyleApplicationLifetime)Application.Current.ApplicationLifetime;
+            var lifetime = (IClassicDesktopStyleApplicationLifetime)Application.Current?.ApplicationLifetime;
 
-            lifetime.Shutdown();
+            lifetime?.Shutdown();
         }
     }
 }

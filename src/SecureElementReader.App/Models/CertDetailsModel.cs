@@ -1,8 +1,7 @@
-﻿using TaxCore.Libraries.Certificates;
-using SecureElementReader.App.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
+using TaxCore.Libraries.Certificates;
 
 namespace SecureElementReader.App.Models
 {
@@ -24,10 +23,10 @@ namespace SecureElementReader.App.Models
         public string GivenName { get; internal set; }
         public string SurName { get; internal set; }
         public string State { get; internal set; }
-        public bool PkiVerifyed { get; internal set; }
+        public bool PkiVerified { get; internal set; }
         public bool ReadPkiSuccess { get; internal set; }
-        public bool SEVerify { get; internal set; }
-        public bool SEReadSuccess { get; internal set; }
+        public bool SeVerify { get; internal set; }
+        public bool SeReadSuccess { get; internal set; }
         public List<string> ErrorCodes { get; set; }
         public string ApiUrl { get; internal set; }
         public string Tin { get; internal set; }
@@ -36,7 +35,7 @@ namespace SecureElementReader.App.Models
         public int CertificateId { get; internal set; }
         public string FriendlyName { get; internal set; }
         public X500DistinguishedName IssuerName { get; internal set; }
-        public string SEVerificationInfo { get; set; }
-        public string PKIVerificationInfo { get; set; }
+        public string SeVerificationInfo { get; set; }
+        public string PkiVerificationInfo { get; set; }
     }
 }

@@ -5,58 +5,72 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:main="clr-namespace:SecureElementReader.App.Views"
 				xmlns:local="clr-namespace:SecureElementReader.App.ViewModels"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="400"
-				xmlns:p="clr-namespace:SecureElementReader.App.Properties"
+				xmlns:titlebars="clr-namespace:SecureElementReader.App.Views.Titlebars;assembly=SecureElementReader.App"
         x:Class="SecureElementReader.App.Views.MainWindow"
-        Icon="/Assets/taxcore.png"
-        Title="Secure Element Reader App"
-				ExtendClientAreaToDecorationsHint="True"
-				Background="#e8e8e8"
-        Width="830" Height="630"
-				MaxWidth="830" MaxHeight="630"
         WindowStartupLocation="CenterScreen"
+				ExtendClientAreaToDecorationsHint="True"
+				ExtendClientAreaChromeHints="NoChrome"
+				ExtendClientAreaTitleBarHeightHint="-1"
+				CanResize="false"
+				Width="800" Height="580"
+				Icon="/Assets/taxcore.png"
+        Title="Secure Element Reader App"
+				Background="#e8e8e8"
 				FontFamily="Highway Sans Pro">
+  
+	<Window.Styles>
+		<Style Selector="Button.B">
+			<Setter Property="CornerRadius" Value="0"/>
+			<Setter Property="BorderThickness" Value="0"/>
+			<Setter Property="HorizontalAlignment" Value="Stretch"/>
+			<Setter Property="HorizontalContentAlignment" Value="Center"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
+			<Setter Property="Foreground" Value="White"/>
+		</Style>
 
-  <!--<Design.DataContext>
-        <vm:MainWindowViewModel/>
-    </Design.DataContext>-->
+		<Style Selector="TextBlock.h2">
+			<Setter Property="VerticalAlignment" Value="Center"/>
+		</Style>
 
-  <Grid>
-    <Grid>
+		<Style Selector="TextBox.h3">
+			<Setter Property="TextWrapping" Value="Wrap"/>
+			<Setter Property="CornerRadius" Value="0"/>
+			<Setter Property="BorderThickness" Value="0"/>
+			<Setter Property="IsEnabled" Value="False"/>
+		</Style>
+	</Window.Styles>
+  
+	<Grid x:Name="BaseWindowGrid" Width="800" Height="580">		
+		<Grid x:Name="DefinedGrid"
+			  ColumnDefinitions="100,100,100,100,100,100,100,100" RowDefinitions="30,100,450">		
+			<DockPanel x:Name="Titlebar" Grid.Column="0" Grid.ColumnSpan="8" Grid.Row="0" Width="800">
+				<titlebars:WindowsTitleBar IsSeamless="True"></titlebars:WindowsTitleBar>
+				<titlebars:MacosTitleBar IsSeamless="False"></titlebars:MacosTitleBar>
+			</DockPanel>
+			<Grid x:Name="ButtonsGrid" Grid.Column="0" Grid.ColumnSpan="8" Grid.Row="1" ColumnDefinitions="5,180,10,150,150,150,25,130" RowDefinitions="20,5,3,30,5,30">			
+				<TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="8" Width="800" Height="25"
+					TextAlignment="Center" Text="{DynamicResource Welcome}" FontSize="20" Foreground="#5b6372" />				
+				<Rectangle Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="8"
+					HorizontalAlignment="Center" Width="500" Fill="Black" Height="2"/>				
+				<Button Grid.Column="1" Grid.Row="3" Classes="B"
+					Command="{Binding RefreshReaderListCommand}" Background="#19aa8c" Content="{DynamicResource GetReader}"/>				
+				<TextBox Grid.Column="3" Grid.Row="3" Grid.ColumnSpan="2" CornerRadius="0" BorderThickness="0" Foreground="Black"
+					 IsEnabled="False" Text="{Binding CardReaderName}" Watermark="{DynamicResource NoCardReadesFounded}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>			
+				<Button Grid.Column="1" Grid.Row="5" Classes="B"
+					Command="{Binding CertDetailsCommand}" Background="#21bcbe"  Content="{DynamicResource GetCert}" IsEnabled="{Binding IsEnabled}"/>
+				<Button Grid.Column="3" Grid.Row="5" Classes="B"
+					Command="{Binding VerifyPinCommand}" Background="#21bcbe"  Content="{DynamicResource VerifyPin}" IsEnabled="{Binding IsEnabled}"/>
+				<Image Grid.Column="7" Grid.Row="0" Grid.RowSpan="6" HorizontalAlignment="Left" VerticalAlignment="Center"
+					Width="90" Height="90" Source="/Assets/taxcore.png"/>							
+			</Grid>
+			
+			<main:CertDetailsView Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="8"					
+					DataContext="{Binding CertDetailsViewModel}"/>
 
-      <StackPanel VerticalAlignment="Top" Orientation="Horizontal" Margin="0,-10,0,0">
-        <main:MenuView DataContext="{Binding MenuViewModel}" />
-        <main:TopLanguageView DataContext="{Binding LanguageViewModel}" Margin="0,2,0,0"/>
-      </StackPanel>
-
-      <StackPanel Orientation="Vertical" Margin="0,35,0,0" MaxHeight="70" VerticalAlignment="Top">
-        <TextBlock HorizontalAlignment="Center" Text="{Binding WelcomeMessage}" FontSize="20" Foreground="#5b6372" />
-        <Rectangle HorizontalAlignment="Center" Width="500" Fill="Gray" Height="2" Margin="50,0"/>
-      </StackPanel>
-
-      <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,70,0,0" VerticalAlignment="Top" MaxWidth="400" Spacing="10">
-        <Button Command="{Binding RefreshReaderListCommand}" HorizontalContentAlignment="Center" Margin="10,0,0,0" Background="#19aa8c" Foreground="White" MinWidth="200" MaxWidth="200" MinHeight="30" CornerRadius="0" Content="{x:Static p:Resources.GetReader}"/>
-        <TextBox IsEnabled="False" Text="{Binding CardReaderName}" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" MinWidth="300" MaxHeight="25" CornerRadius="0"  BorderThickness="0"/>
-      </StackPanel>
-
-      <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,110,0,0" VerticalAlignment="Top" MaxWidth="400" Spacing="10">
-        <Button Command="{Binding CertDetailsCommand}" IsEnabled="{Binding IsEnabled}" Margin="10,0,0,0" Content="{x:Static p:Resources.GetCert}" HorizontalContentAlignment="Center" MinWidth="200" MaxWidth="200" Foreground="White" MaxHeight="30" Background="#21bcbe"  CornerRadius="0"/>
-        <Button Command="{Binding VerifyPinCommand}" IsEnabled="{Binding IsEnabled}" Margin="10,0,0,0" Content="{x:Static p:Resources.VerifyPin}" HorizontalContentAlignment="Center" MinWidth="150" MaxWidth="150" Foreground="White" MaxHeight="30" Background="#21bcbe"  CornerRadius="0"/>
-      </StackPanel>
-
-      <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
-        <Image Width="100" Height="100" Margin="0,40,40,0" Source="/Assets/taxcore.png"/>
-      </StackPanel>
-
-      <StackPanel VerticalAlignment="Top" Margin="0,140,0,0">
-        <main:CertDetailsView DataContext="{Binding CertDetailsViewModel}"/>
-      </StackPanel>  
-    </Grid>
-    
-    <Grid x:Name="OverlayGrid" Grid.Row="0" Grid.RowSpan="4" >
-      <Label Name="LblLoading" FontSize="72" HorizontalAlignment="Center" Opacity="0" VerticalAlignment="Center" FontWeight="Bold"
-             Content="{x:Static p:Resources.Loading}"/>
-    </Grid>
-    
-  </Grid>
+			<Grid x:Name="OverlayGrid" Grid.Row="0" Grid.RowSpan="6" Grid.Column="0" Grid.ColumnSpan="8">
+				<Label Name="LblLoading" FontSize="72" HorizontalAlignment="Center" Opacity="0" VerticalAlignment="Center" FontWeight="Bold"
+					   Content="{DynamicResource Loading}"/>
+			</Grid>
+		</Grid>			
+	</Grid>
 </Window>

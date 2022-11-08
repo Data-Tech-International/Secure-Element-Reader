@@ -12,11 +12,14 @@
     <viewModels:MainWindowViewModel />
   </Design.DataContext>
 
-  <NativeMenu.Menu>
-    <NativeMenu>
-      <NativeMenuItem Header="AboutCamelotTitle" Command="{Binding MenuViewModel.AboutCommand}" />
-    </NativeMenu>
-  </NativeMenu.Menu>
+	<Application.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceInclude Source="/Properties/Translations.EN.axaml"/>
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+
+	</Application.Resources>
   
     <Application.Styles>
         <FluentTheme Mode="Light"/>

@@ -3,7 +3,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:menu="clr-namespace:SecureElementReader.App.ViewModels"
-             xmlns:p="clr-namespace:SecureElementReader.App.Properties"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="SecureElementReader.App.Views.MenuView"
 			       FontFamily="Highway Sans Pro">
@@ -12,16 +11,39 @@
     <menu:MenuViewModel/>
   </Design.DataContext>
 
-  <DockPanel Name="MenuDockPanel">
-    <Menu DockPanel.Dock="Top">
-      <MenuItem Header="{x:Static p:Resources.FileHeader}"  >
-        <MenuItem Header="{x:Static p:Resources.ExitHeader}" CommandParameter="{Binding ElementName=MainWindow}" Command="{Binding ExitCommand}" />
-      </MenuItem>
-      <MenuItem Header="{x:Static p:Resources.HelpHeader}" >
-        <MenuItem Header="{x:Static p:Resources.AboutHeader}" Command="{Binding AboutCommand}" />
-      </MenuItem>
-    </Menu>
-  </DockPanel>
+	<DockPanel Width="250" Height="30">
+		<Menu DockPanel.Dock="Left">
+			<MenuItem Header="{DynamicResource FileHeader}" MinWidth="60" MaxWidth="60">
+				<MenuItem Header="{DynamicResource ExitHeader}" CommandParameter="{Binding ElementName=MainWindow}" Command="{Binding ExitCommand}" />
+			</MenuItem>
+			<MenuItem Header="{DynamicResource HelpHeader}"  MinWidth="70" MaxWidth="70">
+				<MenuItem Header="{DynamicResource AboutHeader}" Command="{Binding AboutCommand}" />
+			</MenuItem>
+			<MenuItem Header="{DynamicResource Language}" MinWidth="120" MaxWidth="120">
+				<MenuItem Header="English" Command="{Binding Translate}" CommandParameter="EN">
+					<MenuItem.Icon> <Image
+						Width="20" Height="20"
+						Source="/Assets/uk.png"/>
+					</MenuItem.Icon>
+				</MenuItem>
+				<MenuItem Header="Српски (Srpski)" Command="{Binding Translate}" CommandParameter="SR">
+					<MenuItem.Icon>
+						<Image
+						Width="20" Height="20"
+						Source="/Assets/serbia.png"/>
+					</MenuItem.Icon>
+				</MenuItem>
+				<MenuItem Header="Français" Command="{Binding Translate}" CommandParameter="FR">
+					<MenuItem.Icon>
+						<Image
+						Width="20" Height="20"
+						Source="/Assets/france.png"/>
+					</MenuItem.Icon>
+				</MenuItem>
+			</MenuItem>
+
+		</Menu>
+	</DockPanel>
 </UserControl>
 
 

@@ -1,52 +1,50 @@
-using ReactiveUI;
-using SecureElementReader.App.Interfaces;
-using SecureElementReader.App.ViewModels.Interfaces;
-using SecureElementReader.App.ViewModels.Services;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using System.Linq;
-using ReactiveUI.Fody.Helpers;
-using System.Reactive.Disposables;
+using MessageBox.Avalonia;
+using MessageBox.Avalonia.DTO;
 using PCSC;
 using PCSC.Monitoring;
 using PCSC.Reactive;
 using PCSC.Reactive.Events;
 using Reactive.Bindings.Extensions;
-using System.Reactive.Linq;
-using MessageBoxAvaloniaEnums = MessageBox.Avalonia.Enums;
-using MessageBox.Avalonia;
-using MessageBox.Avalonia.DTO;
-using SecureElementReader.App.Views;
+using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
+using SecureElementReader.App.Enums;
+using SecureElementReader.App.Interfaces;
 using SecureElementReader.App.Models;
+using SecureElementReader.App.ViewModels.Interfaces;
+using SecureElementReader.App.ViewModels.Services;
+using SecureElementReader.App.Views;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reactive.Disposables;
+using System.Reactive.Linq;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
+using System.Windows.Input;
+using MessageBoxAvaloniaEnums = MessageBox.Avalonia.Enums;
 
 namespace SecureElementReader.App.ViewModels
 {
-    public class MainWindowViewModel : ViewModelBase, IMainWindowViewModel    
+    public class MainWindowViewModel : ViewModelBase, IMainWindowViewModel
     {
         private readonly CompositeDisposable _disposables = new CompositeDisposable();
         private IDisposable _subscription;
 
         public Reactive.Bindings.ReactiveCollection<string> Readers { get; }
-        public Reactive.Bindings.ReactiveCommand RefreshReaderListCommand { get; }       
+        public Reactive.Bindings.ReactiveCommand RefreshReaderListCommand { get; }
 
-        private readonly IDialogService dialogService;
-        private readonly ICardReaderService cardReaderService;
-        private readonly IApplicationDispatcher applicationDispatcher;
-        private readonly IMainWindowProvider mainWindowProvider;
-        private readonly ITaxCoreApiProxy taxCoreApiProxy;
-
-        public string WelcomeMessage => Properties.Resources.Welcome;
+        private readonly IDialogService _dialogService;
+        private readonly ICardReaderService _cardReaderService;
+        private readonly IApplicationDispatcher _applicationDispatcher;
+        private readonly IMainWindowProvider _mainWindowProvider;
+        private readonly ITaxCoreApiProxy _taxCoreApiProxy;
 
         public IMenuViewModel MenuViewModel { get; }
         public ICertDetailsViewModel CertDetailsViewModel { get; }
-        public ITopLanguageViewModel LanguageViewModel { get; }
 
 
         [Reactive]
-        public string CardReaderName { get; set; }        
+        public string CardReaderName { get; set; }
 
         [Reactive]
         public bool IsEnabled { get; set; }
@@ -54,46 +52,43 @@ namespace SecureElementReader.App.ViewModels
         public ICommand CertDetailsCommand { get; }
         public ICommand VerifyPinCommand { get; }
 
-        public MainWindowViewModel(IDialogService dialogService, 
+        public MainWindowViewModel(IDialogService dialogService,
             ICardReaderService cardReaderService,
             IMenuViewModel menuViewModel,
             ICertDetailsViewModel certDetailsViewModel,
-            ITopLanguageViewModel languageViewModel,
             IMonitorFactory monitorFactory,
             IApplicationDispatcher applicationDispatcher,
             IMainWindowProvider mainWindowProvider,
             ITaxCoreApiProxy taxCoreApiProxy)
         {
-            this.dialogService = dialogService;
-            this.cardReaderService = cardReaderService;
-            this.applicationDispatcher = applicationDispatcher;
-            this.mainWindowProvider = mainWindowProvider;
-            this.taxCoreApiProxy = taxCoreApiProxy;
+            _dialogService = dialogService;
+            _cardReaderService = cardReaderService;
+            _applicationDispatcher = applicationDispatcher;
+            _mainWindowProvider = mainWindowProvider;
+            _taxCoreApiProxy = taxCoreApiProxy;
 
             CertDetailsCommand = ReactiveCommand.Create(GetCertDetails);
             VerifyPinCommand = ReactiveCommand.CreateFromTask(ShowVerifyPinDialog);
             MenuViewModel = menuViewModel;
             CertDetailsViewModel = certDetailsViewModel;
-            LanguageViewModel = languageViewModel;
+
 
             Readers = new Reactive.Bindings.ReactiveCollection<string>().AddTo(_disposables);
             RefreshReaderListCommand = new Reactive.Bindings.ReactiveCommand().AddTo(_disposables);
 
             RefreshReaderListCommand
-                .Do(_=> applicationDispatcher.Dispatch(() => ShowLoadingOverlay(this)))
+                .Do(_ => applicationDispatcher.Dispatch(() => ShowLoadingOverlay(this)))
                 .Select(_ => GetReaders())
                 .Do(UpdateReaderList)
                 .Do(readerNames => SubscribeToReaderEvents(monitorFactory, readerNames))
                 .Subscribe()
                 .AddTo(_disposables);
-
-            //RefreshReaderListCommand.Execute();
         }
-        
+
         private void UpdateReaderList(IEnumerable<string> readerNames)
         {
-            Readers.ClearOnScheduler();            
-            Readers.AddRangeOnScheduler(readerNames);            
+            Readers.ClearOnScheduler();
+            Readers.AddRangeOnScheduler(readerNames);
         }
 
         private void SubscribeToReaderEvents(IMonitorFactory monitorFactory, IReadOnlyCollection<string> readerNames)
@@ -106,7 +101,7 @@ namespace SecureElementReader.App.ViewModels
             }
 
             _subscription = monitorFactory
-                .CreateObservable(SCardScope.User, readerNames)                
+                .CreateObservable(SCardScope.User, readerNames)
                 .Subscribe(
                     onNext: OnEvent,
                     onError: OnError);
@@ -118,25 +113,29 @@ namespace SecureElementReader.App.ViewModels
         }
 
         private void OnEvent(MonitorEvent obj)
-        {   
-            if (string.Equals(obj.GetType().Name, "CardRemoved"))
+        {
+            if (Equals(obj.GetType().Name, "CardRemoved"))
             {
-                CertDetailsViewModel.ClearForm();                
+                CertDetailsViewModel.ClearForm();
             }
-            else if (string.Equals(obj.GetType().Name, "MonitorInitialized"))
+            else if (Equals(obj.GetType().Name, "MonitorInitialized"))
             {
                 _ = GetCertDetails();
             }
-            else if (string.Equals(obj.GetType().Name, "CardInserted"))
+            else if (Equals(obj.GetType().Name, "CardInserted"))
             {
-               GetReaders();
-               _ = GetCertDetails();   
-            }           
+                GetReaders();
+                _ = GetCertDetails();
+            }
+            else if (Equals(obj.GetType().Name, "CardStatusChanged"))
+            {
+                GetReaders();
+            }
         }
 
         private string[] GetReaders()
         {
-            var readers = cardReaderService.LoadReaders().ToArray();
+            var readers = _cardReaderService.LoadReaders().ToArray();
             if (readers != null && readers.Length > 0)
             {
                 CardReaderName = readers[0];
@@ -144,8 +143,8 @@ namespace SecureElementReader.App.ViewModels
             }
             else
             {
-                CardReaderName = Properties.Resources.NoCardReadesFounded;
-                applicationDispatcher.Dispatch(() => HideLoadingOverlay());
+                CardReaderName = String.Empty;
+                _applicationDispatcher.Dispatch(() => HideLoadingOverlay());
                 CertDetailsViewModel.ClearForm();
                 IsEnabled = false;
             }
@@ -155,12 +154,13 @@ namespace SecureElementReader.App.ViewModels
 
         private async Task GetCertDetails()
         {
-            applicationDispatcher.Dispatch(() => ShowLoadingOverlay(this));
 
-            var details = cardReaderService.GetCertDetails();
+            _applicationDispatcher.Dispatch(() => ShowLoadingOverlay(this));
+
+            var details = _cardReaderService.GetCertDetails();
             if (details.ErrorCodes.Count > 0)
             {
-                await applicationDispatcher.DispatchAsync(() => ShowMessage(details.ErrorCodes));   
+                await _applicationDispatcher.DispatchAsync(() => ShowMessage(details.ErrorCodes));
             }
             else
             {
@@ -169,25 +169,24 @@ namespace SecureElementReader.App.ViewModels
 
                 if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                 {
-                    taxCoreApiProxy.Configure(CertDetailsViewModel.CertDetailsModel.UniqueIdentifier, CertDetailsViewModel.CertDetailsModel.CommonName, CertDetailsViewModel.CertDetailsModel.ApiUrl);
+                    _taxCoreApiProxy.Configure(CertDetailsViewModel.CertDetailsModel.UniqueIdentifier, CertDetailsViewModel.CertDetailsModel.CommonName, CertDetailsViewModel.CertDetailsModel.ApiUrl);
                     var internalDataStatus = await SubmitInternalData();
                     var commandsStatus = await ProcessPendingCommands();
-                    CertDetailsViewModel.SetStatusFileds(internalDataStatus, commandsStatus);
+                    CertDetailsViewModel.SetStatusFields(internalDataStatus, commandsStatus);
                 }
             }
-
-            applicationDispatcher.Dispatch(() => HideLoadingOverlay());            
+            _applicationDispatcher.Dispatch(() => HideLoadingOverlay());
         }
 
         private void HideLoadingOverlay()
         {
-            var mainWindow = (MainWindow)mainWindowProvider.GetMainWindow();
+            var mainWindow = (MainWindow)_mainWindowProvider.GetMainWindow();
             mainWindow.HideLoadingOverlay();
         }
 
         private void ShowLoadingOverlay(object obj)
         {
-            var mainWindow = (MainWindow)mainWindowProvider.GetMainWindow();
+            var mainWindow = (MainWindow)_mainWindowProvider.GetMainWindow();
             mainWindow.ShowLoadingOverlay();
         }
 
@@ -197,8 +196,6 @@ namespace SecureElementReader.App.ViewModels
                     new MessageBoxStandardParams
                     {
                         ContentMessage = String.Join('\n', errors) + Environment.NewLine,
-                        ContentHeader = Properties.Resources.Error,
-                        ContentTitle = Properties.Resources.Error,
                         ShowInCenter = true,
                         Icon = MessageBoxAvaloniaEnums.Icon.Error,
                         Topmost = true,
@@ -206,12 +203,12 @@ namespace SecureElementReader.App.ViewModels
                         WindowStartupLocation = Avalonia.Controls.WindowStartupLocation.CenterOwner
                     });
 
-           await msg.ShowDialog(mainWindowProvider.GetMainWindow());
+            await msg.ShowDialog(_mainWindowProvider.GetMainWindow());
         }
 
         private Task ShowVerifyPinDialog()
         {
-            return dialogService.ShowDialogAsync(nameof(VerifyPinDialogViewModel));
+            return _dialogService.ShowDialogAsync(nameof(VerifyPinDialogViewModel));
         }
 
         public void Dispose()
@@ -233,8 +230,9 @@ namespace SecureElementReader.App.ViewModels
 
         private async Task<string> SubmitInternalData()
         {
-            var internalData = cardReaderService.GetInternalData();
-            var amountData = cardReaderService.GetAmountStatus();
+            var internalData = _cardReaderService.GetInternalData();
+            var amountData = _cardReaderService.GetAmountStatus();
+
             if (internalData != null && amountData != null)
             {
                 var request = new SecureElementAuditRequest
@@ -243,65 +241,70 @@ namespace SecureElementReader.App.ViewModels
                     LimitData = amountData,
                 };
 
-                var response = await taxCoreApiProxy.SendInternalData(request);
-               
+                var response = await _taxCoreApiProxy.SendInternalData(request);
+
                 if (response)
                 {
-                    return "Success to submint internal data";
+                    return SubmitMessages.SuccessSubmit.ToString();
                 }
                 else
                 {
-                    return "Unable to submint internal data";
+                    return SubmitMessages.UnableToSubmit.ToString();
                 }
             }
             else
-            {                
-                return "Can't read internal data form card";
+            {
+                return SubmitMessages.CantReadInternal.ToString();
             }
         }
 
         private async Task<string> ProcessPendingCommands()
         {
-            var commands = await taxCoreApiProxy.GetPendingCommands();
+            var commands = await _taxCoreApiProxy.GetPendingCommands();
             if (commands == null)
-                return "Cant't get pending commands";
+                return CommandsMessages.CannotGetPendingCommands.ToString();
 
             if (commands.Count > 0)
-            {                
-                var commandStatus = cardReaderService.ProcessingCommand(commands);                
-                
+            {
+                var commandStatus = _cardReaderService.ProcessingCommand(commands);
+
                 if (commandStatus.Count > 0)
                 {
-                    var notifyCommandResult = await taxCoreApiProxy.CommandStatusUpdate(commandStatus);
+                    var notifyCommandResult = await _taxCoreApiProxy.CommandStatusUpdate(commandStatus);
                     if (ChechIsAllCommandExecutedSuccessfully(commands, commandStatus))
-                    {   
-                        if (CheckIsAllNotificationSentSuccessfuly(notifyCommandResult, commandStatus)) 
-                            return "All commands executed successfully";
+                    {
+                        if (CheckIsAllNotificationSentSuccessfuly(notifyCommandResult, commandStatus))
+                        {
+                            return CommandsMessages.AllCommandsExecutedSuccessfully.ToString();
+                        }
                         else
-                            return "All commands executed but faild to notify TaxCore system";
+                        {
+                            return CommandsMessages.AllCommandsExecutedButFailedToNotifyTaxCoreSystem.ToString();
+                        }
                     }
                     else
                     {
-                        return "Not all command executed successfully";
+                        return CommandsMessages.NotAllCommandExecutedSuccessfully.ToString();
                     }
                 }
                 else
                 {
-                    return "Commands not executed";
-                }                
+                    return CommandsMessages.CommandsNotExecuted.ToString();
+                }
             }
             else
             {
-                return "There is no pending commands for this card";
+                return CommandsMessages.ThereIsNoPendingCommandsForThisCard.ToString();
             }
         }
 
+
         private bool CheckIsAllNotificationSentSuccessfuly(List<CommandsStatusResult> notifyCommandResult, List<CommandsStatusResult> commandStatus)
         {
-            return notifyCommandResult.Where(s => s.Success).Count() == commandStatus.Where(s=>s.Success).Count();
+            return notifyCommandResult.Where(s => s.Success).Count() == commandStatus.Where(s => s.Success).Count();
         }
 
-        private bool ChechIsAllCommandExecutedSuccessfully(List<Command> commands, List<CommandsStatusResult> commandsStatusResults) 
+        private bool ChechIsAllCommandExecutedSuccessfully(List<Command> commands, List<CommandsStatusResult> commandsStatusResults)
         {
             return commandsStatusResults.Where(s => s.Success).Count() == commands.Count();
         }

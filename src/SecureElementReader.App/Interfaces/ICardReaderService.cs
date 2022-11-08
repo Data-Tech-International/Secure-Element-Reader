@@ -8,8 +8,8 @@ namespace SecureElementReader.App.Interfaces
         IEnumerable<string> LoadReaders();
         CertDetailsModel GetCertDetails();
         VerifyPinModel VerifyPin(string pin);
-        byte[]? GetInternalData();
-        byte[]? GetAmountStatus();
+        byte[] GetInternalData();
+        byte[] GetAmountStatus();
         List<CommandsStatusResult> ProcessingCommand(List<Command> commands);
         void Disconnect();
     }

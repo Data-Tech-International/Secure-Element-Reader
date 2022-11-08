@@ -1,5 +1,5 @@
-﻿using BerTlv;
-using TaxCore.Libraries.Certificates;
+﻿using Avalonia.Controls;
+using BerTlv;
 using ICSharpCode.SharpZipLib.Zip.Compression;
 using Microsoft.Extensions.Logging;
 using PCSC;
@@ -11,47 +11,48 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
-using System.Threading.Tasks;
+using TaxCore.Libraries.Certificates;
 
 namespace SecureElementReader.App.Services
 {
     public class CardReaderService : ICardReaderService
     {
-        private readonly IApduCommandService apduCommandService;
-        private readonly ILogger logger;
-        private IsoReader reader;
-        private readonly IContextFactory contextFactory;
+        private readonly IApduCommandService _apduCommandService;
+        private readonly ILogger _logger;
+        private IsoReader _reader;
+        private readonly IContextFactory _contextFactory;
 
         public CardReaderService(IApduCommandService apduCommandService, ILogger logger, IContextFactory contextFactory)
         {
-            this.apduCommandService = apduCommandService;
-            this.logger = logger;
-            this.contextFactory = contextFactory;
+            _apduCommandService = apduCommandService;
+            _logger = logger;
+            _contextFactory = contextFactory;
+
         }
 
         public VerifyPinModel VerifyPin(string pin)
         {
             var verifyPinModel = new VerifyPinModel();
 
-            CheckPkiPin(pin, reader, verifyPinModel);
-            CheckSePin(pin, reader, verifyPinModel);
+            CheckPkiPin(pin, _reader, verifyPinModel);
+            CheckSePin(pin, _reader, verifyPinModel);
 
             return verifyPinModel;
         }
 
         private VerifyPinModel CheckPkiPin(string pin, IIsoReader reader, VerifyPinModel returnModel)
         {
-            var response = reader.Transmit(apduCommandService.SelectPKIApp());
+            var response = reader.Transmit(_apduCommandService.SelectPKIApp());
             if (response.SW1 == 0x90)
             {
-                response = reader.Transmit(apduCommandService.VerifyPkiPin(StringToByteArray(ToHax(pin))));
+                response = reader.Transmit(_apduCommandService.VerifyPkiPin(StringToByteArray(ToHax(pin))));
                 if (response.SW1 == 0x90)
                 {
                     returnModel.PkiPinSuccess = true;
                 }
                 else if (response.SW1 == 0x69 && response.SW2 == 0x83)
                 {
-                    returnModel.PKIAppletLocked = true;
+                    returnModel.PkiAppletLocked = true;
                 }
                 else if (response.SW1 == 0x63)
                 {
@@ -64,7 +65,8 @@ namespace SecureElementReader.App.Services
             }
             else
             {
-                returnModel.ErrorList.Add($"{Properties.Resources.SelectPkiError}: {response.SW1} {response.SW2}");
+                App.Current.TryFindResource("SelectPkiError", out var selectPkiError);
+                returnModel.ErrorList.Add($"{selectPkiError}: {response.SW1} {response.SW2}");
             }
 
             return returnModel;
@@ -72,17 +74,17 @@ namespace SecureElementReader.App.Services
 
         private VerifyPinModel CheckSePin(string pin, IIsoReader reader, VerifyPinModel returnModel)
         {
-            var response = reader.Transmit(apduCommandService.SelectSEApp());
+            var response = reader.Transmit(_apduCommandService.SelectSEApp());
             if (response.SW1 == 0x90)
             {
-                response = reader.Transmit(apduCommandService.VerifySEPin(ConvertPinToByteArray(pin)));
+                response = reader.Transmit(_apduCommandService.VerifySEPin(ConvertPinToByteArray(pin)));
                 if (response.SW1 == 0x90)
                 {
                     returnModel.SePinSuccess = true;
                 }
                 else if (response.SW1 == 0x63 && response.SW2 == 0x10)
                 {
-                    returnModel.SEAppletLocked = true;
+                    returnModel.SeAppletLocked = true;
                 }
                 else
                 {
@@ -91,7 +93,8 @@ namespace SecureElementReader.App.Services
             }
             else
             {
-                returnModel.ErrorList.Add($"{Properties.Resources.SelectSeError}: {response.SW1} {response.SW2}");
+                App.Current.TryFindResource("SelectSeError", out var selectSeError);
+                returnModel.ErrorList.Add($"{selectSeError}: {response.SW1} {response.SW2}");
             }
 
             return returnModel;
@@ -101,8 +104,8 @@ namespace SecureElementReader.App.Services
         {
             var certDetailsModel = new CertDetailsModel();
 
-            GetPkiDetails(reader, certDetailsModel);
-            GetSeDetails(reader, certDetailsModel);
+            GetPkiDetails(_reader, certDetailsModel);
+            GetSeDetails(_reader, certDetailsModel);
 
             return certDetailsModel;
         }
@@ -113,14 +116,15 @@ namespace SecureElementReader.App.Services
             {
                 if (string.IsNullOrWhiteSpace(reader.ReaderName))
                 {
-                    model.ErrorCodes.Add($"{Properties.Resources.PleaseInseretCard}");
+                    App.Current.TryFindResource("PleaseInsertCard", out var pleaseInsertCard);
+                    model.ErrorCodes.Add($"{pleaseInsertCard}");
                     return model;
                 }
 
-                var response = reader.Transmit(apduCommandService.SelectSEApp());
+                var response = reader.Transmit(_apduCommandService.SelectSEApp());
                 if (response.SW1 == 0x90)
                 {
-                    response = reader.Transmit(apduCommandService.GetSECert());
+                    response = reader.Transmit(_apduCommandService.GetSECert());
                     if (response.SW1 == 0x90)
                     {
                         var crt = response.GetData();
@@ -130,24 +134,27 @@ namespace SecureElementReader.App.Services
                         {
                             PopulateModel(c, model);
                         }
-                        model.SEVerify = c.Verify();
+                        model.SeVerify = c.Verify();
                         VerifyChain(c, model, false);
-                        model.SEReadSuccess = true;
+                        model.SeReadSuccess = true;
                     }
                     else
                     {
-                        model.ErrorCodes.Add($"{Properties.Resources.GetSeCertError}: {response.SW1} {response.SW2}");
+                        App.Current.TryFindResource("GetSeCertError", out var getSeCertError);
+                        model.ErrorCodes.Add($"{getSeCertError}: {response.SW1} {response.SW2}");
                     }
                 }
                 else
                 {
-                    model.ErrorCodes.Add($"{Properties.Resources.SelectSeError}: {response.SW1} {response.SW2}");
+                    App.Current.TryFindResource("SelectSeError", out var selectSeError);
+                    model.ErrorCodes.Add($"{selectSeError}: {response.SW1} {response.SW2}");
                 }
             }
             catch (Exception ex)
             {
-                model.ErrorCodes.Add($"{Properties.Resources.SeCertDetailsError}: {ex.Message}");
-                logger.LogError($"Failed to read SE data with error: {ex}");
+                App.Current.TryFindResource("SeCertDetailsError", out var seCertDetailsError);
+                model.ErrorCodes.Add($"{seCertDetailsError}: {ex.Message}");
+                _logger.LogError($"Failed to read SE data with error: {ex}");
             }
 
             return model;
@@ -162,10 +169,10 @@ namespace SecureElementReader.App.Services
                     return model;
                 }
 
-                var response = reader.Transmit(apduCommandService.SelectPKIApp());
+                var response = reader.Transmit(_apduCommandService.SelectPKIApp());
                 if (response.StatusWord == 0x9000)
                 {
-                    response = reader.Transmit(apduCommandService.GetPKICert());
+                    response = reader.Transmit(_apduCommandService.GetPKICert());
                     if (response.SW1 == 0x90)
                     {
                         System.Threading.Thread.Sleep(200);
@@ -181,7 +188,7 @@ namespace SecureElementReader.App.Services
 
                                 PopulateModel(cert, model);
                                 model.ReadPkiSuccess = true;
-                                model.PkiVerifyed = cert.Verify();
+                                model.PkiVerified = cert.Verify();
                                 VerifyChain(cert, model, true);
 
                                 break;
@@ -193,18 +200,21 @@ namespace SecureElementReader.App.Services
                     }
                     else
                     {
-                        model.ErrorCodes.Add($"{Properties.Resources.GetPkiCertError}: {response.SW1} {response.SW2}");
+                        App.Current.TryFindResource("GetPkiCertError", out var getPkiCertError);
+                        model.ErrorCodes.Add($"{getPkiCertError}: {response.SW1} {response.SW2}");
                     }
                 }
                 else
                 {
-                    model.ErrorCodes.Add($"{Properties.Resources.SelectPkiError}: {response.SW1} {response.SW2}");
+                    App.Current.TryFindResource("SelectPkiError", out var selectPkiError);
+                    model.ErrorCodes.Add($"{selectPkiError}: {response.SW1} {response.SW2}");
                 }
             }
             catch (Exception ex)
             {
-                model.ErrorCodes.Add($"{Properties.Resources.PkiCertDetailsError}: {ex.Message}");
-                logger.LogError($"Failed to read PKI data with error: {ex}");
+                App.Current.TryFindResource("PkiCertDetailsError", out var pkiCertDetailsError);
+                model.ErrorCodes.Add($"{pkiCertDetailsError}: {ex.Message}");
+                _logger.LogError($"Failed to read PKI data with error: {ex}");
             }
 
             return model;
@@ -258,14 +268,14 @@ namespace SecureElementReader.App.Services
             string[]? szReaders = null;
             try
             {
-                var context = contextFactory.Establish(SCardScope.User);
+                var context = _contextFactory.Establish(SCardScope.User);
 
                 szReaders = context.GetReaders();
-                reader = new IsoReader(context);
-                
+                _reader = new IsoReader(context);
+
                 foreach (var sZReader in szReaders)
-                {                   
-                    reader.Connect(sZReader, SCardShareMode.Shared, SCardProtocol.T1);
+                {
+                    _reader.Connect(sZReader, SCardShareMode.Shared, SCardProtocol.T1);
                 }
 
                 System.Threading.Thread.Sleep(500);
@@ -280,20 +290,20 @@ namespace SecureElementReader.App.Services
 
         public void Disconnect()
         {
-            reader.Disconnect(SCardReaderDisposition.Leave);            
+            _reader.Disconnect(SCardReaderDisposition.Leave);
         }
 
         public byte[]? GetInternalData()
         {
-            var response = reader.Transmit(apduCommandService.SelectSEApp());
+            var response = _reader.Transmit(_apduCommandService.SelectSEApp());
             if (response.SW1 == 0x90)
             {
-                response = reader.Transmit(apduCommandService.GetExportInternalData());
+                response = _reader.Transmit(_apduCommandService.GetExportInternalData());
                 if (response.SW1 == 0x90)
                 {
                     return response.GetData();
                 }
-                else 
+                else
                 {
                     return null;
                 }
@@ -306,10 +316,10 @@ namespace SecureElementReader.App.Services
 
         public byte[]? GetAmountStatus()
         {
-            var response = reader.Transmit(apduCommandService.SelectSEApp());
+            var response = _reader.Transmit(_apduCommandService.SelectSEApp());
             if (response.SW1 == 0x90)
             {
-                response = reader.Transmit(apduCommandService.AmountStatus());
+                response = _reader.Transmit(_apduCommandService.AmountStatus());
                 if (response.SW1 == 0x90)
                 {
                     return response.GetData();
@@ -331,7 +341,7 @@ namespace SecureElementReader.App.Services
 
             try
             {
-                var response = reader.Transmit(apduCommandService.SelectSEApp());
+                var response = _reader.Transmit(_apduCommandService.SelectSEApp());
 
                 if (response.SW1 == 0x90 && response.SW2 == 0x00)
                 {
@@ -339,13 +349,13 @@ namespace SecureElementReader.App.Services
                     {
                         if (item.Type == Enums.CommandsType.ForwardSecureElementDirective)
                         {
-                            response = reader.Transmit(apduCommandService.SECommand(Convert.FromBase64String(item.Payload)));
+                            response = _reader.Transmit(_apduCommandService.SECommand(Convert.FromBase64String(item.Payload)));
                         }
                         else
                         {
-                            response = reader.Transmit(apduCommandService.FinishAudit(Convert.FromBase64String(item.Payload)));
+                            response = _reader.Transmit(_apduCommandService.FinishAudit(Convert.FromBase64String(item.Payload)));
                         }
-                        
+
                         if (response.SW1 == 0x90)
                         {
                             result.Add(new CommandsStatusResult { CommandId = item.CommandId, DateAndTime = DateTime.UtcNow, Success = true });
@@ -383,7 +393,7 @@ namespace SecureElementReader.App.Services
                 value.Select(c => String.Format("{0:X2}", Convert.ToInt32(c))));
         }
 
-        private void VerifyChain(Certificate cert, CertDetailsModel model, bool IsPKI)
+        private void VerifyChain(Certificate cert, CertDetailsModel model, bool isPki)
         {
             using (X509Chain chain = new X509Chain())
             {
@@ -399,37 +409,35 @@ namespace SecureElementReader.App.Services
 
                     if (element.ChainElementStatus.Length != 0)
                     {
-                        if (IsPKI)
+                        if (isPki)
                         {
-                            model.PKIVerificationInfo += Environment.NewLine;
-                            model.PKIVerificationInfo += "------------------------------";
-                            model.PKIVerificationInfo += Environment.NewLine;
-                            model.PKIVerificationInfo += $"{Properties.Resources.ErrorAtDepth} {i}:{Environment.NewLine}{element.Certificate.Issuer}";
-                            model.PKIVerificationInfo += Environment.NewLine;
+                            model.PkiVerificationInfo += Environment.NewLine;
+                            model.PkiVerificationInfo += Environment.NewLine;
+                            App.Current.TryFindResource("ErrorAtDepth", out var errorAtDepth);
+                            model.PkiVerificationInfo += $"{errorAtDepth} {i}:{Environment.NewLine}{element.Certificate.Issuer}";
+                            model.PkiVerificationInfo += Environment.NewLine;
+                            model.PkiVerificationInfo += Environment.NewLine;
 
                             foreach (var status in element.ChainElementStatus)
                             {
-                                model.PKIVerificationInfo += $"{Properties.Resources.Status}:{Environment.NewLine}{status.Status}";
-                                model.PKIVerificationInfo += Environment.NewLine;
-                                model.PKIVerificationInfo += $"{Properties.Resources.StatusInforamtion}:{Environment.NewLine}{status.StatusInformation}";
-                                model.PKIVerificationInfo += Environment.NewLine;
+                                App.Current.TryFindResource("Status", out var statusMessage);
+                                model.PkiVerificationInfo += $"{statusMessage}:{Environment.NewLine}{status.Status}{Environment.NewLine}";
+                                App.Current.TryFindResource("StatusInformation", out var statusInformation);
+                                model.PkiVerificationInfo += $"{statusInformation}:{Environment.NewLine}{status.StatusInformation}{Environment.NewLine}";
+                                model.PkiVerificationInfo += Environment.NewLine;
                             }
-
-                            model.PKIVerificationInfo += "------------------------------";
                         }
                         else
                         {
-                            model.SEVerificationInfo += Environment.NewLine;
-                            model.SEVerificationInfo += "------------------------------";
-                            model.SEVerificationInfo += $"{Properties.Resources.ErrorAtDepth} {i}: {element.Certificate.Issuer}";
-                            model.SEVerificationInfo += Environment.NewLine;
+                            App.Current.TryFindResource("ErrorAtDepth", out var errorAtDepth);
+                            model.PkiVerificationInfo += $"{errorAtDepth} {i}:{Environment.NewLine}";
+                            model.PkiVerificationInfo += $"{element.Certificate.Issuer}{Environment.NewLine}{Environment.NewLine}";
 
                             foreach (var status in element.ChainElementStatus)
                             {
-                                model.SEVerificationInfo += $"{status.Status}: {status.StatusInformation}";
-                                model.SEVerificationInfo += Environment.NewLine;
+                                model.SeVerificationInfo += $"{status.Status}: {status.StatusInformation}";
+                                model.SeVerificationInfo += Environment.NewLine;
                             }
-                            model.SEVerificationInfo += "------------------------------";
                         }
                     }
                 }
