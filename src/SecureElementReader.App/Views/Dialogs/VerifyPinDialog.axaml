@@ -54,13 +54,15 @@
 				<Label Content="{DynamicResource PkiAppletLocked}" IsVisible="{Binding PkiAppletLocked}" Classes="Alert"/>
 				<Label Content="{DynamicResource SEAppletLocked}" IsVisible="{Binding SeAppletLocked}" Classes="Alert"/>
 				<Label Content="{DynamicResource ReturnCard}" IsVisible="{Binding ShowTaxMessage}" Classes="Alert"/>
-				<StackPanel Orientation="Horizontal" Width="500" Height="100" IsVisible="{Binding WrongPinAlertText}" Classes="Alert">
-					<Label Content="{DynamicResource WrongPkiPinAlertText}" Classes="Alert" />
-					<Label Content="{Binding TrysLeft}" Classes="Alert"/>
-				</StackPanel>
-				<StackPanel Orientation="Horizontal" Width="500" Height="100" IsVisible="{Binding WrongPinAlertText}" Classes="Alert">
-					<Label Content="{DynamicResource WrongSePinAlertText}" Classes="Alert" />
-					<Label Content="{Binding TrysLeft}" Classes="Alert"/>
+				<StackPanel Orientation="Vertical" Width="500" Height="48" IsVisible="{Binding WrongPinAlertText}" Classes="Alert">
+					<StackPanel Orientation="Horizontal" Width="500" Height="24" Classes="Alert">
+						<Label Content="{DynamicResource WrongPkiPinAlertText}" Classes="Alert" />					
+						<Label Content="{Binding TrysLeft}" Classes="Alert"/>
+					</StackPanel>
+					<StackPanel Orientation="Horizontal" Width="500" Height="24" IsVisible="{Binding WrongPinAlertText}" Classes="Alert">
+						<Label Content="{DynamicResource WrongSePinAlertText}" Classes="Alert" />
+						<Label Content="{Binding TrysLeft}" Classes="Alert"/>
+					</StackPanel>
 				</StackPanel>
 			</StackPanel>
 
