@@ -92,7 +92,7 @@ jobs:
       - name: Codesign app
         if: matrix.os == 'macos-latest'
         run: |
-          find "${{ env.MACOS_PATH }}/SecureElementReader.App.app/Contents/MacOS/"|while read fname; do
+          find "${{ env.MACOS_PATH }}/SecureElementReader.App.app/Contents/MacOS"|while read fname; do
             if [ -f "$fname" ]
               then
                 echo "[INFO] Signing $fname"
