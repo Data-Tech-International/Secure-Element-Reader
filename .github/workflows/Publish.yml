@@ -141,7 +141,7 @@ jobs:
         uses: actions/upload-artifact@v2
         if: matrix.os != 'macos-latest'
         with:
-          name: ${{ steps.gitversion.outputs.semVer }}.${{ matrix.zip_name }}.zip
+          name: ${{ steps.gitversion.outputs.semVer }}.${{ matrix.zip_name }}
           path: ${{ steps.gitversion.outputs.semVer }}.${{ matrix.zip_name }}.zip          
       
       #- name: Zip Win release 
@@ -187,7 +187,7 @@ jobs:
         uses: actions/upload-artifact@v2
         if: matrix.os == 'macos-latest'
         with:
-          name: ${{ steps.gitversion.outputs.semVer }}.osx-x64.zip
+          name: ${{ steps.gitversion.outputs.semVer }}.osx-x64
           path: src/SecureElementReader.App/bin/Release/net6.0/osx-x64/publish/SecureElementReader.App.app.zip   
      
           
