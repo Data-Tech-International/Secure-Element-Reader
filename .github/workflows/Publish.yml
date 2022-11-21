@@ -6,6 +6,7 @@ on:
     
 env:
   PROJECT_PATH: src/SecureElementReader.App/SecureElementReader.App.csproj
+  MACOS_PATH: src/SecureElementReader.App/bin/Release/net6.0/osx-x64/publish
 
 jobs:
   build:
@@ -54,17 +55,9 @@ jobs:
         if: matrix.os != 'macos-latest'
         run: dotnet build ${{ env.PROJECT_PATH }} -c Release --no-restore
 
-      - name: Publish project for Windows and Linux
+      - name: Publish project for ${{ matrix.os }}
         if: matrix.os != 'macos-latest'
         run: dotnet publish ${{ env.PROJECT_PATH }} -c Release -r ${{ matrix.zip_name }} -p:PublishSingleFile=true -p:AssemblyVersion=${{ steps.gitversion.outputs.semVer }}
-
-      #- name: Publish project for Windows
-      #  if: matrix.os == 'windows-latest'
-      #  run: dotnet publish ${{ env.PROJECT_PATH }} -c Release -r win-x64 -p:PublishSingleFile=true -p:AssemblyVersion=${{ steps.gitversion.outputs.semVer }}
-
-      #- name: Publish project for Linux
-      #  if: matrix.os == 'ubuntu-latest'
-      #  run: dotnet publish ${{ env.PROJECT_PATH }} -c Release -r linux-x64 -p:PublishSingleFile=true -p:AssemblyVersion=${{ steps.gitversion.outputs.semVer }}
 
       - name: Publish project for OSx
         if: matrix.os == 'macos-latest'        
@@ -78,7 +71,7 @@ jobs:
           cp Assets/logo.icns bin/Release/net6.0/osx-x64/publish/SecureElementReader.App.app/Contents/Resources/logo.icns
           rm Assets/logo.icns
           rm -rf Assets/logo.iconset
-
+          
       - name: Codesign app bundle
         if: matrix.os == 'macos-latest'
         env: 
@@ -99,7 +92,7 @@ jobs:
       - name: Codesign app
         if: matrix.os == 'macos-latest'
         run: |
-          find "src/SecureElementReader.App/bin/Release/net6.0/osx-x64/publish/SecureElementReader.App.app/Contents/MacOS/"|while read fname; do
+          find "${{ env.MACOS_PATH }}/SecureElementReader.App.app/Contents/MacOS/"|while read fname; do
             if [ -f "$fname" ]
               then
                 echo "[INFO] Signing $fname"
@@ -111,15 +104,16 @@ jobs:
       - name: chmod
         if: matrix.os == 'macos-latest'
         run: |
-          cd src/SecureElementReader.App/bin/Release/net6.0/osx-x64/publish/SecureElementReader.App.app/Contents/MacOS
-          chmod u+x SecureElementReader.App
+          cd ${{ env.MACOS_PATH }}/SecureElementReader.App.app/Contents/MacOS
+          chmod +x SecureElementReader.App
+          chmod 755 SecureElementReader.App
           
       - name: Notarise app
         if: matrix.os == 'macos-latest'
         run: |
-          ditto -c -k --sequesterRsrc --keepParent "src/SecureElementReader.App/bin/Release/net6.0/osx-x64/publish/SecureElementReader.App.app" "SEReader.zip"
+          ditto -c -k --sequesterRsrc --keepParent "${{ env.MACOS_PATH }}/SecureElementReader.App.app" "SEReader.zip"
           xcrun notarytool submit "SEReader.zip" --wait --keychain-profile "AC_PASSWORD"
-          xcrun stapler staple src/SecureElementReader.App/bin/Release/net6.0/osx-x64/publish/SecureElementReader.App.app
+          xcrun stapler staple ${{ env.MACOS_PATH }}/SecureElementReader.App.app
           
       - name: Windows code signing
         if: matrix.os == 'windows-latest'
@@ -130,65 +124,32 @@ jobs:
           folder: 'src\SecureElementReader.App\bin\Release\net6.0\win-x64\publish\'
           recursive: true        
      
-      - name: Zip releases 
+      - name: Zip ${{ matrix.zip_name }} releases 
         if: matrix.os != 'macos-latest'
         uses: vimtor/action-zip@v1
         with:   
           files: src/SecureElementReader.App/bin/Release/net6.0/${{ matrix.zip_name }}/publish/
           dest: ${{ steps.gitversion.outputs.semVer }}.${{ matrix.zip_name }}.zip
      
-      - name: Upload artifacts 
+      - name: Upload ${{ matrix.zip_name }} artifacts 
         uses: actions/upload-artifact@v2
         if: matrix.os != 'macos-latest'
         with:
-          name: ${{ steps.gitversion.outputs.semVer }}.${{ matrix.zip_name }}
-          path: ${{ steps.gitversion.outputs.semVer }}.${{ matrix.zip_name }}.zip          
-      
-      #- name: Zip Win release 
-      #  if: matrix.os == 'windows-latest'
-      #  uses: vimtor/action-zip@v1
-      #  with:   
-      #    files: src/SecureElementReader.App/bin/Release/net6.0/win-x64/publish/
-      #    dest: ${{ steps.gitversion.outputs.semVer }}.win-x64.zip
-     
-      #- uses: actions/upload-artifact@v2
-      #  if: matrix.os == 'windows-latest'
-      #  with:
-      #    name: ${{ steps.gitversion.outputs.semVer }}.win-x64.zip
-      #    path: ${{ steps.gitversion.outputs.semVer }}.win-x64.zip
-     
-      #- name: Zip Linux release
-      #  if: matrix.os == 'ubuntu-latest'
-      #  uses: vimtor/action-zip@v1
-      #  with:   
-      #    files: src/SecureElementReader.App/bin/Release/net6.0/linux-x64/publish/
-      #    dest: ${{ steps.gitversion.outputs.semVer }}.linux-x64.zip
-      
-      #- uses: actions/upload-artifact@v2
-      #  if: matrix.os == 'ubuntu-latest'
-      #  with:
-      #    name: ${{ steps.gitversion.outputs.semVer }}.linux-x64.zip
-      #    path: ${{ steps.gitversion.outputs.semVer }}.linux-x64.zip
-          
-      #- name: Zip OSx release
-      #  if: matrix.os == 'macos-latest'
-      #  uses: vimtor/action-zip@v1
-      #  with:   
-      #    files: src/SecureElementReader.App/bin/Release/net6.0/osx-x64/publish/SecureElementReader.App.app
-      #    dest: ${{ steps.gitversion.outputs.semVer }}.osx-x64.zip
+          name: ${{ steps.gitversion.outputs.semVer }}.${{ matrix.zip_name }}.zip
+          path: ${{ steps.gitversion.outputs.semVer }}.${{ matrix.zip_name }}.zip   
           
       - name: Zip OSx release
         if: matrix.os == 'macos-latest'
         run: |
-          cd src/SecureElementReader.App/bin/Release/net6.0/osx-x64/publish
+          cd ${{ env.MACOS_PATH }}
           zip -r SecureElementReader.App.app.zip SecureElementReader.App.app
     
       - name: Upload OSx artifacts
         uses: actions/upload-artifact@v2
         if: matrix.os == 'macos-latest'
         with:
-          name: ${{ steps.gitversion.outputs.semVer }}.osx-x64
-          path: src/SecureElementReader.App/bin/Release/net6.0/osx-x64/publish/SecureElementReader.App.app.zip   
+          name: ${{ steps.gitversion.outputs.semVer }}.osx-x64.zip
+          path: ${{ env.MACOS_PATH }}/SecureElementReader.App.app.zip   
      
           
   publis:
@@ -208,8 +169,11 @@ jobs:
           
       - uses: actions/download-artifact@v2
         with:
-          name: ${{ needs.build.outputs.semVer }}.linux-x64.zip
+          name: ${{ needs.build.outputs.semVer }}.linux-x64.zip     
       
+      - name: Rename file
+        run: mv SecureElementReader.App.app.zip ${{ needs.build.outputs.semVer }}.osx-x64.zip
+        
       - name: Create Tag
         uses: Yanjingzhu/FirstJSAction@v1.3
         with:            
@@ -240,5 +204,3 @@ jobs:
       - name: Delete Build Artifact
         uses: joutvhu/delete-artifact@v1.0.1
         
-         
-
