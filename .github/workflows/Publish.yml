@@ -170,19 +170,25 @@ jobs:
       #    name: ${{ steps.gitversion.outputs.semVer }}.linux-x64.zip
       #    path: ${{ steps.gitversion.outputs.semVer }}.linux-x64.zip
           
+      #- name: Zip OSx release
+      #  if: matrix.os == 'macos-latest'
+      #  uses: vimtor/action-zip@v1
+      #  with:   
+      #    files: src/SecureElementReader.App/bin/Release/net6.0/osx-x64/publish/SecureElementReader.App.app
+      #    dest: ${{ steps.gitversion.outputs.semVer }}.osx-x64.zip
+          
       - name: Zip OSx release
         if: matrix.os == 'macos-latest'
-        uses: vimtor/action-zip@v1
-        with:   
-          files: src/SecureElementReader.App/bin/Release/net6.0/osx-x64/publish/SecureElementReader.App.app
-          dest: ${{ steps.gitversion.outputs.semVer }}.osx-x64.zip
+        run: |
+          cd src/SecureElementReader.App/bin/Release/net6.0/osx-x64/publish
+          zip -r SecureElementReader.App.app.zip SecureElementReader.App.app
     
       - name: Upload OSx artifacts
         uses: actions/upload-artifact@v2
         if: matrix.os == 'macos-latest'
         with:
           name: ${{ steps.gitversion.outputs.semVer }}.osx-x64.zip
-          path: ${{ steps.gitversion.outputs.semVer }}.osx-x64.zip         
+          path: src/SecureElementReader.App/bin/Release/net6.0/osx-x64/publish/SecureElementReader.App.app.zip   
      
           
   publis:
