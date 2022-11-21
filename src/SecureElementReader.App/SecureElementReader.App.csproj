@@ -20,7 +20,7 @@
     <CFBundlePackageType>AAPL</CFBundlePackageType>
     <CFBundleSignature>????</CFBundleSignature>
     <CFBundleExecutable>SecureElementReader.App</CFBundleExecutable>
-    <CFBundleIconFile>/Assets/taxcore.png</CFBundleIconFile>
+    <CFBundleIconFile>logo.icns</CFBundleIconFile>
     <NSPrincipalClass>NSApplication</NSPrincipalClass>
     <NSHighResolutionCapable>true</NSHighResolutionCapable>
     <UseAppHost>true</UseAppHost>
