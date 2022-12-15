@@ -66,7 +66,7 @@ jobs:
         run: |
           cd src/SecureElementReader
           dotnet restore -r osx-x64
-          dotnet msbuild -t:BundleApp -p:TargetFramework=net6.0 -p:RuntimeIdentifier=osx-x64 -property:Configuration=Release -p:UseAppHost=true
+          dotnet msbuild -t:BundleApp -p:TargetFramework=net6.0 -p:RuntimeIdentifier=osx-x64 -property:Configuration=Release -p:AssemblyVersion=${{ steps.gitversion.outputs.semVer }} -p:UseAppHost=true
           dotnet publish -c Release -p:TargetFramework=net6.0 -p:RuntimeIdentifier=osx-x64  -p:AssemblyVersion=${{ steps.gitversion.outputs.semVer }} --self-contained true
           mkdir Assets/logo.iconset
           cp Assets/taxcore.png Assets/logo.iconset/icon_512x512.png
