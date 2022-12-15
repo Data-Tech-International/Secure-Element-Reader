@@ -7,9 +7,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{FC9C1549-F1A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{4D690E19-6ACF-42CF-B2EF-61F5C03D96B4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SecureElementReader.App", "src\SecureElementReader.App\SecureElementReader.App.csproj", "{F3BC73AD-F3C1-4285-9832-E6F34A3C8038}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SecureElementReader", "src\SecureElementReader\SecureElementReader.csproj", "{F3BC73AD-F3C1-4285-9832-E6F34A3C8038}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecureElementReader.App.Test", "test\SecureElementReader.App.Test\SecureElementReader.App.Test.csproj", "{EF356EC5-3637-4673-9A4D-8B4F8170BBA8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SecureElementReader.Test", "test\SecureElementReader.Test\SecureElementReader.Test.csproj", "{EF356EC5-3637-4673-9A4D-8B4F8170BBA8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
