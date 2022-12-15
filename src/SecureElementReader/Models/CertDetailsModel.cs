@@ -19,7 +19,7 @@ namespace SecureElementReader.Models
         public string OrganizationUnit { get; internal set; }
         public string StreetAddress { get; internal set; }
         public string RequestedBy { get; internal set; }
-        public CertificateTypes CertificateType { get; internal set; }
+        public string CertificateType { get; internal set; }
         public string GivenName { get; internal set; }
         public string SurName { get; internal set; }
         public string State { get; internal set; }

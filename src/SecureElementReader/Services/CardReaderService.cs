@@ -134,6 +134,10 @@ namespace SecureElementReader.Services
                         {
                             PopulateModel(c, model);
                         }
+                        else
+                        {
+                            model.CertificateType += " " + c.CertificateType.ToString();
+                        }
                         model.SeVerify = c.Verify();
                         VerifyChain(c, model, false);
                         model.SeReadSuccess = true;
@@ -229,7 +233,7 @@ namespace SecureElementReader.Services
             model.OrganizationUnit = c.OrganizationUnit;
             model.StreetAddress = c.StreetAddress;
             model.RequestedBy = c.RequestedBy;
-            model.CertificateType = c.CertificateType;
+            model.CertificateType = c.CertificateType.ToString();
             model.GivenName = c.GivenName;
             model.SurName = c.SurName;
             model.State = c.State;
