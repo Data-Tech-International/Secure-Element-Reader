@@ -21,7 +21,7 @@ namespace SecureElementReader
         [STAThread]
         public static void Main(string[] args)
         {
-            AppDataManager.Initialize();
+            AppSettingsManager.Initialize();
             var mutex = new Mutex(false, typeof(Program).FullName);
 
             try

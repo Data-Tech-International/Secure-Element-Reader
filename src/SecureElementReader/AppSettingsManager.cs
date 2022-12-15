@@ -3,7 +3,7 @@ using System.IO;
 
 namespace SecureElementReader
 {
-    public static class AppDataManager
+    public static class AppSettingsManager
     {
         public const string DefaultBaseDir = "SecureElementReader";
         public const string AppSettingsFileName = "appsettings.json";
