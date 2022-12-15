@@ -5,7 +5,9 @@
              x:Class="SecureElementReader.Views.Titlebars.MacosTitleBar"
 			 xmlns:main="clr-namespace:SecureElementReader.Views"
 			 DockPanel.Dock="Top"
-             Height="40">
+             Height="30"
+			 Width="300"
+			 HorizontalAlignment="Left">
 	<Grid>
 		<DockPanel
                IsHitTestVisible="False"
@@ -30,10 +32,10 @@
 						HorizontalContentAlignment="Center"
 						VerticalContentAlignment="Center"
 						VerticalAlignment="Center"
-						Width="24"
-						Height="24">
+						Width="14"
+						Height="14">
 					<Button.Resources>
-						<CornerRadius x:Key="ControlCornerRadius">12</CornerRadius>
+						<CornerRadius x:Key="ControlCornerRadius">6</CornerRadius>
 					</Button.Resources>
 					<Button.Styles>
 						<Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
@@ -44,21 +46,21 @@
 						</Style>
 					</Button.Styles>
 
-					<Path Data="M 0,0 l 12,12 M 0,12 l 12,-12"
+					<Path Data="M 0,0 l 6,6 M 0,6 l 6,-6"
 						  Stroke="#4C0102"
-						  StrokeThickness="1"
-						  Width="12"
-						  Height="12"></Path>
+						  StrokeThickness="2"
+						  Width="10"
+						  Height="6"></Path>
 				</Button>
 
 				<Button Name="MinimizeButton"
 						HorizontalContentAlignment="Center"
 						VerticalContentAlignment="Center"
 						VerticalAlignment="Center"
-						Width="24"
-						Height="24">
+						Width="14"
+						Height="14">
 					<Button.Resources>
-						<CornerRadius x:Key="ControlCornerRadius">12</CornerRadius>
+						<CornerRadius x:Key="ControlCornerRadius">6</CornerRadius>
 					</Button.Resources>
 					<Button.Styles>
 						<Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
@@ -69,17 +71,17 @@
 						</Style>
 					</Button.Styles>
 
-					<Path Data="M 0,0 l 16,0"
+					<Path Data="M 0,0 l 8,0"
 						  Stroke="#985712"
-						  StrokeThickness="1"
-						  Width="16"
+						  StrokeThickness="2"
+						  Width="12"
 						  Height="1"></Path>
 				</Button>
 
-				<main:MenuView Margin="500,0,0,0" DataContext="{Binding MenuViewModel}"/>
+				<main:MenuView DataContext="{Binding MenuViewModel}"/>
 
-			</StackPanel>		
+			</StackPanel>
 		</DockPanel>
 	</Grid>
-  
+
 </UserControl>
