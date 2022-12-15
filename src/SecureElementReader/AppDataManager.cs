@@ -6,14 +6,14 @@ namespace SecureElementReader
     public static class AppDataManager
     {
         public const string DefaultBaseDir = "SecureElementReader";
-        public const string appSettingsFileName = "appsettings.json";
+        public const string AppSettingsFileName = "appsettings.json";
         public static string BaseDirPath { get; private set; }
-        public static string appSettingsFilePath { get; set; }
+        public static string AppSettingsFilePath { get; set; }
         public static void Initialize()
         {
-            string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-            string userProfilePath = Path.Combine(appDataPath, DefaultBaseDir);
-            BaseDirPath = userProfilePath;
+            string AppDataPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            string UserProfilePath = Path.Combine(AppDataPath, DefaultBaseDir);
+            BaseDirPath = UserProfilePath;
             BaseDirPath = Path.GetFullPath(BaseDirPath);
             SetupBasePaths();
             CreateDefaultSettings();
@@ -25,11 +25,11 @@ namespace SecureElementReader
 
         private static void CreateDefaultSettings()
         {
-            string sourceAppFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, appSettingsFileName);
-            string destinationAppFile = Path.Combine(BaseDirPath, appSettingsFileName);
-            if (!File.Exists(destinationAppFile))
+            string SourceAppFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, AppSettingsFileName);
+            string DestinationAppFile = Path.Combine(BaseDirPath, AppSettingsFileName);
+            if (!File.Exists(DestinationAppFile))
             {
-                File.Copy(sourceAppFile, destinationAppFile, true);
+                File.Copy(SourceAppFile, DestinationAppFile, true);
             }
         }
     }
