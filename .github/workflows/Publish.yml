@@ -79,13 +79,13 @@ jobs:
         if: matrix.os == 'macos-latest'
         run: |
           
-          security create-keychain -p "${{ secrets.KEYCHAIN_PASSWORD}}" build.keychain
+          security create-keychain -p "${{ secrets.PROD_MACOS_CI_KEYCHAIN_PWD }}" build.keychain
           security default-keychain -s build.keychain
-          security unlock-keychain -p "${{ secrets.KEYCHAIN_PASSWORD}}" build.keychain      
-          echo "${{ secrets.MACOS_CERTIFICATE }}" | base64 --decode > certificate.p12
-          security import certificate.p12 -k build.keychain -P "${{ secrets.MACOS_CERTIFICATE_PWD}}" -T /usr/bin/codesign          
-          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "${{ secrets.KEYCHAIN_PASSWORD}}" build.keychain          
-          xcrun notarytool store-credentials "AC_PASSWORD" --apple-id "${{ secrets.APPLE_ID }}" --team-id ${{ secrets.TEAM_ID }} --password "${{ secrets.NOTARY_TOOL_PASSWORD }}"
+          security unlock-keychain -p "${{ secrets.PROD_MACOS_CI_KEYCHAIN_PWD }}" build.keychain      
+          echo "${{ secrets.PROD_MACOS_CERTIFICATE }}" | base64 --decode > certificate.p12
+          security import certificate.p12 -k build.keychain -P "${{ secrets.PROD_MACOS_CERTIFICATE_PWD }}" -T /usr/bin/codesign          
+          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "${{ secrets.PROD_MACOS_CI_KEYCHAIN_PWD }}" build.keychain          
+          xcrun notarytool store-credentials "AC_PASSWORD" --apple-id "${{ secrets.PROD_MACOS_NOTARIZATION_APPLE_ID }}" --team-id ${{ secrets.PROD_MACOS_NOTARIZATION_TEAM_ID }} --password "${{ secrets.PROD_MACOS_NOTARIZATION_PWD }}"
         
       - name: Codesign app
         if: matrix.os == 'macos-latest'      
@@ -94,10 +94,10 @@ jobs:
             if [ -f "$fname" ]
             then
                 echo "[INFO] Signing $fname"
-                codesign --force --deep --timestamp --options=runtime --entitlements SecureElementReader.entitlements --sign "${{ secrets.SIGNING_IDENTITY }}" "$fname"
+                codesign --force --deep --timestamp --options=runtime --entitlements SecureElementReader.entitlements --sign "${{ secrets.PROD_MACOS_CERTIFICATE_NAME }}" "$fname"
             fi
           done
-          codesign --force --timestamp --options=runtime --entitlements SecureElementReader.entitlements --sign "${{ secrets.SIGNING_IDENTITY }}" "${{ env.MACOS_PATH }}/SecureElementReader.app"  
+          codesign --force --timestamp --options=runtime --entitlements SecureElementReader.entitlements --sign "${{ secrets.PROD_MACOS_CERTIFICATE_NAME }}" "${{ env.MACOS_PATH }}/SecureElementReader.app"  
           
       - name: Notarise app
         if: matrix.os == 'macos-latest'      
