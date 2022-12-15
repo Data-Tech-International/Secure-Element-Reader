@@ -19,8 +19,9 @@ namespace SecureElementReader
         // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
         // yet and stuff might break.
         [STAThread]
-        public static void Main(string[] args) 
+        public static void Main(string[] args)
         {
+            AppDataManager.Initialize();
             var mutex = new Mutex(false, typeof(Program).FullName);
 
             try
@@ -34,10 +35,9 @@ namespace SecureElementReader
                 RegisterDependencies();
                 LogStart();
 
-
                 BuildAvaloniaApp()
                     .StartWithClassicDesktopLifetime(args, ShutdownMode.OnMainWindowClose);
-            }            
+            }
             finally
             {
                 mutex.ReleaseMutex();
@@ -47,17 +47,17 @@ namespace SecureElementReader
         private static void LogStart()
         {
             var logger = Locator.Current.GetRequiredService<ILogger>();
-            logger.LogInformation("Application start");            
+            logger.LogInformation("Application start");
         }
 
         private static void SubscribeToDomainUnhandledEvents() =>
             AppDomain.CurrentDomain.UnhandledException += (sender, args) =>
-        {
-            var logger = Locator.Current.GetRequiredService<ILogger>();
-            var ex = (Exception)args.ExceptionObject;
+            {
+                var logger = Locator.Current.GetRequiredService<ILogger>();
+                var ex = (Exception)args.ExceptionObject;
 
-            logger.LogCritical($"Unhandled application error: {ex}");
-        };
+                logger.LogCritical($"Unhandled application error: {ex}");
+            };
 
         private static void RegisterDependencies() =>
             Bootstrapper.Register(Locator.CurrentMutable, Locator.Current);

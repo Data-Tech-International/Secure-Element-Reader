@@ -13,6 +13,7 @@ using Serilog;
 using Serilog.Extensions.Logging;
 using Splat;
 using Splat.Microsoft.Extensions.Logging;
+using System;
 using System.IO;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
@@ -29,7 +30,6 @@ namespace SecureElementReader.DependencyInjection
             RegisterThemesNamesConfiguration(services, configuration);
             RegisterLoggingConfiguration(services, configuration);
             RegisterSelectedLanguagesConfiguration(services, configuration);
-
 
             services.Register(() => new AboutDialogViewModel());
             services.Register(() => new VerificationInfoDialogViewModel(
@@ -84,7 +84,6 @@ namespace SecureElementReader.DependencyInjection
                     resolver.GetRequiredService<IDialogService>()
                 ));
 
-
             services.RegisterLazySingleton<ILocalizationService>(() => new LocalizationService(
                     resolver.GetRequiredService<SelectedLanguageConfiguration>()
                 ));
@@ -124,9 +123,10 @@ namespace SecureElementReader.DependencyInjection
 
         private static IConfiguration BuildConfiguration()
         {
-            return new ConfigurationBuilder()
-            .AddJsonFile("appsettings.json")
-            .Build();
+            string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "SecureElementReader");
+            string filePath = Path.Combine(path, "appsettings.json");
+
+            return new ConfigurationBuilder().AddJsonFile(filePath).Build();
         }
 
         private static void RegisterLoggingConfiguration(IMutableDependencyResolver services,

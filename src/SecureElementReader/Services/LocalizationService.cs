@@ -1,5 +1,6 @@
 using SecureElementReader.Interfaces;
 using SecureElementReader.Models.Configurations;
+using System;
 using System.IO;
 
 namespace SecureElementReader.Services
@@ -17,7 +18,8 @@ namespace SecureElementReader.Services
         {
             if (appSettingsJsonFilePath == null)
             {
-                appSettingsJsonFilePath = Path.Combine(System.AppContext.BaseDirectory, "appsettings.json");
+                string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "SecureElementReader");
+                appSettingsJsonFilePath = Path.Combine(path, "appsettings.json");
             }
 
             var json = File.ReadAllText(appSettingsJsonFilePath);
@@ -29,7 +31,5 @@ namespace SecureElementReader.Services
 
             File.WriteAllText(appSettingsJsonFilePath, output);
         }
-
-
     }
 }
