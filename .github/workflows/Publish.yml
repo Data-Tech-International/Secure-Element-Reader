@@ -113,8 +113,7 @@ jobs:
           certificate: ${{ secrets.CERT_FOR_SIGN }}
           password: ${{ secrets.CERT_PW }}
           folder: 'src\SecureElementReader\bin\Release\net6.0\win-x64\publish\'
-          recursive: true   
-                                       
+          recursive: true                                        
      
       - name: Zip Linux releases 
         if: matrix.os == 'ubuntu-latest'
