@@ -18,8 +18,6 @@
 
 	<Border BorderBrush="Red"
             BorderThickness="1">
-
-
 		<Grid Margin="0">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="24"/>
