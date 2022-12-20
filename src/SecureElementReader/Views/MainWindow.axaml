@@ -26,6 +26,7 @@
 			<Setter Property="HorizontalContentAlignment" Value="Center"/>
 			<Setter Property="VerticalContentAlignment" Value="Center"/>
 			<Setter Property="Foreground" Value="White"/>
+			<Setter Property="Height" Value="30"/>
 		</Style>
 
 		<Style Selector="TextBlock.h2">

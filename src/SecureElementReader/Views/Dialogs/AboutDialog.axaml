@@ -52,10 +52,10 @@
 					<TextBlock HorizontalAlignment="Center" Text="{DynamicResource Version}" Margin="0,6,0,0"></TextBlock>
 					<TextBlock HorizontalAlignment="Center" Text="{Binding AssemblyVersion}"/>
 					
-					<Button HorizontalAlignment="Right" VerticalAlignment="Bottom"
+					<Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,5,0"
 						Command="{Binding CloseButton}" Background="Red"
 						Foreground="White" MaxWidth="90" MinHeight="30"
-						CornerRadius="0" Content="{DynamicResource Close}"/>
+						CornerRadius="5" Content="{DynamicResource Close}"/>
 				</StackPanel>
 				
 		</StackPanel>
