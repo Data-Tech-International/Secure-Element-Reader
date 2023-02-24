@@ -12,27 +12,31 @@
 		FontFamily="Highway Sans Pro"
 		SystemDecorations="None">
 
-  <Design.DataContext>
-    <dialogs:VerificationInfoDialogViewModel />
-  </Design.DataContext>
+	<Design.DataContext>
+		<dialogs:VerificationInfoDialogViewModel />
+	</Design.DataContext>
 
-	<Grid Margin="0">
-		<Grid.RowDefinitions>
-			<RowDefinition Height="*" />
-			<RowDefinition Height="Auto" />
-		</Grid.RowDefinitions>
-		<StackPanel VerticalAlignment="Top" HorizontalAlignment="Stretch" ZIndex="1" Background="Red" MinHeight="32">
-			<TextBlock HorizontalAlignment="Left" Margin="5,4,0,0" FontSize="16" Foreground="White"  Text="{DynamicResource VerificationDetails}"/>
-		</StackPanel>
-		<ScrollViewer >
-			<StackPanel Name="Panel" ScrollViewer.VerticalScrollBarVisibility="Visible" MaxWidth="490">
-				<TextBlock  Name="ErrorText" Text="{Binding VerificationDetails}" />
+	<Border BorderBrush="Red"
+            BorderThickness="1">
+		<Grid Margin="0">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="24"/>
+				<RowDefinition Height="330"/>
+				<RowDefinition Height="30"/>
+			</Grid.RowDefinitions>
+			<StackPanel Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Stretch" ZIndex="1" Background="Red" MinHeight="24">
+				<TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,5,0,0" FontSize="16" Foreground="White"  Text="{DynamicResource VerificationDetails}"/>
 			</StackPanel>
-		</ScrollViewer>
+			<ScrollViewer Grid.Row="1" >
+				<StackPanel Name="Panel" ScrollViewer.VerticalScrollBarVisibility="Visible" MaxWidth="490">
+					<TextBlock  Name="ErrorText" Text="{Binding VerificationDetails}" />
+				</StackPanel>
+			</ScrollViewer>
 
-		<Button Grid.Row="1" Margin="5"  HorizontalAlignment="Right" 
-            Command="{Binding ButtonClose}" Background="#19aa8c" 
-            Foreground="White" MaxWidth="70" MinHeight="30" 
-            CornerRadius="0" Content="{DynamicResource Close}"/>
-	</Grid>  
+			<Button Grid.Row="2" Margin="5"  HorizontalAlignment="Right"
+				Command="{Binding ButtonClose}" Background="#19aa8c"
+				Foreground="White" MaxWidth="70" MinHeight="30"
+				CornerRadius="0" Content="{DynamicResource Close}"/>
+		</Grid>
+	</Border>
 </Window>

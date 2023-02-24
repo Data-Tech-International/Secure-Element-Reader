@@ -5,7 +5,7 @@
              x:Class="SecureElementReader.Views.Titlebars.MacosTitleBar"
 			 xmlns:main="clr-namespace:SecureElementReader.Views"
 			 DockPanel.Dock="Top"
-             Height="30"
+             Height="25"
 			 Width="300"
 			 HorizontalAlignment="Left">
 	<Grid>
