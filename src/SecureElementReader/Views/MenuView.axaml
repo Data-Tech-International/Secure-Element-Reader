@@ -33,6 +33,13 @@
 						Source="/Assets/serbia.png"/>
 					</MenuItem.Icon>
 				</MenuItem>
+				<MenuItem Header="Српски БА (Srpski BIH)" Command="{Binding Translate}" CommandParameter="SR_BA">
+					<MenuItem.Icon>
+						<Image
+						Width="20" Height="20"
+						Source="/Assets/sr-Cyrl-BA.png"/>
+					</MenuItem.Icon>
+				</MenuItem>
 				<MenuItem Header="Français" Command="{Binding Translate}" CommandParameter="FR">
 					<MenuItem.Icon>
 						<Image
