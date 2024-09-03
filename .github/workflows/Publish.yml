@@ -157,15 +157,15 @@ jobs:
 
     steps:
       
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v4.1.7
         with:
           name: ${{ needs.build.outputs.semVer }}.osx-x64.zip
           
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v4.1.7
         with:
           name: ${{ needs.build.outputs.semVer }}.win-x64.zip
           
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v4.1.7
         with:
           name: ${{ needs.build.outputs.semVer }}.linux-x64.zip         
         
